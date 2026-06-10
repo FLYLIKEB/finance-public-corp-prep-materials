@@ -1,5 +1,8 @@
 # 금융공기업 IT직군 준비 A to Z
 
+- 위키독스: https://wikidocs.net/book/20116
+- GitHub: https://github.com/FLYLIKEB/finance-public-corp-prep-materials
+
 금융공기업 IT직군 합격을 목표로 준비 현황, 학습 로드맵, 자기소개서 원본을 한곳에 정리한 자료입니다.
 
 이 책은 한국은행을 1순위 목표로 두고, 코스콤·산업은행·수출입은행·금융결제원·한국거래소·예탁결제원·금융보안원 등 주요 금융공기업 IT직군을 함께 준비하기 위한 개인 학습 관리용 문서입니다.
