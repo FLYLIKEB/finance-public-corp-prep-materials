@@ -18,3 +18,8 @@
 - NCS는 시간 제한 안에서 풀이 순서를 고정한다.
 - 오답은 유형, 실수 원인, 재풀이 시간을 함께 기록한다.
 - IT 필기와 같은 주간 루틴 안에서 관리한다.
+
+## 약어 풀이
+
+- IT: Information Technology, 정보기술
+- NCS: National Competency Standards, 국가직무능력표준

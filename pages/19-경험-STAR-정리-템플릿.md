@@ -65,3 +65,8 @@
 - 내가 한 행동과 팀이 한 일이 구분되는가?
 - 결과가 숫자나 관찰 가능한 변화로 표현되는가?
 - 기관 이름만 바꾼 답변이 아니라 기관 미션과 실제로 연결되는가?
+
+## 약어 풀이
+
+- API: Application Programming Interface, 응용 프로그램 인터페이스
+- STAR: Situation·Task·Action·Result, 상황·과제·행동·결과 경험 정리법

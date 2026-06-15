@@ -18,3 +18,11 @@
 - SQL은 SELECT 실행 순서와 JOIN 결과를 손으로 추적한다.
 - 구현 문제는 입출력, 조건 분기, 반복문을 우선 안정화한다.
 - BFS/DFS는 방문 배열과 큐/스택 상태를 추적한다.
+
+## 약어 풀이
+
+- BFS: Breadth-First Search, 너비 우선 탐색
+- DFS: Depth-First Search, 깊이 우선 탐색
+- JOIN: SQL 테이블 결합 연산
+- SELECT: SQL 조회 명령
+- SQL: Structured Query Language, 구조화 질의어

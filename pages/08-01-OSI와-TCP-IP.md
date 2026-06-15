@@ -36,3 +36,9 @@
 - 핵심 정의를 한 문장으로 설명할 수 있는가?
 - 비슷한 개념과 차이를 말할 수 있는가?
 - 관련 기출 키워드를 바로 떠올릴 수 있는가?
+
+## 약어 풀이
+
+- IP: Internet Protocol, 인터넷 프로토콜
+- OSI: Open Systems Interconnection, 개방형 시스템 상호연결
+- TCP: Transmission Control Protocol, 전송 제어 프로토콜

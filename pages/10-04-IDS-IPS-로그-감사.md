@@ -36,3 +36,8 @@
 - 핵심 정의를 한 문장으로 설명할 수 있는가?
 - 비슷한 개념과 차이를 말할 수 있는가?
 - 관련 기출 키워드를 바로 떠올릴 수 있는가?
+
+## 약어 풀이
+
+- IDS: Intrusion Detection System, 침입 탐지 시스템
+- IPS: Intrusion Prevention System, 침입 방지 시스템

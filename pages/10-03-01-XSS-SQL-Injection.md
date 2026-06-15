@@ -102,3 +102,12 @@ id: admin' --
 - Reflected, Stored, DOM XSS를 예시로 구분할 수 있는가?
 - UNION Injection과 Blind Injection의 목적과 관찰 단서를 설명할 수 있는가?
 - XSS의 핵심 방어와 SQL Injection의 핵심 방어를 각각 말할 수 있는가?
+
+## 약어 풀이
+
+- API: Application Programming Interface, 응용 프로그램 인터페이스
+- DB: Database, 데이터베이스
+- DOM: Document Object Model, 문서 객체 모델
+- SELECT: SQL 조회 명령
+- SQL: Structured Query Language, 구조화 질의어
+- XSS: Cross-Site Scripting, 교차 사이트 스크립팅

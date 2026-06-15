@@ -19,3 +19,7 @@ CBDC(Central Bank Digital Currency)는 중앙은행이 발행하는 디지털 �
 ## 면접 답변 포인트
 
 CBDC는 기술보다 정책과 안정성이 중요합니다. 개인정보 보호, 금융중개 영향, 오프라인 결제, 장애 대응, 민간 결제 인프라와의 역할 분담을 함께 언급하면 좋습니다.
+
+## 약어 풀이
+
+- CBDC: Central Bank Digital Currency, 중앙은행 디지털화폐

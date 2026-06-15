@@ -36,3 +36,10 @@
 - 핵심 정의를 한 문장으로 설명할 수 있는가?
 - 비슷한 개념과 차이를 말할 수 있는가?
 - 관련 기출 키워드를 바로 떠올릴 수 있는가?
+
+## 약어 풀이
+
+- DNS: Domain Name System, 도메인 이름 시스템
+- HTTP: HyperText Transfer Protocol, 하이퍼텍스트 전송 프로토콜
+- IP: Internet Protocol, 인터넷 프로토콜
+- TLS: Transport Layer Security, 전송 계층 보안

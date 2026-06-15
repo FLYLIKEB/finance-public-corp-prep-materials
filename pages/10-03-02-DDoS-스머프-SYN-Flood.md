@@ -36,3 +36,9 @@
 - 핵심 정의를 한 문장으로 설명할 수 있는가?
 - 비슷한 개념과 차이를 말할 수 있는가?
 - 관련 기출 키워드를 바로 떠올릴 수 있는가?
+
+## 약어 풀이
+
+- DDoS: Distributed Denial of Service, 분산 서비스 거부 공격
+- SYN: Synchronize, TCP 연결 동기화 플래그
+- TCP: Transmission Control Protocol, 전송 제어 프로토콜

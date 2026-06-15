@@ -37,3 +37,10 @@
 - 핵심 정의를 한 문장으로 설명할 수 있는가?
 - 비슷한 개념과 차이를 말할 수 있는가?
 - 관련 기출 키워드를 바로 떠올릴 수 있는가?
+
+## 약어 풀이
+
+- FCFS: First-Come, First-Served, 선입선처리
+- HRN: Highest Response-ratio Next, 최고 응답률 우선
+- RR: Round Robin, 라운드 로빈
+- SJF: Shortest Job First, 최단 작업 우선
