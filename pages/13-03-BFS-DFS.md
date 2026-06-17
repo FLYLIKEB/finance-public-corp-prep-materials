@@ -14,9 +14,13 @@
 
 - BFS는 가까운 곳부터 차례대로 방문하는 탐색이다. 큐에 다음 후보를 넣고 앞에서부터 꺼낸다.
 - DFS는 한 방향으로 깊게 들어가다가 막히면 돌아오는 탐색이다. 재귀나 스택으로 구현한다.
+
+<img src="../assets/downloaded-visual-aids/dfs-animation.gif" alt="DFS 깊이 우선 탐색 애니메이션" style="max-height: 360px; width: auto; max-width: 100%;">
+> 그림: DFS 깊이 우선 탐색 애니메이션 기반으로 DFS 구현 개념을 시각적으로 확인한다.
+> 출처: https://commons.wikimedia.org/wiki/File:Depth-First-Search.gif
 - 방문 처리를 언제 하는지가 중복 방문과 무한 반복을 막는 핵심이다.
 
-![DFS와 BFS](../assets/downloaded-visual-aids/bfs-animation.gif)
+<img src="../assets/downloaded-visual-aids/bfs-animation.gif" alt="DFS와 BFS" style="max-height: 360px; width: auto; max-width: 100%;">
 > 그림: BFS 탐색 애니메이션 기반으로 DFS와 BFS 개념을 시각적으로 확인한다.
 > 출처: https://commons.wikimedia.org/wiki/File:Breadth-First-Search-Algorithm.gif
 ## 빈출 포인트

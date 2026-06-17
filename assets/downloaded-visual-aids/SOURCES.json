@@ -238,5 +238,115 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:IT_System_Architecture_-_Software_Architecture.svg",
     "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/IT_System_Architecture_-_Software_Architecture.svg/960px-IT_System_Architecture_-_Software_Architecture.svg.png",
     "title": "IT 시스템 소프트웨어 아키텍처"
+  },
+  "linear-regression.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Linear_regression.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/960px-Linear_regression.svg.png",
+    "title": "선형 회귀 직선 예시"
+  },
+  "decision-tree-id3.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:ID3_algorithm_decision_tree.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/ID3_algorithm_decision_tree.svg/960px-ID3_algorithm_decision_tree.svg.png",
+    "title": "의사결정나무 분기 구조"
+  },
+  "svm-margins.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:SVM_margins.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/SVM_margins.svg/960px-SVM_margins.svg.png",
+    "title": "SVM 마진과 초평면"
+  },
+  "knn-classification.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:K-nearest_Neighbors.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/K-nearest_Neighbors.png",
+    "title": "k-최근접 이웃 분류 예시"
+  },
+  "artificial-neural-network.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Artificial_neural_network.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Artificial_neural_network.svg/960px-Artificial_neural_network.svg.png",
+    "title": "인공신경망 계층 구조"
+  },
+  "kmeans-clustering.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:K-means.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/K-means.png/960px-K-means.png",
+    "title": "K-Means 군집화 과정"
+  },
+  "pca-scatter.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:GaussianScatterPCA.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/GaussianScatterPCA.svg/960px-GaussianScatterPCA.svg.png",
+    "title": "PCA 주성분 축 예시"
+  },
+  "association-rule-mining.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Association_Rule_Mining_Venn_Diagram.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Association_Rule_Mining_Venn_Diagram.png",
+    "title": "연관 규칙 마이닝 벤 다이어그램"
+  },
+  "reinforcement-learning.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Reinforcement_learning_diagram.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Reinforcement_learning_diagram.svg/960px-Reinforcement_learning_diagram.svg.png",
+    "title": "강화학습 에이전트-환경 구조"
+  },
+  "proof-of-work.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Proof-of-work.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Proof-of-work.png",
+    "title": "작업증명 PoW 구조"
+  },
+  "proof-of-stake.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Proof_of_stake.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Proof_of_stake.png",
+    "title": "지분증명 PoS 구조"
+  },
+  "quicksort.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Sorting_quicksort_anim.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif",
+    "title": "퀵 정렬 애니메이션"
+  },
+  "merge-sort.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Merge_sort_animation.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Merge_sort_animation.gif",
+    "title": "병합 정렬 애니메이션"
+  },
+  "heap-sort.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Heap_Sort.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Heap_Sort.gif",
+    "title": "힙 정렬 애니메이션"
+  },
+  "binary-search-tree.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Binary_search_tree.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Binary_search_tree.svg/960px-Binary_search_tree.svg.png",
+    "title": "이진 검색 트리 구조"
+  },
+  "min-heap.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Min-heap.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Min-heap.png",
+    "title": "최소 힙 구조"
+  },
+  "queue-vs-stack.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:QUEUE_VS_STACK.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/QUEUE_VS_STACK.svg/960px-QUEUE_VS_STACK.svg.png",
+    "title": "스택과 큐 비교"
+  },
+  "binary-search.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Binary_search.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Binary_search.svg/960px-Binary_search.svg.png",
+    "title": "이진 탐색 배열 탐색 과정"
+  },
+  "fibonacci-dp.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Fibonacci_dynamic_programming.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Fibonacci_dynamic_programming.svg/960px-Fibonacci_dynamic_programming.svg.png",
+    "title": "피보나치 동적계획법 중복 부분 문제"
+  },
+  "fibonacci-recursion.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Fibonacci.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Fibonacci.png",
+    "title": "피보나치 재귀 호출 트리"
+  },
+  "dfs-animation.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Depth-First-Search.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Depth-First-Search.gif",
+    "title": "DFS 깊이 우선 탐색 애니메이션"
+  },
+  "dijkstra-animation.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Dijkstra_Animation.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Dijkstra_Animation.gif",
+    "title": "다익스트라 최단경로 애니메이션"
   }
 }

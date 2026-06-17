@@ -16,7 +16,7 @@
 - COUNT, SUM, AVG 같은 집계 함수는 그룹 단위로 계산할 때 자주 쓴다.
 - HAVING은 그룹을 만든 뒤 그 그룹에 조건을 거는 절이다.
 
-![SELECT 처리 흐름](../assets/downloaded-visual-aids/cloud-computing.svg)
+<img src="../assets/downloaded-visual-aids/cloud-computing.svg" alt="SELECT 처리 흐름" style="max-height: 360px; width: auto; max-width: 100%;">
 > 그림: 클라우드 컴퓨팅 개념 기반으로 SELECT 처리 흐름 개념을 시각적으로 확인한다.
 > 출처: https://commons.wikimedia.org/wiki/File:Cloud_computing.svg
 ## 빈출 포인트

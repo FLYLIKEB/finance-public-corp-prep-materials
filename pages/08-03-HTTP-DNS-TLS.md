@@ -16,7 +16,7 @@
 - HTTP는 웹브라우저와 서버가 요청과 응답을 주고받는 대화 규칙이다.
 - TLS는 그 대화를 암호화하고 상대가 진짜인지 확인하는 보안 포장이다.
 
-![웹 접속 흐름](../assets/downloaded-visual-aids/client-server-model.svg)
+<img src="../assets/downloaded-visual-aids/client-server-model.svg" alt="웹 접속 흐름" style="max-height: 360px; width: auto; max-width: 100%;">
 > 그림: 클라이언트-서버 모델 기반으로 웹 접속 흐름 개념을 시각적으로 확인한다.
 > 출처: https://commons.wikimedia.org/wiki/File:Client-server-model.svg
 ## 빈출 포인트
