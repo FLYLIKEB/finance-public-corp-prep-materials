@@ -17,7 +17,7 @@
 - 시험에서는 각 계층의 대표 장비와 프로토콜을 연결하는 문제가 자주 나온다.
 
 ![OSI 7계층 구조](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/500px-OSI_Model_v1.svg.png)
-> 그림: OSI 7계층은 물리 전송에서 응용 서비스까지 통신 역할을 계층별로 나눈 모델이다.  
+> 그림: OSI 7계층은 물리 전송에서 응용 서비스까지 통신 역할을 계층별로 나눈 모델이다.
 > 출처: Wikimedia Commons, https://commons.wikimedia.org/wiki/File:OSI_Model_v1.svg
 
 ## 빈출 포인트

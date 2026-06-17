@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+<title id="title">혼잡제어와 흐름제어</title>
+<desc id="desc">혼잡제어는 네트워크, 흐름제어는 수신자 보호다.</desc>
+<rect width="100%" height="100%" fill="#f8fafc"/>
+<rect x="24" y="24" width="872" height="312" rx="28" fill="white" stroke="#dbe3ef" stroke-width="2"/>
+<text x="460" y="72" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="30" font-weight="800" fill="#0f172a">혼잡제어와 흐름제어</text>
+<text x="460" y="104" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="16" fill="#475569">혼잡제어는 네트워크, 흐름제어는 수신자 보호다.</text>
+<rect x="60" y="132" width="182" height="92" rx="18" fill="#2563eb" opacity="0.10" stroke="#2563eb" stroke-width="2"/>
+<circle cx="92" cy="160" r="15" fill="#2563eb"/>
+<text x="92" y="166" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">1</text>
+<text x="151.0" y="191" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">송신자</text>
+<path d="M 248 178 L 260 178" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="266" y="132" width="182" height="92" rx="18" fill="#16a34a" opacity="0.10" stroke="#16a34a" stroke-width="2"/>
+<circle cx="298" cy="160" r="15" fill="#16a34a"/>
+<text x="298" y="166" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">2</text>
+<text x="357.0" y="191" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">네트워크 혼잡</text>
+<path d="M 454 178 L 466 178" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="472" y="132" width="182" height="92" rx="18" fill="#f97316" opacity="0.10" stroke="#f97316" stroke-width="2"/>
+<circle cx="504" cy="160" r="15" fill="#f97316"/>
+<text x="504" y="166" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">3</text>
+<text x="563.0" y="191" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">수신자 버퍼</text>
+<path d="M 660 178 L 672 178" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="678" y="132" width="182" height="92" rx="18" fill="#7c3aed" opacity="0.10" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="710" cy="160" r="15" fill="#7c3aed"/>
+<text x="710" y="166" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">4</text>
+<text x="769.0" y="191" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">전송량 조절</text>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#94a3b8"/></marker></defs>
+<text x="460" y="286" text-anchor="middle" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, Arial, sans-serif" font-size="15" fill="#64748b">금융공기업 IT 필기 대비 개념 시각화</text>
+</svg>
