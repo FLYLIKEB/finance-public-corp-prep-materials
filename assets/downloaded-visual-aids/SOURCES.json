@@ -78,5 +78,165 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Singly-linked-list.svg",
     "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Singly-linked-list.svg/500px-Singly-linked-list.svg.png",
     "title": "단일 연결 리스트 구조"
+  },
+  "big-data-3v.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:BigDataVs.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/7/74/BigDataVs.png",
+    "title": "빅데이터 3V 특성"
+  },
+  "blockchain-chain.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Blockchain.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Blockchain.svg/960px-Blockchain.svg.png",
+    "title": "블록체인 블록 연결 구조"
+  },
+  "machine-learning-types.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Supervised_and_unsupervised_learning.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Supervised_and_unsupervised_learning.png",
+    "title": "지도학습과 비지도학습 비교"
+  },
+  "programming-interpreter.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Interpreter-executed-on-hardware-i-diagram.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Interpreter-executed-on-hardware-i-diagram.svg/960px-Interpreter-executed-on-hardware-i-diagram.svg.png",
+    "title": "인터프리터 실행 구조"
+  },
+  "sql-sample-table.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:SQL_Inventory_Simple_Example_Table.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/SQL_Inventory_Simple_Example_Table.png",
+    "title": "SQL 테이블 예시"
+  },
+  "software-cost-estimation.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:EstimatingSoftwareBlockDiagram.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/EstimatingSoftwareBlockDiagram.png/960px-EstimatingSoftwareBlockDiagram.png",
+    "title": "소프트웨어 비용 산정 구조"
+  },
+  "process-scheduling-gantt.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Schedule_gantt.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Schedule_gantt.png/960px-Schedule_gantt.png",
+    "title": "스케줄링 간트 차트"
+  },
+  "cpu-gpu.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cpu-gpu.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cpu-gpu.svg/960px-Cpu-gpu.svg.png",
+    "title": "CPU와 GPU 구조 비교"
+  },
+  "deadlock-process.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Process_deadlock.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Process_deadlock.svg/960px-Process_deadlock.svg.png",
+    "title": "프로세스 교착상태 구조"
+  },
+  "external-fragmentation.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:External_Fragmentation.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/External_Fragmentation.svg/960px-External_Fragmentation.svg.png",
+    "title": "외부 단편화 예시"
+  },
+  "memory-paging.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Memory_Paging.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Memory_Paging.svg/960px-Memory_Paging.svg.png",
+    "title": "메모리 페이징 구조"
+  },
+  "asymmetric-encryption.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Asymmetric_encryption_scheme.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Asymmetric_encryption_scheme.png/960px-Asymmetric_encryption_scheme.png",
+    "title": "비대칭 공개키 암호화 구조"
+  },
+  "ddos-attack.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Denial-of-service_attack.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Denial-of-service_attack.gif",
+    "title": "서비스 거부 공격 흐름"
+  },
+  "hash-function.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Hash_function.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Hash_function.png",
+    "title": "해시 함수 구조"
+  },
+  "http-status.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Http-headers-status.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Http-headers-status.png/960px-Http-headers-status.png",
+    "title": "HTTP 상태 코드 처리 흐름"
+  },
+  "mitm-attack.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Man_in_the_middle_attack.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Man_in_the_middle_attack.svg/960px-Man_in_the_middle_attack.svg.png",
+    "title": "중간자 공격 구조"
+  },
+  "raid5-diagram.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:RAID5diagram.PNG",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/RAID5diagram.PNG",
+    "title": "RAID 5 패리티 구조"
+  },
+  "nosql-data-model.webp": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Moon-modeler-diagram-nosql-data-model.webp",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Moon-modeler-diagram-nosql-data-model.webp/960px-Moon-modeler-diagram-nosql-data-model.webp.png",
+    "title": "NoSQL 데이터 모델 예시"
+  },
+  "hanoi-tower.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Tower_of_Hanoi.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Tower_of_Hanoi.gif",
+    "title": "하노이탑 풀이 애니메이션"
+  },
+  "software-test-methods.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Software_test_methods.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Software_test_methods.svg/960px-Software_test_methods.svg.png",
+    "title": "소프트웨어 테스트 방법 비교"
+  },
+  "ai-progression.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Conscious_Artificial_Superintelligence_(CASI)_Progression.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Conscious_Artificial_Superintelligence_%28CASI%29_Progression.png/960px-Conscious_Artificial_Superintelligence_%28CASI%29_Progression.png",
+    "title": "AI 발전 단계 도식"
+  },
+  "database-table-query.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Database_table_and_query.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Database_table_and_query.png/960px-Database_table_and_query.png",
+    "title": "데이터베이스 테이블과 쿼리 예시"
+  },
+  "cbdc-balance-sheet.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:CBDC_stylized_Balance_Sheet_(Digitales_Zentralbankgeld).png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/CBDC_stylized_Balance_Sheet_%28Digitales_Zentralbankgeld%29.png/960px-CBDC_stylized_Balance_Sheet_%28Digitales_Zentralbankgeld%29.png",
+    "title": "CBDC 대차대조표 구조"
+  },
+  "robo-advisory-evolution.jpg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Robo-Advisory_evolution.jpg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Robo-Advisory_evolution.jpg",
+    "title": "로보어드바이저 디지털 자산관리 발전 흐름"
+  },
+  "distributed-system-model.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Ubiquitous_-_Distributed_System_Model.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Ubiquitous_-_Distributed_System_Model.png",
+    "title": "분산 시스템 모델"
+  },
+  "lan-wan-scheme.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:LAN_WAN_scheme.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/LAN_WAN_scheme.svg/960px-LAN_WAN_scheme.svg.png",
+    "title": "LAN과 WAN 연결 구조"
+  },
+  "tcp-udp-comparison.jpg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Tcp_udp.jpg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Tcp_udp.jpg",
+    "title": "TCP와 UDP 비교"
+  },
+  "computer-system-architecture.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Computer_system_architecture.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Computer_system_architecture.svg/960px-Computer_system_architecture.svg.png",
+    "title": "컴퓨터 시스템 아키텍처"
+  },
+  "operating-system-architecture.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Operating_system_architecture.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Operating_system_architecture.svg/960px-Operating_system_architecture.svg.png",
+    "title": "운영체제 아키텍처"
+  },
+  "data-structure-types.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Data_Structure.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Data_Structure.png",
+    "title": "자료구조 유형"
+  },
+  "it-industry.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:IT_Industry.png",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/IT_Industry.png",
+    "title": "IT 산업 구성 요소"
+  },
+  "it-system-architecture.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:IT_System_Architecture_-_Software_Architecture.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/IT_System_Architecture_-_Software_Architecture.svg/960px-IT_System_Architecture_-_Software_Architecture.svg.png",
+    "title": "IT 시스템 소프트웨어 아키텍처"
   }
 }
