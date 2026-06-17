@@ -16,9 +16,9 @@
 - HTTP는 웹브라우저와 서버가 요청과 응답을 주고받는 대화 규칙이다.
 - TLS는 그 대화를 암호화하고 상대가 진짜인지 확인하는 보안 포장이다.
 
-![웹 접속 흐름](../assets/cs-visual-aids/08-03-HTTP-DNS-TLS.svg)
-> 그림: URL 입력 후 통신 순서를 단계별로 본다.
-> 출처: 이 저장소에서 생성한 학습용 다이어그램
+![웹 접속 흐름](../assets/downloaded-visual-aids/client-server-model.svg)
+> 그림: 클라이언트-서버 모델 기반으로 웹 접속 흐름 개념을 시각적으로 확인한다.
+> 출처: https://commons.wikimedia.org/wiki/File:Client-server-model.svg
 ## 빈출 포인트
 
 - 정의와 특징을 구분하는 객관식 문항

@@ -16,9 +16,9 @@
 - DFS는 한 방향으로 깊게 들어가다가 막히면 돌아오는 탐색이다. 재귀나 스택으로 구현한다.
 - 방문 처리를 언제 하는지가 중복 방문과 무한 반복을 막는 핵심이다.
 
-![DFS와 BFS](../assets/cs-visual-aids/13-03-BFS-DFS.svg)
-> 그림: 탐색 순서와 최단거리 조건을 구분한다.
-> 출처: 이 저장소에서 생성한 학습용 다이어그램
+![DFS와 BFS](../assets/downloaded-visual-aids/bfs-animation.gif)
+> 그림: BFS 탐색 애니메이션 기반으로 DFS와 BFS 개념을 시각적으로 확인한다.
+> 출처: https://commons.wikimedia.org/wiki/File:Breadth-First-Search-Algorithm.gif
 ## 빈출 포인트
 
 - 정의와 특징을 구분하는 객관식 문항

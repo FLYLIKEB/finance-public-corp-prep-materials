@@ -9,9 +9,9 @@
 - XSS(Cross-Site Scripting)는 웹 페이지에 악성 스크립트를 삽입해 사용자의 브라우저에서 실행시키는 공격이다.
 - SQL Injection은 입력값에 SQL 구문을 주입해 인증 우회, 데이터 조회·변조·삭제를 시도하는 공격이다.
 - XSS는 주로 **출력 인코딩·콘텐츠 보안 정책(CSP)·입력 검증**으로, SQL Injection은 **Prepared Statement·파라미터 바인딩**으로 방어한다.
-![웹 공격 흐름](../assets/cs-visual-aids/10-03-01-XSS-SQL-Injection.svg)
-> 그림: 입력 검증과 출력 인코딩이 핵심 방어다.
-> 출처: 이 저장소에서 생성한 학습용 다이어그램
+![웹 공격 흐름](../assets/downloaded-visual-aids/client-server-model.svg)
+> 그림: 클라이언트-서버 모델 기반으로 웹 공격 흐름 개념을 시각적으로 확인한다.
+> 출처: https://commons.wikimedia.org/wiki/File:Client-server-model.svg
 
 ## XSS 원리
 

@@ -1,0 +1,82 @@
+{
+  "bfs-animation.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Breadth-First-Search-Algorithm.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Breadth-First-Search-Algorithm.gif",
+    "title": "BFS 탐색 애니메이션"
+  },
+  "insertion-sort.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Insertion-sort-example-300px.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif",
+    "title": "삽입 정렬 예시"
+  },
+  "bubble-sort.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Bubble-sort-example-300px.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif",
+    "title": "버블 정렬 예시"
+  },
+  "selection-sort.gif": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Selection-Sort-Animation.gif",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/94/Selection-Sort-Animation.gif",
+    "title": "선택 정렬 예시"
+  },
+  "cloud-computing.svg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cloud_computing.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Cloud_computing.svg",
+    "title": "클라우드 컴퓨팅 개념"
+  },
+  "docker-logo.svg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Docker_(container_engine)_logo.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg",
+    "title": "컨테이너 기반 가상화 예시"
+  },
+  "risc-v-logo.svg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:RISC-V-logo.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/RISC-V-logo.svg",
+    "title": "RISC 계열 명령어 집합 예시"
+  },
+  "finite-state-machine.svg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Finite_state_machine_example_with_comments.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Finite_state_machine_example_with_comments.svg",
+    "title": "상태 전이도 예시"
+  },
+  "client-server-model.svg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Client-server-model.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Client-server-model.svg",
+    "title": "클라이언트-서버 모델"
+  },
+  "udp-encapsulation.svg": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:UDP_encapsulation.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/UDP_encapsulation.svg",
+    "title": "UDP 캡슐화 구조"
+  },
+  "tcp-three-way-handshake.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:TCP_Three-Way_Handshake.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/TCP_Three-Way_Handshake.svg/500px-TCP_Three-Way_Handshake.svg.png",
+    "title": "TCP 3-Way Handshake 흐름"
+  },
+  "memory-hierarchy.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Computer_Memory_Hierarchy.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Computer_Memory_Hierarchy.svg/500px-Computer_Memory_Hierarchy.svg.png",
+    "title": "메모리 계층 구조"
+  },
+  "logistic-curve.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Logistic-curve.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/500px-Logistic-curve.svg.png",
+    "title": "로지스틱 회귀의 시그모이드 곡선"
+  },
+  "osi-model.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:OSI_Model_v1.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/500px-OSI_Model_v1.svg.png",
+    "title": "OSI 7계층 구조"
+  },
+  "b-tree.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:B-tree.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/B-tree.svg/500px-B-tree.svg.png",
+    "title": "B-Tree 구조"
+  },
+  "linked-list.png": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:Singly-linked-list.svg",
+    "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Singly-linked-list.svg/500px-Singly-linked-list.svg.png",
+    "title": "단일 연결 리스트 구조"
+  }
+}
