@@ -16,7 +16,7 @@
 - SYN은 연결 요청, SYN-ACK는 요청 수락, ACK는 최종 확인이다.
 - 이 과정을 거쳐야 TCP가 믿을 수 있는 통신을 시작한다.
 
-<img src="../assets/downloaded-visual-aids/tcp-three-way-handshake.png" alt="TCP 3-Way Handshake 흐름" style="max-height: 360px; width: auto; max-width: 100%;">
+<img src="https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/tcp-three-way-handshake.png" alt="TCP 3-Way Handshake 흐름" style="max-height: 360px; width: auto; max-width: 100%;">
 > 그림: TCP 3-Way Handshake 흐름 기반으로 TCP 3-Way Handshake 흐름 개념을 시각적으로 확인한다.
 > 출처: https://commons.wikimedia.org/wiki/File:TCP_Three-Way_Handshake.svg
 
