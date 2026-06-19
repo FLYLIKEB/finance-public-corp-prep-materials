@@ -16,7 +16,7 @@
 - 편지를 보낼 때 내용 작성, 봉투 포장, 주소 작성, 배달이 나뉘는 것처럼 네트워크도 계층별 역할이 있다.
 - 시험에서는 각 계층의 대표 장비와 프로토콜을 연결하는 문제가 자주 나온다.
 
-<img src="https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/osi-model.png" alt="OSI 7계층 구조" style="max-height: 360px; width: auto; max-width: 100%;">
+![OSI 7계층 구조](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/500px-OSI_Model_v1.svg.png)
 > 그림: OSI 7계층 구조 기반으로 OSI 7계층 구조 개념을 시각적으로 확인한다.
 > 출처: https://commons.wikimedia.org/wiki/File:OSI_Model_v1.svg
 
