@@ -16,9 +16,9 @@
 - IPS는 경비원처럼 수상한 행동을 발견하면 바로 막는 역할까지 한다.
 - 로그 감사는 나중에 무슨 일이 있었는지 확인하는 출입기록부다.
 
-<img src="../assets/downloaded-visual-aids/cloud-computing.svg" alt="IDS·IPS·로그 감사" style="max-height: 360px; width: auto; max-width: 100%;">
-> 그림: 클라우드 컴퓨팅 개념 기반으로 IDS·IPS·로그 감사 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Cloud_computing.svg
+<img src="../assets/downloaded-visual-aids/ids-ips.png" alt="IDS와 IPS 비교" style="max-height: 360px; width: auto; max-width: 100%;">
+> 그림: IDS와 IPS 비교 기반으로 IDS와 IPS 비교 개념을 시각적으로 확인한다.
+> 출처: https://commons.wikimedia.org/wiki/File:Ips-vs-ids-short.png
 ## 빈출 포인트
 
 - 정의와 특징을 구분하는 객관식 문항
