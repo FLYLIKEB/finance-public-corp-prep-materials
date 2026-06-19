@@ -8,7 +8,7 @@
 - [13-02. 구현](13-02-구현.md)
 - [13-03. BFS-DFS](13-03-BFS-DFS.md)
 - [13-04. 빈출 코드 출력 문제](13-04-빈출-코드-출력-문제.md)
-![SQL/코딩 핵심](https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/B-tree.svg/500px-B-tree.svg.png)
+![SQL/코딩 핵심](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/b-tree.png)
 > 그림: SQL/코딩 핵심 기반으로 SQL/코딩 핵심 개념을 시각적으로 확인한다.
 > 출처: 공개 이미지 출처 기록 누락
 

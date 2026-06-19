@@ -17,7 +17,7 @@
 - SJF는 빨리 끝나는 일부터 처리해 평균 대기시간을 줄이려는 방식이다. 다만 긴 작업이 계속 밀릴 수 있다.
 - HRN은 오래 기다린 정도까지 반영해 “짧은 일 우선”의 단점을 줄인다. RR은 모두에게 일정 시간씩 돌아가며 기회를 주는 방식이다.
 
-![CPU 스케줄링 선택 기준](https://upload.wikimedia.org/wikipedia/commons/9/9a/RISC-V-logo.svg)
+![CPU 스케줄링 선택 기준](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/risc-v-logo.svg)
 > 그림: RISC 계열 명령어 집합 예시 기반으로 CPU 스케줄링 선택 기준 개념을 시각적으로 확인한다.
 > 출처: https://commons.wikimedia.org/wiki/File:RISC-V-logo.svg
 ## 빈출 포인트
