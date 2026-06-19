@@ -8,9 +8,9 @@
 - [13-02. 구현](13-02-구현.md)
 - [13-03. BFS-DFS](13-03-BFS-DFS.md)
 - [13-04. 빈출 코드 출력 문제](13-04-빈출-코드-출력-문제.md)
-<img src="../assets/downloaded-visual-aids/it-system-architecture.png" alt="SQL과 코딩 학습 지도" style="max-height: 360px; width: auto; max-width: 100%;">
-> 그림: IT 시스템 소프트웨어 아키텍처 기반으로 SQL과 코딩 학습 지도 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:IT_System_Architecture_-_Software_Architecture.svg
+<img src="../assets/downloaded-visual-aids/b-tree.png" alt="SQL/코딩 핵심" style="max-height: 360px; width: auto; max-width: 100%;">
+> 그림: SQL/코딩 핵심 기반으로 SQL/코딩 핵심 개념을 시각적으로 확인한다.
+> 출처: 공개 이미지 출처 기록 누락
 
 ## 연결 핵심정리
 

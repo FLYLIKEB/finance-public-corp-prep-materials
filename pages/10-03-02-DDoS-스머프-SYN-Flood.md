@@ -16,13 +16,9 @@
 - 스머프 공격은 다른 장비들을 이용해 공격 트래픽을 증폭시키는 방식이다.
 - SYN Flood는 TCP 연결 요청만 많이 보내 서버가 대기 상태 자원을 낭비하게 만든다.
 
-<img src="../assets/downloaded-visual-aids/ddos-attack.gif" alt="DDoS 공격 흐름" style="max-height: 360px; width: auto; max-width: 100%;">
-> 그림: 서비스 거부 공격 흐름 기반으로 DDoS 공격 흐름 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Denial-of-service_attack.gif
-
-<img src="../assets/downloaded-visual-aids/syn-flood.png" alt="TCP SYN Flood 공격 구조" style="max-height: 360px; width: auto; max-width: 100%;">
-> 그림: TCP SYN Flood 공격 구조 기반으로 TCP SYN Flood 공격 구조 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Tcp_syn_flood.png
+<img src="../assets/downloaded-visual-aids/client-server-model.svg" alt="DDoS·SYN Flood" style="max-height: 360px; width: auto; max-width: 100%;">
+> 그림: 클라이언트-서버 모델 기반으로 DDoS·SYN Flood 개념을 시각적으로 확인한다.
+> 출처: https://commons.wikimedia.org/wiki/File:Client-server-model.svg
 ## 빈출 포인트
 
 - 정의와 특징을 구분하는 객관식 문항
