@@ -86,26 +86,6 @@ id: admin' --
 4. **혼동 방지형**
    XSS는 브라우저에서 스크립트가 실행되는 문제이고, SQL Injection은 서버가 DB에 보내는 질의가 변조되는 문제다.
 
-## 빈출 포인트
-
-- Reflected/Stored/DOM XSS의 차이를 실행 흐름으로 구분한다.
-- SQL Injection 방어에서 “입력값 필터링만 하면 충분하다”는 선지는 오답 가능성이 높다.
-- Prepared Statement는 SQL 문장 구조와 데이터를 분리한다는 표현으로 기억한다.
-- XSS 방어의 핵심은 입력 제거보다 **출력 문맥별 인코딩**이다.
-
-## 오답 포인트
-
-- Stored XSS는 서버에 저장된 값이 나중에 실행되므로 피해 범위가 넓다.
-- DOM XSS는 서버 로그만으로 원인 파악이 어려울 수 있다.
-- SQL Injection은 NoSQL 환경에서도 유사한 쿼리 주입 문제가 발생할 수 있다.
-- WAF는 보조 수단이지 Prepared Statement를 대체하지 못한다.
-
-## 빠른 점검
-
-- Reflected, Stored, DOM XSS를 예시로 구분할 수 있는가?
-- UNION Injection과 Blind Injection의 목적과 관찰 단서를 설명할 수 있는가?
-- XSS의 핵심 방어와 SQL Injection의 핵심 방어를 각각 말할 수 있는가?
-
 ## 약어 풀이
 
 - API: Application Programming Interface, 응용 프로그램 인터페이스
