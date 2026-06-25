@@ -10,6 +10,14 @@
 - DNS는 도메인 이름을 IP 주소로 변환한다.
 - TLS는 암호화와 인증으로 통신을 보호한다.
 
+
+### 서술형 확장 개념
+
+- DNS 조회는 stub resolver가 recursive resolver에 요청하고, resolver가 root → TLD → authoritative name server를 따라가며 답을 찾는 구조다. TTL은 캐시 유지 시간을 정하며, A/AAAA는 주소, CNAME은 별칭, MX는 메일 서버, TXT는 검증·정책 정보를 담는다.
+- HTTP는 method와 status code로 의미를 표현한다. GET은 조회, POST는 생성/처리 요청, PUT/PATCH는 갱신, DELETE는 삭제 의미가 강하며, 2xx는 성공, 3xx는 리다이렉션, 4xx는 클라이언트 오류, 5xx는 서버 오류다.
+- HTTP/1.1은 연결 재사용과 pipelining을 제공하지만 head-of-line blocking 문제가 있고, HTTP/2는 multiplexing과 header compression을 제공한다. HTTP/3는 QUIC 위에서 동작해 TCP 수준의 head-of-line blocking을 줄인다.
+- TLS handshake는 서버 인증서 검증 후 공개키 기반 절차로 세션 키를 합의하고, 실제 데이터는 빠른 대칭키 암호로 보호한다. 즉 TLS는 공개키 암호와 대칭키 암호를 함께 쓰는 하이브리드 구조다.
+
 ## 쉽게 이해하기
 
 - DNS는 전화번호부처럼 도메인 이름을 IP 주소로 바꿔 준다.
