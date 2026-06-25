@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-labelledby="title desc">
+  <title id="title">선점형과 비선점형 타임라인 비교</title>
+  <desc id="desc">짧은 프로세스가 늦게 도착했을 때 비선점형은 기존 작업을 계속 실행하고 선점형은 실행 중인 작업을 중단하는 비교</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#ef4444"/></marker>
+    <style>
+      .title{font:700 25px sans-serif;fill:#0f172a}.label{font:700 18px sans-serif;fill:#111827}.small{font:14px sans-serif;fill:#334155}.tiny{font:12px sans-serif;fill:#475569}.bar{stroke:#0f172a;stroke-width:1.5;rx:10}.axis{stroke:#334155;stroke-width:2}.tick{stroke:#64748b;stroke-width:1}.event{stroke:#ef4444;stroke-width:3;stroke-dasharray:8 5}.blink{animation:blink 1.2s ease-in-out infinite}.move{animation:move 5s linear infinite}@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}@keyframes move{0%{transform:translateX(0)}100%{transform:translateX(700px)}}
+    </style>
+  </defs>
+  <rect width="980" height="520" fill="#fff"/>
+  <text x="40" y="48" class="title">선점형 vs 비선점형: “도중에 빼앗을 수 있는가?”</text>
+  <text x="40" y="78" class="small">예시: P1(도착0, 실행8) 실행 중 t=2에 더 짧은 P2(실행2)가 도착</text>
+
+  <g transform="translate(170,135)">
+    <line x1="0" y1="0" x2="720" y2="0" class="axis"/>
+    <line x1="0" y1="-6" x2="0" y2="260" class="tick"/><text x="-5" y="282" class="tiny">0</text>
+    <line x1="180" y1="-6" x2="180" y2="260" class="event blink"/><text x="145" y="282" class="tiny">2: P2 도착</text>
+    <line x1="360" y1="-6" x2="360" y2="260" class="tick"/><text x="352" y="282" class="tiny">4</text>
+    <line x1="720" y1="-6" x2="720" y2="260" class="tick"/><text x="712" y="282" class="tiny">8</text>
+    <g class="move"><circle cx="0" cy="-18" r="7" fill="#2563eb" opacity=".75"/></g>
+
+    <text x="-125" y="75" class="label">비선점형</text>
+    <rect x="0" y="45" width="720" height="50" fill="#bfdbfe" class="bar"/><text x="340" y="77" class="label">P1 계속 실행</text>
+    <rect x="720" y="45" width="180" height="50" fill="#bbf7d0" class="bar" opacity=".55"/><text x="778" y="77" class="label">P2</text>
+    <text x="15" y="118" class="small">P2가 와도 P1이 끝날 때까지 기다림 → 단순하지만 응답시간 악화</text>
+
+    <text x="-125" y="195" class="label">선점형</text>
+    <rect x="0" y="165" width="180" height="50" fill="#bfdbfe" class="bar"/><text x="75" y="197" class="label">P1</text>
+    <rect x="180" y="165" width="180" height="50" fill="#bbf7d0" class="bar"/><text x="255" y="197" class="label">P2</text>
+    <rect x="360" y="165" width="540" height="50" fill="#bfdbfe" class="bar"/><text x="610" y="197" class="label">P1 재개</text>
+    <path d="M180 155 C185 130 210 130 220 155" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <text x="15" y="238" class="small">도착·우선순위·time quantum 만료 시 문맥교환 발생 → 응답성 향상, 오버헤드 증가</text>
+  </g>
+
+  <rect x="40" y="435" width="900" height="55" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" rx="12"/>
+  <text x="62" y="468" class="small">시험 판단법: “실행 중인 프로세스가 완료되지 않았는데 CPU가 다른 프로세스로 넘어가면” 선점형이다. RR, SRTF, 우선순위 선점형이 대표적이다.</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">정규화 단계별 분해 흐름</title>
+  <desc id="desc">반복 그룹 제거, 부분 함수 종속 제거, 이행 함수 종속 제거를 거쳐 1NF, 2NF, 3NF로 분해되는 흐름</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker>
+    <style>
+      .title{font:700 26px sans-serif;fill:#0f172a}.label{font:700 18px sans-serif;fill:#111827}.small{font:14px sans-serif;fill:#334155}.tiny{font:12px sans-serif;fill:#475569}.box{fill:#f8fafc;stroke:#334155;stroke-width:2;rx:14}.bad{fill:#fee2e2;stroke:#991b1b;stroke-width:2;rx:10}.ok{fill:#dcfce7;stroke:#166534;stroke-width:2;rx:10}.mid{fill:#dbeafe;stroke:#1d4ed8;stroke-width:2;rx:10}.warn{fill:#fef3c7;stroke:#92400e;stroke-width:2;rx:10}.arrow{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}.pulse{animation:pulse 1.5s ease-in-out infinite}.slide{animation:slide 6s linear infinite}@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}@keyframes slide{0%{transform:translateX(0);opacity:.3}20%{opacity:1}85%{opacity:1}100%{transform:translateX(850px);opacity:.3}}
+    </style>
+  </defs>
+  <rect width="1100" height="620" fill="#fff"/>
+  <text x="40" y="48" class="title">정규화는 “한 표를 잘게 쪼개는 암기”가 아니라 “종속성에 맞게 위치를 옮기는 과정”</text>
+  <text x="40" y="78" class="small">반복 그룹 제거 → 부분 함수 종속 제거 → 이행 함수 종속 제거 순서로 진행한다.</text>
+
+  <g transform="translate(55,125)">
+    <rect x="0" y="0" width="225" height="160" class="bad pulse"/>
+    <text x="22" y="33" class="label">비정규형 UNF</text>
+    <text x="22" y="62" class="small">한 칸에 여러 값</text>
+    <text x="22" y="90" class="tiny">주문1001: 노트북,마우스</text>
+    <text x="22" y="112" class="tiny">수량: 1,2</text>
+    <text x="22" y="135" class="tiny">반복 그룹 존재</text>
+
+    <path d="M225 80 H310" class="arrow"/>
+    <rect x="315" y="0" width="225" height="160" class="mid"/>
+    <text x="337" y="33" class="label">1NF</text>
+    <text x="337" y="62" class="small">원자값으로 행 분리</text>
+    <text x="337" y="90" class="tiny">1001, 노트북, 1</text>
+    <text x="337" y="112" class="tiny">1001, 마우스, 2</text>
+    <text x="337" y="135" class="tiny">아직 중복 존재</text>
+
+    <path d="M540 80 H625" class="arrow"/>
+    <rect x="630" y="0" width="225" height="160" class="warn"/>
+    <text x="652" y="33" class="label">2NF</text>
+    <text x="652" y="62" class="small">부분 종속 분리</text>
+    <text x="652" y="90" class="tiny">주문(주문ID, 고객ID)</text>
+    <text x="652" y="112" class="tiny">상품(상품ID, 상품명)</text>
+    <text x="652" y="135" class="tiny">주문상세(주문ID, 상품ID)</text>
+
+    <path d="M742"/>
+  </g>
+  <path d="M910 205 C975 205 975 335 910 335" class="arrow"/>
+  <g transform="translate(675,330)">
+    <rect x="0" y="0" width="300" height="170" class="ok"/>
+    <text x="24" y="35" class="label">3NF</text>
+    <text x="24" y="65" class="small">이행 종속 분리</text>
+    <text x="24" y="93" class="tiny">주문: 주문ID → 고객ID</text>
+    <text x="24" y="116" class="tiny">고객: 고객ID → 고객명, 등급</text>
+    <text x="24" y="139" class="tiny">주문ID → 고객ID → 고객등급 제거</text>
+  </g>
+
+  <g transform="translate(70,365)">
+    <rect x="0" y="0" width="520" height="135" class="box"/>
+    <text x="22" y="32" class="label">분해 후 반드시 확인</text>
+    <text x="22" y="62" class="small">1. 무손실 조인: 나눈 표를 다시 조인했을 때 원래 정보가 복원되는가?</text>
+    <text x="22" y="90" class="small">2. 종속성 보존: 중요한 함수 종속을 조인 없이 검사할 수 있는가?</text>
+    <text x="22" y="118" class="small">3. 이상현상 감소: 삽입·삭제·갱신 이상이 줄었는가?</text>
+  </g>
+  <circle cx="90" cy="545" r="8" fill="#2563eb" class="slide"/>
+  <line x1="90" y1="545" x2="960" y2="545" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round"/>
+  <text x="80" y="575" class="tiny">UNF</text><text x="380" y="575" class="tiny">1NF</text><text x="700" y="575" class="tiny">2NF</text><text x="935" y="575" class="tiny">3NF</text>
+</svg>
