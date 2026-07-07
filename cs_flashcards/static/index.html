@@ -29,8 +29,6 @@
       <div class="collapsed-quick-actions" aria-label="빠른 자동 듣기">
         <button id="collapsedPlayBtn" class="has-tip collapsed-audio-main" type="button" title="재생" data-tip="자동 듣기 재생">▶</button>
         <button id="collapsedStopBtn" class="has-tip collapsed-audio-main" type="button" title="정지" data-tip="자동 듣기 정지">■</button>
-        <button id="collapsedShuffleBtn" class="has-tip collapsed-secondary" type="button" title="랜덤" data-tip="랜덤 카드">↯</button>
-        <button id="collapsedUnknownBtn" class="has-tip collapsed-secondary" type="button" title="X만 복습" data-tip="X만 복습">X</button>
       </div>
       <button id="controlsToggle" class="controls-toggle has-tip" type="button" aria-expanded="true" aria-controls="controlsBody" data-tip="듣기 설정">검색/필터 접기</button>
       <div id="controlsBody" class="controls-body">
@@ -57,10 +55,6 @@
         </div>
       </div>
 
-      <div class="button-grid">
-        <button id="shuffleBtn" class="has-tip" type="button" title="랜덤" data-tip="랜덤 카드">↯</button>
-        <button id="unknownOnlyBtn" class="has-tip" type="button" title="모른다만 복습" data-tip="X만 복습">X</button>
-      </div>
       <p class="hint">Space · ←/→ · ↑/↓ · O/X</p>
       <p id="message" class="message" role="status"></p>
       </div>
@@ -75,6 +69,10 @@
         <select id="categorySelect" class="category-filter" title="카테고리">
           <option value="">▦ *</option>
         </select>
+        <div class="study-toggles" aria-label="학습 토글">
+          <button id="shuffleBtn" class="has-tip study-toggle" type="button" title="랜덤 모드" data-tip="랜덤 모드">↯</button>
+          <button id="unknownOnlyBtn" class="has-tip study-toggle" type="button" title="X만 복습" data-tip="X만 복습">X</button>
+        </div>
       </div>
 
       <article id="card" class="flashcard" tabindex="0" aria-label="플래시카드. 클릭하면 뒤집힙니다.">

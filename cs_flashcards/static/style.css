@@ -2324,3 +2324,33 @@ select,
   transform: translateX(-50%);
   background: rgba(36, 54, 79, .16);
 }
+
+/* Move study toggles above card */
+.study-toggles {
+  display: inline-flex;
+  gap: .3rem;
+  align-items: center;
+}
+.study-toggle {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: rgba(246, 248, 251, .72);
+  color: rgba(36, 54, 79, .58);
+  font-size: .82rem;
+  font-weight: 560 !important;
+}
+.study-toggle:hover,
+.study-toggle:focus-visible,
+.study-toggle.active {
+  background: #eef2f7;
+  color: #24364f;
+  outline: none;
+}
+.study-toggle.active {
+  box-shadow: inset 0 0 0 1px rgba(36, 54, 79, .14);
+}
+.controls.collapsed .collapsed-quick-actions::after,
+.controls.collapsed .controls-toggle::before {
+  display: none;
+}

@@ -11,6 +11,7 @@ const state = {
   controlsCollapsed: localStorage.getItem('controlsCollapsed') !== '0',
   backPage: 0,
   statusFilter: '',
+  randomMode: false,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -843,11 +844,34 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
+function updateRandomButtons() {
+  ['shuffleBtn'].forEach((id) => {
+    const button = $(id);
+    if (!button) return;
+    button.classList.toggle('active', state.randomMode);
+    button.setAttribute('aria-pressed', String(state.randomMode));
+  });
+}
+
+function toggleRandomMode() {
+  state.randomMode = !state.randomMode;
+  updateRandomButtons();
+  playShuffleSound();
+  setMessage(state.randomMode ? '↯ ON' : '↯ OFF');
+}
+
 function move(delta) {
   if (state.audioPlaying) stopAudioPlayback('수동 이동으로 자동 듣기를 정지했습니다.');
   if (!state.filtered.length) return;
-  state.index = (state.index + delta + state.filtered.length) % state.filtered.length;
-  playMoveSound(delta);
+  if (state.randomMode && state.filtered.length > 1) {
+    let nextIndex = state.index;
+    while (nextIndex === state.index) nextIndex = Math.floor(Math.random() * state.filtered.length);
+    state.index = nextIndex;
+    playShuffleSound();
+  } else {
+    state.index = (state.index + delta + state.filtered.length) % state.filtered.length;
+    playMoveSound(delta);
+  }
   state.flipped = false;
   state.backPage = 0;
   renderCard();
@@ -917,9 +941,7 @@ $('positionInput').addEventListener('change', () => jumpFromInput());
 $('positionInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); jumpFromInput(); $('positionInput').blur(); } });
 $('backPagePrev').addEventListener('click', () => setBackPage(state.backPage - 1));
 $('backPageNext').addEventListener('click', () => setBackPage(state.backPage + 1));
-$('shuffleBtn').addEventListener('click', randomCard);
-$('collapsedShuffleBtn').addEventListener('click', randomCard);
-$('collapsedUnknownBtn').addEventListener('click', () => setStatusFilter('X'));
+$('shuffleBtn').addEventListener('click', toggleRandomMode);
 $('knownBtn').addEventListener('click', () => mark('O'));
 $('unknownBtn').addEventListener('click', () => mark('X'));
 $('unknownOnlyBtn').addEventListener('click', () => setStatusFilter('X'));
@@ -975,11 +997,12 @@ document.addEventListener('keydown', (e) => {
   else if (e.key === 'ArrowRight') move(1);
   else if (e.key.toLowerCase() === 'o') mark('O');
   else if (e.key.toLowerCase() === 'x') mark('X');
-  else if (e.key.toLowerCase() === 'r') randomCard();
+  else if (e.key.toLowerCase() === 'r') toggleRandomMode();
   else if (e.key.toLowerCase() === 'f') { e.preventDefault(); $('searchInput').focus(); }
 });
 
 applyControlsCollapsed();
+updateRandomButtons();
 
 loadCards().catch((err) => {
   setMessage(`로딩 실패: ${err.message}`, true);
