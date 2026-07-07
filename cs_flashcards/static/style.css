@@ -1506,3 +1506,87 @@ h3 {
   background: transparent !important;
   padding: .15rem .25rem;
 }
+
+/* Compact sidebar controls */
+.panel {
+  padding: .72rem;
+}
+.controls {
+  gap: .62rem;
+}
+.controls-body {
+  gap: .62rem;
+}
+label {
+  gap: .28rem;
+  font-size: .78rem;
+}
+input,
+select {
+  border-radius: 11px;
+  padding: .52rem .62rem;
+  font-size: .84rem;
+}
+.audio-panel {
+  padding: .56rem;
+  border-radius: 13px;
+  gap: .46rem;
+}
+.audio-options {
+  gap: .22rem .42rem;
+}
+.audio-options label,
+.audio-rate-label,
+.hint,
+.message {
+  font-size: .72rem;
+}
+.audio-options input[type="checkbox"] {
+  width: .82rem;
+  height: .82rem;
+}
+.audio-rate-label select {
+  padding: .38rem .48rem;
+  border-radius: 10px;
+}
+.audio-buttons,
+.button-grid {
+  gap: .38rem;
+}
+.audio-buttons button,
+.button-grid button {
+  min-height: 2.1rem;
+  padding: .42rem;
+  border-radius: 11px;
+  font-size: .9rem;
+}
+.audio-estimate {
+  padding: .3rem .42rem;
+  border-radius: 10px;
+  font-size: .68rem;
+}
+.hint {
+  line-height: 1.35;
+  margin: 0;
+}
+.message {
+  min-height: 1.05rem;
+}
+.controls-toggle {
+  padding: .52rem .62rem;
+  border-radius: 12px;
+  font-size: .95rem;
+}
+.controls.collapsed {
+  width: 3.2rem;
+  padding: .38rem;
+}
+.controls.collapsed .controls-toggle {
+  width: 2.42rem;
+  height: 2.42rem;
+  min-height: 2.42rem;
+  font-size: 1rem;
+}
+.controls-collapsed .layout {
+  grid-template-columns: 3rem minmax(0, 1fr);
+}
