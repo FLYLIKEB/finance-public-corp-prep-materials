@@ -16,7 +16,14 @@ TUNNEL_LOG="$LOG_DIR/cs_flashcards_cloudflare_tunnel.log"
 APP_PID_FILE="$PID_DIR/cs_flashcards_public.pid"
 TUNNEL_PID_FILE="$PID_DIR/cs_flashcards_cloudflare_tunnel.pid"
 PASSWORD_FILE="$PID_DIR/cs_flashcards_public_password"
-USERNAME="${CS_FLASHCARDS_USERNAME:-cs}"
+CONFIG_FILE="$PID_DIR/cs_flashcards_tunnel.env"
+if [[ -f "$CONFIG_FILE" ]]; then
+  # shellcheck disable=SC1090
+  source "$CONFIG_FILE"
+fi
+USERNAME="${CS_FLASHCARDS_USERNAME:-${CS_FLASHCARDS_PUBLIC_USERNAME:-cs}}"
+PUBLIC_HOSTNAME="${CS_FLASHCARDS_PUBLIC_HOSTNAME:-${CS_FLASHCARDS_HOSTNAME:-}}"
+TUNNEL_NAME="${CS_FLASHCARDS_TUNNEL_NAME:-cs-flashcards}"
 
 mkdir -p "$LOG_DIR" "$PID_DIR"
 
@@ -126,28 +133,47 @@ fi
 
 install_cloudflared_if_needed
 : > "$TUNNEL_LOG"
-printf 'Cloudflare Tunnel 시작 중...\n'
-cloudflared tunnel --url "$URL" >"$TUNNEL_LOG" 2>&1 &
-echo $! > "$TUNNEL_PID_FILE"
 
-PUBLIC_URL=""
-for _ in {1..80}; do
-  PUBLIC_URL="$(grep -Eo 'https://[-a-zA-Z0-9.]+\.trycloudflare\.com' "$TUNNEL_LOG" | tail -n 1 || true)"
-  if [[ -n "$PUBLIC_URL" ]]; then
-    break
-  fi
-  if ! kill -0 "$(cat "$TUNNEL_PID_FILE")" >/dev/null 2>&1; then
-    printf 'Cloudflare Tunnel 실행에 실패했습니다. 로그: %s\n' "$TUNNEL_LOG" >&2
+if [[ -n "$PUBLIC_HOSTNAME" ]]; then
+  PUBLIC_URL="https://${PUBLIC_HOSTNAME}"
+  printf 'Cloudflare 고정 Tunnel 시작 중: %s -> %s\n' "$PUBLIC_URL" "$URL"
+  cloudflared tunnel run --url "$URL" "$TUNNEL_NAME" >"$TUNNEL_LOG" 2>&1 &
+  echo $! > "$TUNNEL_PID_FILE"
+  for _ in {1..80}; do
+    if grep -Eiq 'Registered tunnel connection|Connection.*registered|Starting tunnel' "$TUNNEL_LOG"; then
+      break
+    fi
+    if ! kill -0 "$(cat "$TUNNEL_PID_FILE")" >/dev/null 2>&1; then
+      printf 'Cloudflare 고정 Tunnel 실행에 실패했습니다. 로그: %s\n' "$TUNNEL_LOG" >&2
+      cat "$TUNNEL_LOG" >&2 || true
+      exit 1
+    fi
+    sleep 0.25
+  done
+else
+  printf 'Cloudflare 임시 Tunnel 시작 중...\n'
+  cloudflared tunnel --url "$URL" >"$TUNNEL_LOG" 2>&1 &
+  echo $! > "$TUNNEL_PID_FILE"
+
+  PUBLIC_URL=""
+  for _ in {1..80}; do
+    PUBLIC_URL="$(grep -Eo 'https://[-a-zA-Z0-9.]+\.trycloudflare\.com' "$TUNNEL_LOG" | tail -n 1 || true)"
+    if [[ -n "$PUBLIC_URL" ]]; then
+      break
+    fi
+    if ! kill -0 "$(cat "$TUNNEL_PID_FILE")" >/dev/null 2>&1; then
+      printf 'Cloudflare 임시 Tunnel 실행에 실패했습니다. 로그: %s\n' "$TUNNEL_LOG" >&2
+      cat "$TUNNEL_LOG" >&2 || true
+      exit 1
+    fi
+    sleep 0.25
+  done
+
+  if [[ -z "$PUBLIC_URL" ]]; then
+    printf '공개 URL을 찾지 못했습니다. 로그: %s\n' "$TUNNEL_LOG" >&2
     cat "$TUNNEL_LOG" >&2 || true
     exit 1
   fi
-  sleep 0.25
- done
-
-if [[ -z "$PUBLIC_URL" ]]; then
-  printf '공개 URL을 찾지 못했습니다. 로그: %s\n' "$TUNNEL_LOG" >&2
-  cat "$TUNNEL_LOG" >&2 || true
-  exit 1
 fi
 
 cat <<EOF
@@ -161,6 +187,7 @@ cat <<EOF
 - iPhone Safari/Chrome에서 위 주소를 열면 됩니다.
 - 이 터미널을 닫으면 공개 접속도 종료됩니다.
 - O/X 체크는 이 Mac의 CSV에 저장됩니다.
+- 고정주소 설정 파일: ${CONFIG_FILE}
 - 앱 로그: $APP_LOG
 - 터널 로그: $TUNNEL_LOG
 EOF

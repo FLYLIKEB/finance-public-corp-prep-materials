@@ -45,3 +45,31 @@ CS_FLASHCARDS_USERNAME=cs CS_FLASHCARDS_PASSWORD='원하는비밀번호' ./run_p
 - 이 터미널을 닫으면 외부 공개 접속도 종료됩니다.
 - `cloudflared`가 없으면 macOS에서는 Homebrew로 자동 설치를 시도합니다.
 - 공개 URL은 임시 주소입니다. 다시 실행하면 주소가 바뀔 수 있습니다.
+
+### 고정주소로 쓰기
+
+`trycloudflare.com` 임시 주소는 Cloudflare가 매번 랜덤으로 발급하므로 고정할 수 없습니다. 주소를 고정하려면 Cloudflare에 연결된 본인 도메인/서브도메인이 필요합니다.
+
+최초 1회만 아래처럼 설정하세요.
+
+```bash
+./setup_fixed_flashcards_tunnel.sh cards.your-domain.com
+```
+
+처음 실행 시 Cloudflare 로그인 브라우저가 열릴 수 있습니다. 로그인 후 도메인을 선택하면:
+
+- `cards.your-domain.com` DNS가 터널에 연결됩니다.
+- 설정은 `.omx/cs_flashcards_tunnel.env`에 저장됩니다.
+- 아이디/비밀번호는 기존처럼 고정 저장됩니다.
+
+그 다음부터는 항상 아래 명령만 실행하면 같은 주소로 접속합니다.
+
+```bash
+./run_public_flashcards.sh
+```
+
+고정주소 설정을 지우고 다시 임시 주소로 쓰려면:
+
+```bash
+rm .omx/cs_flashcards_tunnel.env
+```
