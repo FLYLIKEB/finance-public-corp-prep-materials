@@ -438,7 +438,19 @@ function renderCard() {
 
 
 function applySpeechHighlight() {
-  document.querySelectorAll('.speaking').forEach((element) => element.classList.remove('speaking'));
+  document.querySelectorAll('.speaking-section').forEach((element) => element.classList.remove('speaking-section'));
+  const current = state.speechCurrent;
+  if (!current) return;
+  const target = {
+    term: state.flipped ? document.querySelector('.back-term-line') : document.querySelector('.front-term-line'),
+    definition: $('definition').closest('section'),
+    detail: current.detailLabel
+      ? [...document.querySelectorAll('.detail-card')].find((card) => card.querySelector('.detail-label')?.textContent === current.detailLabel)
+      : $('detail'),
+    related: $('related').closest('section'),
+    exam: $('examNote').closest('section'),
+  }[current.key];
+  if (target) target.classList.add('speaking-section');
 }
 
 function escapeHtml(value) {
