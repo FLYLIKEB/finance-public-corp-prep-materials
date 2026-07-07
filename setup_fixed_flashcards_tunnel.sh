@@ -134,30 +134,28 @@ configure_dns() {
       local base sub
       base="$(base_domain)"
       sub="$(subdomain_part)"
-      printf 'Vercel DNS 감지: %s\n' "$base"
-      if command -v vercel >/dev/null 2>&1; then
-        if vercel dns add "$base" "$sub" CNAME "$CNAME_TARGET" --non-interactive; then
-          printf 'Vercel DNS CNAME 추가 완료: %s -> %s\n' "$HOSTNAME" "$CNAME_TARGET"
-        else
-          cat <<EOF
+      cat <<EOF
 
-⚠️ Vercel DNS 자동 추가에 실패했습니다. Vercel 대시보드에서 직접 추가하세요.
-도메인: $base
-Type: CNAME
-Name: $sub
-Value: $CNAME_TARGET
-EOF
-        fi
-      else
-        cat <<EOF
+❌ Vercel DNS에서는 Cloudflare Tunnel 고정주소를 직접 연결할 수 없습니다.
 
-⚠️ Vercel CLI가 없습니다. Vercel 대시보드에서 직접 추가하세요.
-도메인: $base
-Type: CNAME
-Name: $sub
-Value: $CNAME_TARGET
+감지된 DNS: Vercel DNS ($base)
+요청 주소: $HOSTNAME
+필요 CNAME처럼 보이는 값: $CNAME_TARGET
+
+하지만 Cloudflare 공식 문서상 cfargotunnel.com 대상은 같은 Cloudflare 계정의 DNS 레코드에서만 프록시됩니다.
+따라서 아래 중 하나가 필요합니다.
+
+1) chamung.com 네임서버를 Cloudflare로 이전한 뒤 다시 실행
+   ./setup_chamung_flashcards_tunnel.sh $HOSTNAME
+
+2) Cloudflare가 DNS를 관리하는 다른 도메인/서브도메인 사용
+   ./setup_fixed_flashcards_tunnel.sh cards.your-cloudflare-domain.com
+
+3) 고정주소를 포기하고 임시 주소 사용
+   rm -f .omx/cs_flashcards_tunnel.env
+   ./run_public_flashcards.sh
 EOF
-      fi
+      exit 1
       ;;
     *)
       cat <<EOF
