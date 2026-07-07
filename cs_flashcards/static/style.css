@@ -803,3 +803,73 @@ p { line-height: 1.55; }
 .back-page[data-page="2"] .concept-graph {
   margin-top: .1rem;
 }
+
+/* Minimal Apple-like detail cards override */
+.detail-grid {
+  gap: .42rem;
+}
+.detail-card {
+  --detail-color: #1d1d1f;
+  --detail-soft: #fff;
+  border: 1px solid rgba(0, 0, 0, .075);
+  border-left: 1px solid rgba(0, 0, 0, .075);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .025);
+  padding: .62rem .68rem;
+}
+.detail-card::before {
+  content: "";
+  position: absolute;
+  left: .64rem;
+  top: .7rem;
+  bottom: .7rem;
+  width: 2px;
+  border-radius: 99px;
+  background: rgba(0, 0, 0, .16);
+}
+.detail-heading {
+  grid-template-columns: 1.35rem 1fr;
+  gap: .44rem;
+  padding-left: .3rem;
+}
+.detail-icon {
+  width: 1.32rem;
+  height: 1.32rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .045);
+  box-shadow: none;
+  color: rgba(0, 0, 0, .52);
+  font-size: .78rem;
+  font-weight: 800;
+}
+.detail-label {
+  color: #1d1d1f;
+  font-size: .86rem;
+  font-weight: 780;
+  letter-spacing: -0.025em;
+}
+.detail-hint {
+  margin-top: .03rem;
+  color: rgba(60, 60, 67, .58);
+  font-size: .68rem;
+  font-weight: 600;
+}
+.detail-card p {
+  margin-top: .38rem;
+  padding-left: 1.78rem;
+  color: rgba(29, 29, 31, .88);
+  font-size: .88rem;
+  line-height: 1.48;
+}
+.detail-의미::before { background: #007aff; }
+.detail-동작-활용::before { background: #34c759; }
+.detail-관련-개념::before { background: #5856d6; }
+.detail-구분-포인트::before { background: #ff9500; }
+.detail-시험-대비::before { background: #ff3b30; }
+.detail-의미 .detail-icon { color: #007aff; background: rgba(0, 122, 255, .08); }
+.detail-동작-활용 .detail-icon { color: #248a3d; background: rgba(52, 199, 89, .09); }
+.detail-관련-개념 .detail-icon { color: #5856d6; background: rgba(88, 86, 214, .09); }
+.detail-구분-포인트 .detail-icon { color: #b25000; background: rgba(255, 149, 0, .1); }
+.detail-시험-대비 .detail-icon { color: #d70015; background: rgba(255, 59, 48, .09); }

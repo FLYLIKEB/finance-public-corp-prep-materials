@@ -448,12 +448,12 @@ function currentWordHtml(text, key, detailLabel = null) {
 
 function detailMeta(label) {
   return {
-    '의미': {icon: '💡', title: '무슨 뜻인가요?', hint: '정의·핵심 의미'},
-    '동작/활용': {icon: '⚙️', title: '어떻게 작동하나요?', hint: '동작 방식·쓰임새'},
-    '관련 개념': {icon: '🔗', title: '무엇과 연결되나요?', hint: '같이 묶어 볼 개념'},
-    '구분 포인트': {icon: '🧭', title: '무엇과 구분하나요?', hint: '비교·혼동 방지'},
-    '시험 대비': {icon: '🎯', title: '어떻게 출제되나요?', hint: '암기·판별 포인트'},
-  }[label] || {icon: '📌', title: label, hint: '핵심 설명'};
+    '의미': {icon: '○', title: '의미', hint: '정의와 핵심'},
+    '동작/활용': {icon: '⌁', title: '동작·활용', hint: '작동 방식'},
+    '관련 개념': {icon: '↔', title: '연결', hint: '같이 볼 개념'},
+    '구분 포인트': {icon: '◇', title: '구분', hint: '혼동 방지'},
+    '시험 대비': {icon: '✓', title: '시험', hint: '출제 포인트'},
+  }[label] || {icon: '·', title: label, hint: '핵심 설명'};
 }
 
 function renderDetailedExplanation(text) {
