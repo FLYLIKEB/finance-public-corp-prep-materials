@@ -1958,3 +1958,18 @@ select {
   overflow-wrap: break-word;
   white-space: normal;
 }
+
+/* Keep source note inside back page flow */
+.back-page[data-page="2"] {
+  min-height: auto;
+  padding-bottom: .4rem;
+}
+.source-details {
+  position: static !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: 3.8rem;
+  margin-top: .65rem;
+  margin-left: auto;
+  overflow: auto;
+}
