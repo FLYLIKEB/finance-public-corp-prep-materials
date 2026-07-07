@@ -371,6 +371,41 @@ function playCardStartSound() {
   });
 }
 
+function playToneSequence(frequencies, {volume = 0.12, duration = 0.11, gap = 0.045, type = 'sine'} = {}) {
+  const context = ensureAudioContext();
+  if (!context) return;
+  const now = context.currentTime;
+  const gain = context.createGain();
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(volume, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + frequencies.length * gap + duration + 0.08);
+  gain.connect(context.destination);
+  frequencies.forEach((frequency, index) => {
+    const oscillator = context.createOscillator();
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, now + index * gap);
+    oscillator.connect(gain);
+    oscillator.start(now + index * gap);
+    oscillator.stop(now + index * gap + duration);
+  });
+}
+
+function playMoveSound(direction = 1) {
+  playToneSequence(direction >= 0 ? [440, 587.33] : [587.33, 440], {volume: 0.07, duration: 0.08, gap: 0.035});
+}
+
+function playShuffleSound() {
+  playToneSequence([392, 523.25, 493.88], {volume: 0.075, duration: 0.07, gap: 0.032, type: 'triangle'});
+}
+
+function playMarkSound(status) {
+  if (status === 'O') {
+    playToneSequence([523.25, 659.25, 783.99], {volume: 0.11, duration: 0.095, gap: 0.045});
+  } else {
+    playToneSequence([392, 329.63], {volume: 0.095, duration: 0.12, gap: 0.055, type: 'triangle'});
+  }
+}
+
 function playCardDoneSound() {
   const context = ensureAudioContext();
   if (!context) return;
@@ -741,6 +776,7 @@ function move(delta) {
   if (state.audioPlaying) stopAudioPlayback('수동 이동으로 자동 듣기를 정지했습니다.');
   if (!state.filtered.length) return;
   state.index = (state.index + delta + state.filtered.length) % state.filtered.length;
+  playMoveSound(delta);
   state.flipped = false;
   state.backPage = 0;
   renderCard();
@@ -750,6 +786,7 @@ function randomCard() {
   if (state.audioPlaying) stopAudioPlayback('랜덤 이동으로 자동 듣기를 정지했습니다.');
   if (!state.filtered.length) return;
   state.index = Math.floor(Math.random() * state.filtered.length);
+  playShuffleSound();
   state.flipped = false;
   state.backPage = 0;
   renderCard();
@@ -773,7 +810,8 @@ async function mark(status) {
   if (idx >= 0) state.cards[idx] = data.card;
   renderStats(data.summary);
   applyFilters(data.card.id);
-  setMessage(`${data.card.term}: ${statusLabel(status)} 저장됨`);
+  playMarkSound(status);
+  setMessage(`${data.card.term}: ${statusLabel(status)}`);
 }
 
 cardEl.addEventListener('click', (e) => {
