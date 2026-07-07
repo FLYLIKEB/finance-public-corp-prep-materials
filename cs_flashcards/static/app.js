@@ -4,6 +4,7 @@ const state = {
   index: 0,
   flipped: false,
   summary: null,
+  audioPlaying: false,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -39,6 +40,107 @@ function jumpToCard(card) {
   setMessage(`${card.term} 카드로 이동했습니다.`);
   cardEl.focus();
   return true;
+}
+
+
+function selectedSpeechParts() {
+  return {
+    term: $('speakTerm').checked,
+    definition: $('speakDefinition').checked,
+    detail: $('speakDetail').checked,
+    related: $('speakRelated').checked,
+    exam: $('speakExam').checked,
+  };
+}
+
+function plainRelated(text) {
+  return parseRelated(text).join(', ');
+}
+
+function speechTextForCard(card) {
+  const parts = selectedSpeechParts();
+  const lines = [];
+  if (parts.term) lines.push(`카드명. ${card.term}${card.english ? `. ${card.english}` : ''}`);
+  if (parts.definition) lines.push(`간단설명. ${card.definition || ''}`);
+  if (parts.detail) {
+    const detailText = detailedSections(card.detailed_explanation)
+      .map((section) => `${section.label}. ${section.content}`)
+      .join('. ');
+    lines.push(`상세설명. ${detailText}`);
+  }
+  if (parts.related) lines.push(`관련개념. ${plainRelated(card.related_concepts)}`);
+  if (parts.exam) lines.push(`시험포인트. ${card.exam_note || ''}`);
+  return lines.filter((line) => line.replace(/[.\s]/g, '').length > 0).join('. ');
+}
+
+function setAudioButtons() {
+  $('playAudioBtn').textContent = state.audioPlaying ? '▶ 재생 중' : '▶ 재생';
+  $('playAudioBtn').disabled = state.audioPlaying;
+  $('stopAudioBtn').disabled = !state.audioPlaying;
+}
+
+function speakCurrentAndAdvance() {
+  if (!state.audioPlaying || !state.filtered.length) {
+    state.audioPlaying = false;
+    setAudioButtons();
+    return;
+  }
+  state.flipped = false;
+  renderCard();
+  const card = state.filtered[state.index];
+  const text = speechTextForCard(card);
+  if (!text) {
+    moveAudioNext();
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ko-KR';
+  utterance.rate = 1.05;
+  utterance.pitch = 1;
+  utterance.onend = moveAudioNext;
+  utterance.onerror = () => {
+    setMessage('음성 재생 중 오류가 발생했습니다.', true);
+    stopAudioPlayback();
+  };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  setMessage(`자동 듣기: ${state.index + 1} / ${state.filtered.length} · ${card.term}`);
+}
+
+function moveAudioNext() {
+  if (!state.audioPlaying) return;
+  if (!state.filtered.length || state.index >= state.filtered.length - 1) {
+    stopAudioPlayback('자동 듣기가 끝났습니다.');
+    return;
+  }
+  state.index += 1;
+  window.setTimeout(speakCurrentAndAdvance, 220);
+}
+
+function startAudioPlayback() {
+  if (!('speechSynthesis' in window)) {
+    setMessage('이 브라우저는 음성 합성을 지원하지 않습니다.', true);
+    return;
+  }
+  if (!state.filtered.length) {
+    setMessage('재생할 카드가 없습니다.', true);
+    return;
+  }
+  const parts = selectedSpeechParts();
+  if (!Object.values(parts).some(Boolean)) {
+    setMessage('들을 항목을 하나 이상 체크하세요.', true);
+    return;
+  }
+  state.audioPlaying = true;
+  setAudioButtons();
+  speakCurrentAndAdvance();
+}
+
+function stopAudioPlayback(message = '자동 듣기를 정지했습니다.') {
+  state.audioPlaying = false;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  setAudioButtons();
+  setMessage(message);
 }
 
 function statusLabel(value) {
@@ -98,6 +200,7 @@ async function loadCards() {
   applyFilters();
   renderStats(data.summary);
   $('csvPath').textContent = data.summary.csv_path;
+  setAudioButtons();
 }
 
 function buildCategoryOptions(categories) {
@@ -115,6 +218,7 @@ function renderStats(summary) {
 }
 
 function applyFilters(keepCurrentId = null) {
+  if (state.audioPlaying) stopAudioPlayback('필터가 바뀌어 자동 듣기를 정지했습니다.');
   const query = $('searchInput').value.trim().toLowerCase();
   const category = $('categorySelect').value;
   const status = $('statusSelect').value;
@@ -185,6 +289,7 @@ function escapeHtml(value) {
 }
 
 function move(delta) {
+  if (state.audioPlaying) stopAudioPlayback('수동 이동으로 자동 듣기를 정지했습니다.');
   if (!state.filtered.length) return;
   state.index = (state.index + delta + state.filtered.length) % state.filtered.length;
   state.flipped = false;
@@ -192,6 +297,7 @@ function move(delta) {
 }
 
 function randomCard() {
+  if (state.audioPlaying) stopAudioPlayback('랜덤 이동으로 자동 듣기를 정지했습니다.');
   if (!state.filtered.length) return;
   state.index = Math.floor(Math.random() * state.filtered.length);
   state.flipped = false;
@@ -230,6 +336,8 @@ $('shuffleBtn').addEventListener('click', randomCard);
 $('knownBtn').addEventListener('click', () => mark('O'));
 $('unknownBtn').addEventListener('click', () => mark('X'));
 $('unknownOnlyBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
+$('playAudioBtn').addEventListener('click', startAudioPlayback);
+$('stopAudioBtn').addEventListener('click', () => stopAudioPlayback());
 $('searchInput').addEventListener('input', () => { state.index = 0; applyFilters(); });
 $('categorySelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
 $('statusSelect').addEventListener('change', () => { state.index = 0; applyFilters(); });

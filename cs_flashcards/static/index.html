@@ -36,6 +36,21 @@
           <option value="X">모른다 X</option>
         </select>
       </label>
+      <div class="audio-panel" aria-label="자동 음성 재생 설정">
+        <div class="audio-title">자동 듣기</div>
+        <div class="audio-options">
+          <label><input id="speakTerm" type="checkbox" checked /> 카드명</label>
+          <label><input id="speakDefinition" type="checkbox" checked /> 간단설명</label>
+          <label><input id="speakDetail" type="checkbox" /> 상세설명</label>
+          <label><input id="speakRelated" type="checkbox" /> 관련개념</label>
+          <label><input id="speakExam" type="checkbox" /> 시험포인트</label>
+        </div>
+        <div class="audio-buttons">
+          <button id="playAudioBtn" type="button">▶ 재생</button>
+          <button id="stopAudioBtn" type="button">■ 정지</button>
+        </div>
+      </div>
+
       <div class="button-grid">
         <button id="prevBtn" type="button">← 이전</button>
         <button id="nextBtn" type="button">다음 →</button>
@@ -94,10 +109,10 @@
                 <h3>관련 개념</h3>
                 <div id="related" class="chips"></div>
               </section>
-              <section>
-                <h3>출처 파일</h3>
+              <details class="source-details">
+                <summary>출처 파일</summary>
                 <p id="sources" class="small"></p>
-              </section>
+              </details>
               <section>
                 <h3>시험 포인트</h3>
                 <p id="examNote"></p>
