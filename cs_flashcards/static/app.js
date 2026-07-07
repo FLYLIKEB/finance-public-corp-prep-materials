@@ -9,6 +9,7 @@ const state = {
   speechCurrent: null,
   audioContext: null,
   controlsCollapsed: localStorage.getItem('controlsCollapsed') === '1',
+  backPage: 0,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -134,6 +135,7 @@ function jumpToCard(card) {
   if (found < 0) return false;
   state.index = found;
   state.flipped = true;
+  state.backPage = 0;
   renderCard();
   setMessage(`${card.term} 카드로 이동했습니다.`);
   cardEl.focus();
@@ -245,6 +247,7 @@ function speakQueue(items, done) {
   state.speechHighlight = item.key;
   state.speechCurrent = {...item, charIndex: 0};
   state.flipped = item.key !== 'term';
+  state.backPage = ['related', 'exam'].includes(item.key) ? 1 : 0;
   renderCard();
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
@@ -281,6 +284,7 @@ function speakCurrentAndAdvance() {
   const card = state.filtered[state.index];
   const items = speechItemsForCard(card);
   state.flipped = items.length ? items[0].key !== 'term' : false;
+  state.backPage = items.length && ['related', 'exam'].includes(items[0].key) ? 1 : 0;
   state.speechHighlight = null;
   renderCard();
   if (!items.length) {
@@ -562,6 +566,24 @@ function renderStats(summary) {
   $('statUnreviewed').textContent = summary.unreviewed;
 }
 
+function setBackPage(page) {
+  const nextPage = Math.max(0, Math.min(1, page));
+  if (nextPage === state.backPage) return;
+  state.backPage = nextPage;
+  renderBackPage();
+  const scrollArea = document.querySelector('.back-scroll');
+  if (scrollArea) scrollArea.scrollTop = 0;
+}
+
+function renderBackPage() {
+  const page = state.backPage || 0;
+  $('backPageOne')?.classList.toggle('active', page === 0);
+  $('backPageTwo')?.classList.toggle('active', page === 1);
+  if ($('backPageText')) $('backPageText').textContent = `${page + 1} / 2`;
+  if ($('backPagePrev')) $('backPagePrev').disabled = page === 0;
+  if ($('backPageNext')) $('backPageNext').disabled = page === 1;
+}
+
 function applyFilters(keepCurrentId = null) {
   if (state.audioPlaying) stopAudioPlayback('필터가 바뀌어 자동 듣기를 정지했습니다.');
   const query = $('searchInput').value.trim().toLowerCase();
@@ -579,11 +601,13 @@ function applyFilters(keepCurrentId = null) {
     state.index = Math.min(state.index, Math.max(0, state.filtered.length - 1));
   }
   state.flipped = false;
+  state.backPage = 0;
   renderCard();
 }
 
 function renderCard() {
   cardEl.classList.toggle('flipped', state.flipped);
+  renderBackPage();
   const total = state.filtered.length;
   $('positionText').textContent = total ? `${state.index + 1} / ${total}` : '0 / 0';
   const filters = [];
@@ -664,6 +688,7 @@ function move(delta) {
   if (!state.filtered.length) return;
   state.index = (state.index + delta + state.filtered.length) % state.filtered.length;
   state.flipped = false;
+  state.backPage = 0;
   renderCard();
 }
 
@@ -672,6 +697,7 @@ function randomCard() {
   if (!state.filtered.length) return;
   state.index = Math.floor(Math.random() * state.filtered.length);
   state.flipped = false;
+  state.backPage = 0;
   renderCard();
 }
 
@@ -701,9 +727,12 @@ cardEl.addEventListener('click', (e) => {
   state.speechHighlight = null;
   state.speechCurrent = null;
   state.flipped = !state.flipped;
+  if (state.flipped) state.backPage = 0;
   renderCard();
 });
 $('controlsToggle').addEventListener('click', toggleControlsPanel);
+$('backPagePrev').addEventListener('click', () => setBackPage(state.backPage - 1));
+$('backPageNext').addEventListener('click', () => setBackPage(state.backPage + 1));
 $('prevBtn').addEventListener('click', () => move(-1));
 $('nextBtn').addEventListener('click', () => move(1));
 $('shuffleBtn').addEventListener('click', randomCard);
@@ -732,7 +761,9 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') document.activeElement.blur();
     return;
   }
-  if (e.key === ' ') { e.preventDefault(); state.flipped = !state.flipped; renderCard(); }
+  if (e.key === ' ') { e.preventDefault(); state.flipped = !state.flipped; if (state.flipped) state.backPage = 0; renderCard(); }
+  else if (state.flipped && e.key === 'ArrowUp') { e.preventDefault(); setBackPage(state.backPage - 1); }
+  else if (state.flipped && e.key === 'ArrowDown') { e.preventDefault(); setBackPage(state.backPage + 1); }
   else if (e.key === 'ArrowLeft') move(-1);
   else if (e.key === 'ArrowRight') move(1);
   else if (e.key.toLowerCase() === 'o') mark('O');

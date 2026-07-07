@@ -715,3 +715,56 @@ p { line-height: 1.55; }
   height: 1.55rem;
   font-size: .68rem;
 }
+
+.back-page-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .32rem;
+  float: right;
+  margin: -.12rem 0 .35rem .6rem;
+  padding: .22rem;
+  border: 1px solid rgba(216, 210, 200, .62);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .76);
+  backdrop-filter: blur(10px);
+  opacity: .72;
+}
+.back-page-toolbar button {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  font-weight: 900;
+  line-height: 1;
+}
+.back-page-toolbar button:disabled {
+  opacity: .28;
+  cursor: not-allowed;
+}
+.back-page-toolbar span {
+  min-width: 2.55rem;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 820;
+  text-align: center;
+}
+.back-page {
+  display: none;
+  clear: both;
+  animation: backPageFade .16s ease-out;
+}
+.back-page.active {
+  display: block;
+}
+@keyframes backPageFade {
+  from { opacity: .35; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.back-page[data-page="2"] .concept-graph {
+  margin-top: .1rem;
+}
