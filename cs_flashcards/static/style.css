@@ -2542,3 +2542,17 @@ select,
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+/* Fix flip faces staying in the same absolute slot */
+.card-face,
+.front,
+.back {
+  position: absolute !important;
+  inset: 0 !important;
+}
+.front {
+  transform: rotateY(0deg);
+}
+.back {
+  transform: rotateY(180deg);
+}
