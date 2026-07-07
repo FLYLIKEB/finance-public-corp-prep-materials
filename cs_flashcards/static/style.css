@@ -2417,3 +2417,57 @@ select,
   height: 2.28rem;
   min-height: 2.28rem;
 }
+
+
+/* Card metadata as small top-left text */
+.front,
+.back {
+  position: relative;
+}
+.front .badges,
+.back .badges {
+  position: absolute;
+  top: .95rem;
+  left: 1.05rem;
+  z-index: 2;
+  margin: 0;
+  gap: .38rem;
+  justify-content: flex-start;
+  opacity: .62;
+  filter: none;
+}
+.front .badge,
+.back .badge,
+.front .category-badge,
+.back .category-badge,
+.front .status,
+.back #backId {
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  color: rgba(36, 54, 79, .58) !important;
+  font-size: .72rem;
+  font-weight: 440 !important;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: visible;
+}
+.front .status::before,
+.back #backId::before {
+  content: "·";
+  margin-right: .38rem;
+  color: rgba(36, 54, 79, .34);
+}
+.front:hover .badges,
+.back:hover .badges,
+.flashcard:focus-within .badges {
+  opacity: .78;
+}
+.back .term-line {
+  padding-top: 1.15rem;
+}
+.front .term-line {
+  margin-top: .9rem;
+}
