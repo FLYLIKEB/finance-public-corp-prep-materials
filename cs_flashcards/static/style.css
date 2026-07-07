@@ -223,6 +223,7 @@ h3 {
   letter-spacing: -0.02em;
 }
 p { line-height: 1.72; }
+.formatted-detail { white-space: pre-line; }
 .small { font-size: .95rem; color: var(--muted); }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .chip {

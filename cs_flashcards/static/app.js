@@ -59,6 +59,16 @@ function parseRelated(text) {
   return (text || '').split(',').map((x) => x.trim()).filter(Boolean);
 }
 
+function formatDetailedExplanation(text) {
+  const source = String(text || '').trim();
+  if (!source) return '';
+  return source
+    .replace(/\s+(동작\/활용:)/g, '\n\n$1')
+    .replace(/\s+(관련 개념:)/g, '\n\n$1')
+    .replace(/\s+(구분 포인트:)/g, '\n\n$1')
+    .replace(/\s+(시험 대비:)/g, '\n\n$1');
+}
+
 async function loadCards() {
   const res = await fetch('/api/cards');
   if (!res.ok) throw new Error(await res.text());
@@ -144,7 +154,7 @@ function renderCard() {
   $('backId').textContent = c.id;
   $('backTerm').textContent = `${c.term}${c.english ? ' / ' + c.english : ''}`;
   $('definition').textContent = c.definition || '';
-  $('detail').textContent = c.detailed_explanation || '';
+  $('detail').textContent = formatDetailedExplanation(c.detailed_explanation);
   $('sources').textContent = c.source_files || '';
   $('examNote').textContent = c.exam_note || '';
   const related = parseRelated(c.related_concepts);
