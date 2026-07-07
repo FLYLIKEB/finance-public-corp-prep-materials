@@ -1028,7 +1028,15 @@ function setStatusFilter(status) {
   applyFilters();
 }
 
-$('logoRefreshBtn').addEventListener('click', () => refreshCards().catch((err) => setMessage(err.message, true)));
+function reloadFromLogo(event) {
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  if (state.audioPlaying) stopAudioPlayback('정지');
+  window.location.reload();
+}
+
+$('logoRefreshBtn').addEventListener('click', reloadFromLogo);
+$('logoRefreshBtn').addEventListener('touchend', reloadFromLogo, {passive: false});
 document.querySelectorAll('[data-status-filter]').forEach((button) => button.addEventListener('click', () => setStatusFilter(button.dataset.statusFilter)));
 $('controlsToggle').addEventListener('click', toggleControlsPanel);
 $('positionInput').addEventListener('change', () => jumpFromInput());

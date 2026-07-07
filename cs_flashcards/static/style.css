@@ -3335,3 +3335,23 @@ select,
     z-index: 201 !important;
   }
 }
+
+/* Make CS refresh logo a reliable tap target */
+.logo-refresh {
+  min-width: 2.35rem;
+  min-height: 2.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 150;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 600px) {
+  .logo-refresh {
+    min-width: 2.75rem !important;
+    min-height: 2.75rem !important;
+    margin: -.28rem 0 -.2rem -.18rem;
+  }
+}
