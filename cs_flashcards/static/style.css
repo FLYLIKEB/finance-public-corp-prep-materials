@@ -1827,3 +1827,34 @@ select {
 .has-tip:disabled::after {
   display: none;
 }
+
+/* Keep tooltips above card surfaces */
+.layout,
+.panel,
+.controls,
+.mark-row,
+.topbar,
+.back-page-toolbar {
+  overflow: visible;
+}
+.panel,
+.topbar,
+.mark-row,
+.back-page-toolbar {
+  position: relative;
+  z-index: 80;
+}
+.study-area {
+  position: relative;
+  z-index: 1;
+}
+.flashcard {
+  z-index: 1;
+}
+.has-tip {
+  isolation: isolate;
+  z-index: 90;
+}
+.has-tip::after {
+  z-index: 9999;
+}
