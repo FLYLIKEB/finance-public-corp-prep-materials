@@ -446,15 +446,34 @@ function currentWordHtml(text, key, detailLabel = null) {
   return html;
 }
 
+function detailMeta(label) {
+  return {
+    '의미': {icon: '💡', title: '무슨 뜻인가요?', hint: '정의·핵심 의미'},
+    '동작/활용': {icon: '⚙️', title: '어떻게 작동하나요?', hint: '동작 방식·쓰임새'},
+    '관련 개념': {icon: '🔗', title: '무엇과 연결되나요?', hint: '같이 묶어 볼 개념'},
+    '구분 포인트': {icon: '🧭', title: '무엇과 구분하나요?', hint: '비교·혼동 방지'},
+    '시험 대비': {icon: '🎯', title: '어떻게 출제되나요?', hint: '암기·판별 포인트'},
+  }[label] || {icon: '📌', title: label, hint: '핵심 설명'};
+}
+
 function renderDetailedExplanation(text) {
   const sections = detailedSections(text);
   if (!sections.length) return `<div class="detail-card"><p>${currentWordHtml(text || '', 'detail')}</p></div>`;
-  return sections.map((section) => `
-    <article class="detail-card detail-${escapeHtml(section.label.replace(/[^가-힣A-Za-z0-9]/g, '-'))}">
-      <div class="detail-label">${escapeHtml(section.label)}</div>
-      <p>${currentWordHtml(section.content, 'detail', section.label)}</p>
-    </article>
-  `).join('');
+  return sections.map((section) => {
+    const meta = detailMeta(section.label);
+    return `
+      <article class="detail-card detail-${escapeHtml(section.label.replace(/[^가-힣A-Za-z0-9]/g, '-'))}">
+        <div class="detail-heading">
+          <span class="detail-icon" aria-hidden="true">${escapeHtml(meta.icon)}</span>
+          <div>
+            <div class="detail-label" data-raw-label="${escapeHtml(section.label)}">${escapeHtml(meta.title)}</div>
+            <div class="detail-hint">${escapeHtml(meta.hint)}</div>
+          </div>
+        </div>
+        <p>${currentWordHtml(section.content, 'detail', section.label)}</p>
+      </article>
+    `;
+  }).join('');
 }
 
 
@@ -671,7 +690,7 @@ function applySpeechHighlight() {
     term: state.flipped ? document.querySelector('.back-term-line') : document.querySelector('.front-term-line'),
     definition: $('definition').closest('section'),
     detail: current.detailLabel
-      ? [...document.querySelectorAll('.detail-card')].find((card) => card.querySelector('.detail-label')?.textContent === current.detailLabel)
+      ? [...document.querySelectorAll('.detail-card')].find((card) => card.querySelector('.detail-label')?.dataset.rawLabel === current.detailLabel)
       : $('detail'),
     related: $('related').closest('section'),
     exam: $('examNote').closest('section'),

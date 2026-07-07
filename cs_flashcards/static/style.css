@@ -360,43 +360,78 @@ p { line-height: 1.55; }
 
 .detail-grid {
   display: grid;
-  gap: .48rem;
-  margin-top: .38rem;
+  gap: .55rem;
+  margin-top: .42rem;
 }
 .detail-card {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: #fff;
-  padding: .62rem .72rem;
-  box-shadow: 0 6px 16px rgba(29, 25, 20, .035);
+  --detail-color: var(--accent);
+  --detail-soft: var(--accent-soft);
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--detail-color) 22%, var(--line));
+  border-left: 6px solid var(--detail-color);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff 0%, var(--detail-soft) 165%);
+  padding: .68rem .78rem .72rem;
+  box-shadow: 0 8px 18px rgba(29, 25, 20, .045);
 }
 .detail-card p {
-  margin: .34rem 0 0;
-  color: #232323;
+  margin: .48rem 0 0;
+  color: #202020;
   line-height: 1.52;
   font-size: .9rem;
 }
-.detail-label {
+.detail-heading {
+  display: grid;
+  grid-template-columns: 2.15rem 1fr;
+  align-items: center;
+  gap: .55rem;
+}
+.detail-icon {
   display: inline-flex;
   align-items: center;
-  min-height: 1.38rem;
-  padding: .12rem .48rem;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: .74rem;
-  font-weight: 820;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 13px;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--detail-color) 24%, var(--line));
+  box-shadow: 0 5px 12px rgba(29, 25, 20, .045);
+  font-size: 1.12rem;
+}
+.detail-label {
+  color: var(--detail-color);
+  font-size: .98rem;
+  font-weight: 920;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+.detail-hint {
+  margin-top: .12rem;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 760;
   letter-spacing: -0.02em;
 }
 .detail-의미 {
-  border-color: rgba(31, 58, 95, .18);
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  --detail-color: #2563eb;
+  --detail-soft: #eff6ff;
 }
-.detail-의미 .detail-label { background: #e9f1fb; }
-.detail-동작-활용 .detail-label { background: #eef8f1; color: var(--known); }
-.detail-관련-개념 .detail-label { background: #f6f0ff; color: #6044a3; }
-.detail-구분-포인트 .detail-label { background: #fff7e8; color: #8a5a05; }
-.detail-시험-대비 .detail-label { background: var(--unknown-soft); color: var(--unknown); }
+.detail-동작-활용 {
+  --detail-color: #168047;
+  --detail-soft: #f0fdf4;
+}
+.detail-관련-개념 {
+  --detail-color: #7c3aed;
+  --detail-soft: #f5f3ff;
+}
+.detail-구분-포인트 {
+  --detail-color: #c26a00;
+  --detail-soft: #fff7ed;
+}
+.detail-시험-대비 {
+  --detail-color: #dc2626;
+  --detail-soft: #fef2f2;
+}
 @media (min-width: 1180px) {
   .detail-grid { grid-template-columns: 1fr 1fr; }
   .detail-의미, .detail-시험-대비 { grid-column: 1 / -1; }
