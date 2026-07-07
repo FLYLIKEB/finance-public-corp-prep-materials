@@ -6,6 +6,7 @@ const state = {
   summary: null,
   audioPlaying: false,
   speechHighlight: null,
+  speechCurrent: null,
   audioContext: null,
 };
 
@@ -67,17 +68,56 @@ function plainRelated(text) {
 function speechItemsForCard(card) {
   const parts = selectedSpeechParts();
   const items = [];
-  if (parts.term) items.push({key: 'term', text: `카드명. ${card.term}${card.english ? `. ${card.english}` : ''}`});
-  if (parts.definition) items.push({key: 'definition', text: `간단설명. ${card.definition || ''}`});
-  if (parts.detail) {
-    const detailText = detailedSections(card.detailed_explanation)
-      .map((section) => `${section.label}. ${section.content}`)
-      .join('. ');
-    items.push({key: 'detail', text: `상세설명. ${detailText}`});
+  if (parts.term) {
+    const prefix = '카드명. ';
+    items.push({key: 'term', text: `${prefix}${card.term}`, targetText: card.term, prefixLength: prefix.length});
   }
-  if (parts.related) items.push({key: 'related', text: `관련개념. ${plainRelated(card.related_concepts)}`});
-  if (parts.exam) items.push({key: 'exam', text: `시험포인트. ${card.exam_note || ''}`});
+  if (parts.definition) {
+    const prefix = '간단설명. ';
+    const targetText = card.definition || '';
+    items.push({key: 'definition', text: `${prefix}${targetText}`, targetText, prefixLength: prefix.length});
+  }
+  if (parts.detail) {
+    detailedSections(card.detailed_explanation).forEach((section) => {
+      const prefix = `상세설명. ${section.label}. `;
+      items.push({key: 'detail', detailLabel: section.label, text: `${prefix}${section.content}`, targetText: section.content, prefixLength: prefix.length});
+    });
+  }
+  if (parts.related) {
+    const prefix = '관련개념. ';
+    const targetText = plainRelated(card.related_concepts);
+    items.push({key: 'related', text: `${prefix}${targetText}`, targetText, prefixLength: prefix.length});
+  }
+  if (parts.exam) {
+    const prefix = '시험포인트. ';
+    const targetText = card.exam_note || '';
+    items.push({key: 'exam', text: `${prefix}${targetText}`, targetText, prefixLength: prefix.length});
+  }
   return items.filter((item) => item.text.replace(/[.\s]/g, '').length > 0);
+}
+
+
+function preferredVoiceForItem(item) {
+  const voices = window.speechSynthesis?.getVoices?.() || [];
+  if (!voices.length) return null;
+  const koreanVoices = voices.filter((voice) => /ko|Korean|한국|한국어/i.test(`${voice.lang} ${voice.name}`));
+  const pool = koreanVoices.length ? koreanVoices : voices;
+  if (item.key === 'term') {
+    return pool.find((voice) => /male|남성|man|injoon|준|yuna male/i.test(voice.name))
+      || pool.find((voice) => !/female|여성|woman|heami|yuna|유나/i.test(voice.name))
+      || pool[0];
+  }
+  return pool.find((voice) => /female|여성|woman|heami|yuna|유나/i.test(voice.name))
+    || pool[0];
+}
+
+function speechPitchForItem(item) {
+  return item.key === 'term' ? 0.62 : 1;
+}
+
+function speechRateForItem(item) {
+  const baseRate = speechRate();
+  return item.key === 'term' ? Math.max(0.85, baseRate * 0.92) : baseRate;
 }
 
 function speakQueue(items, done) {
@@ -85,17 +125,26 @@ function speakQueue(items, done) {
   const item = items.shift();
   if (!item) {
     state.speechHighlight = null;
+    state.speechCurrent = null;
     renderCard();
     done();
     return;
   }
   state.speechHighlight = item.key;
+  state.speechCurrent = {...item, charIndex: 0};
   state.flipped = item.key !== 'term';
   renderCard();
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
-  utterance.rate = speechRate();
-  utterance.pitch = 1;
+  const preferredVoice = preferredVoiceForItem(item);
+  if (preferredVoice) utterance.voice = preferredVoice;
+  utterance.rate = speechRateForItem(item);
+  utterance.pitch = speechPitchForItem(item);
+  utterance.onboundary = (event) => {
+    if (!state.audioPlaying || !state.speechCurrent) return;
+    state.speechCurrent.charIndex = Math.max(0, (event.charIndex || 0) - item.prefixLength);
+    renderCard();
+  };
   utterance.onend = () => speakQueue(items, done);
   utterance.onerror = () => {
     setMessage('음성 재생 중 오류가 발생했습니다.', true);
@@ -193,6 +242,7 @@ function startAudioPlayback() {
     return;
   }
   unlockAudioContext();
+  window.speechSynthesis.getVoices();
   if (!state.filtered.length) {
     setMessage('재생할 카드가 없습니다.', true);
     return;
@@ -210,6 +260,7 @@ function startAudioPlayback() {
 function stopAudioPlayback(message = '자동 듣기를 정지했습니다.') {
   state.audioPlaying = false;
   state.speechHighlight = null;
+  state.speechCurrent = null;
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   setAudioButtons();
   setMessage(message);
@@ -251,13 +302,41 @@ function detailedSections(text) {
   }).filter(Boolean);
 }
 
+function currentWordHtml(text, key, detailLabel = null) {
+  const source = String(text || '');
+  const current = state.speechCurrent;
+  const shouldHighlight = current
+    && current.key === key
+    && (detailLabel === null || current.detailLabel === detailLabel);
+  if (!shouldHighlight) return escapeHtml(source);
+
+  const charIndex = Math.max(0, current.charIndex || 0);
+  const matches = [...source.matchAll(/\S+/g)];
+  let activeIndex = matches.findIndex((match) => charIndex >= match.index && charIndex < match.index + match[0].length);
+  if (activeIndex < 0) {
+    activeIndex = matches.findIndex((match) => charIndex < match.index);
+    if (activeIndex < 0 && matches.length) activeIndex = matches.length - 1;
+  }
+
+  let html = '';
+  let cursor = 0;
+  matches.forEach((match, index) => {
+    html += escapeHtml(source.slice(cursor, match.index));
+    const word = escapeHtml(match[0]);
+    html += index === activeIndex ? `<span class="current-word">${word}</span>` : word;
+    cursor = match.index + match[0].length;
+  });
+  html += escapeHtml(source.slice(cursor));
+  return html;
+}
+
 function renderDetailedExplanation(text) {
   const sections = detailedSections(text);
-  if (!sections.length) return `<div class="detail-card"><p>${escapeHtml(text || '')}</p></div>`;
+  if (!sections.length) return `<div class="detail-card"><p>${currentWordHtml(text || '', 'detail')}</p></div>`;
   return sections.map((section) => `
     <article class="detail-card detail-${escapeHtml(section.label.replace(/[^가-힣A-Za-z0-9]/g, '-'))}">
       <div class="detail-label">${escapeHtml(section.label)}</div>
-      <p>${escapeHtml(section.content)}</p>
+      <p>${currentWordHtml(section.content, 'detail', section.label)}</p>
     </article>
   `).join('');
 }
@@ -332,7 +411,7 @@ function renderCard() {
   $('frontCategory').textContent = c.category || '-';
   $('frontStatus').textContent = statusLabel(c.known_status);
   $('frontStatus').className = `badge status ${c.known_status === 'O' ? 'o' : c.known_status === 'X' ? 'x' : ''}`;
-  $('frontTerm').textContent = c.term;
+  $('frontTerm').innerHTML = currentWordHtml(c.term, 'term');
   $('frontEnglish').textContent = c.english || '';
   const namuKoUrl = namuSearchUrl(c.term);
   const namuEnUrl = namuSearchUrl(c.english || c.term);
@@ -347,29 +426,19 @@ function renderCard() {
 
   $('backCategory').textContent = c.category || '-';
   $('backId').textContent = c.id;
-  $('backTerm').textContent = `${c.term}${c.english ? ' / ' + c.english : ''}`;
-  $('definition').textContent = c.definition || '';
+  $('backTerm').innerHTML = `${currentWordHtml(c.term, 'term')}${c.english ? ' / ' + escapeHtml(c.english) : ''}`;
+  $('definition').innerHTML = currentWordHtml(c.definition || '', 'definition');
   $('detail').innerHTML = renderDetailedExplanation(c.detailed_explanation);
   $('sources').textContent = c.source_files || '';
-  $('examNote').textContent = c.exam_note || '';
+  $('examNote').innerHTML = currentWordHtml(c.exam_note || '', 'exam');
   const related = parseRelated(c.related_concepts);
-  $('related').innerHTML = related.map((r) => `<button class="chip" type="button" data-term="${escapeHtml(r)}">${escapeHtml(r)}</button>`).join('') || '<span class="muted">없음</span>';
+  $('related').innerHTML = related.map((r) => `<button class="chip" type="button" data-term="${escapeHtml(r)}">${currentWordHtml(r, 'related')}</button>`).join('') || '<span class="muted">없음</span>';
   applySpeechHighlight();
 }
 
 
 function applySpeechHighlight() {
   document.querySelectorAll('.speaking').forEach((element) => element.classList.remove('speaking'));
-  const key = state.speechHighlight;
-  if (!key) return;
-  const target = {
-    term: state.flipped ? document.querySelector('.back-term-line') : document.querySelector('.front-term-line'),
-    definition: $('definition').closest('section'),
-    detail: $('detail'),
-    related: $('related').closest('section'),
-    exam: $('examNote').closest('section'),
-  }[key];
-  if (target) target.classList.add('speaking');
 }
 
 function escapeHtml(value) {
@@ -416,6 +485,7 @@ async function mark(status) {
 cardEl.addEventListener('click', (e) => {
   if (e.target.closest('button, a')) return;
   state.speechHighlight = null;
+  state.speechCurrent = null;
   state.flipped = !state.flipped;
   renderCard();
 });

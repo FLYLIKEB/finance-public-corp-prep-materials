@@ -353,22 +353,19 @@ p { line-height: 1.55; }
 }
 
 
-.speaking {
-  border-color: rgba(220, 38, 38, .42) !important;
-  background: #fff5f5 !important;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, .08), 0 8px 20px rgba(220, 38, 38, .08) !important;
+@keyframes currentWordPulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(220, 38, 38, .18); }
+  50% { box-shadow: 0 0 0 5px rgba(220, 38, 38, .08); }
 }
-.speaking h2,
-.speaking h3,
-.speaking p,
-.speaking .detail-label,
-.speaking .chip,
-.speaking a {
+.current-word {
+  display: inline;
   color: #dc2626 !important;
-}
-.detail-grid.speaking .detail-card {
-  border-color: rgba(220, 38, 38, .34);
-  background: #fff7f7;
+  background: #fee2e2;
+  border: 1px solid rgba(220, 38, 38, .35);
+  border-radius: .36em;
+  padding: .02em .18em;
+  font-weight: 900;
+  animation: currentWordPulse .9s ease-in-out infinite;
 }
 
 .mark-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
