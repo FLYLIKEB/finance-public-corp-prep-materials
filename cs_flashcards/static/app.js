@@ -174,7 +174,9 @@ function plainRelated(text) {
 function speechItemsForCard(card) {
   const parts = selectedSpeechParts();
   const items = [];
-  // 카드명은 TTS로 읽지 않고 카드 시작 효과음으로 대체합니다.
+  if (parts.term) {
+    items.push({key: 'term', text: card.term, targetText: card.term, prefixLength: 0});
+  }
   if (parts.definition) {
     const prefix = '간단설명. ';
     const targetText = card.definition || '';
