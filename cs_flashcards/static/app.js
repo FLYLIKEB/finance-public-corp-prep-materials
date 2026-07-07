@@ -6,6 +6,7 @@ const state = {
   summary: null,
   audioPlaying: false,
   speechHighlight: null,
+  audioContext: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -130,25 +131,49 @@ function speakCurrentAndAdvance() {
 }
 
 
-function playCardDoneSound() {
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-  const context = new AudioContextClass();
-  const gain = context.createGain();
-  gain.gain.setValueAtTime(0.0001, context.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + 0.015);
-  gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.24);
-  gain.connect(context.destination);
 
-  [660, 880].forEach((frequency, index) => {
+function ensureAudioContext() {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return null;
+  if (!state.audioContext || state.audioContext.state === 'closed') {
+    state.audioContext = new AudioContextClass();
+  }
+  if (state.audioContext.state === 'suspended') {
+    state.audioContext.resume().catch(() => {});
+  }
+  return state.audioContext;
+}
+
+function unlockAudioContext() {
+  const context = ensureAudioContext();
+  if (!context) return;
+  const gain = context.createGain();
+  gain.gain.value = 0.0001;
+  gain.connect(context.destination);
+  const oscillator = context.createOscillator();
+  oscillator.connect(gain);
+  oscillator.start();
+  oscillator.stop(context.currentTime + 0.02);
+}
+
+function playCardDoneSound() {
+  const context = ensureAudioContext();
+  if (!context) return;
+  const now = context.currentTime;
+  const master = context.createGain();
+  master.gain.setValueAtTime(0.0001, now);
+  master.gain.exponentialRampToValueAtTime(0.22, now + 0.018);
+  master.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
+  master.connect(context.destination);
+
+  [784, 1046.5, 1318.5].forEach((frequency, index) => {
     const oscillator = context.createOscillator();
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(frequency, context.currentTime + index * 0.08);
-    oscillator.connect(gain);
-    oscillator.start(context.currentTime + index * 0.08);
-    oscillator.stop(context.currentTime + index * 0.08 + 0.15);
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(frequency, now + index * 0.075);
+    oscillator.connect(master);
+    oscillator.start(now + index * 0.075);
+    oscillator.stop(now + index * 0.075 + 0.18);
   });
-  window.setTimeout(() => context.close().catch(() => {}), 420);
 }
 
 function moveAudioNext() {
@@ -167,6 +192,7 @@ function startAudioPlayback() {
     setMessage('이 브라우저는 음성 합성을 지원하지 않습니다.', true);
     return;
   }
+  unlockAudioContext();
   if (!state.filtered.length) {
     setMessage('재생할 카드가 없습니다.', true);
     return;
