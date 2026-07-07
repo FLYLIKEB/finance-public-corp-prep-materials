@@ -711,7 +711,7 @@ async function refreshCards() {
 
 function buildCategoryOptions(categories) {
   const current = $('categorySelect').value;
-  $('categorySelect').innerHTML = '<option value="">▦ 전체</option>' +
+  $('categorySelect').innerHTML = '<option value="">▦ *</option>' +
     categories.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   $('categorySelect').value = current;
 }
