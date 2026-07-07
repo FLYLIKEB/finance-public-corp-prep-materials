@@ -84,6 +84,7 @@ function speakQueue(items, done) {
     return;
   }
   state.speechHighlight = item.key;
+  state.flipped = item.key !== 'term';
   renderCard();
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
@@ -110,11 +111,11 @@ function speakCurrentAndAdvance() {
     setAudioButtons();
     return;
   }
-  state.flipped = true;
-  state.speechHighlight = null;
-  renderCard();
   const card = state.filtered[state.index];
   const items = speechItemsForCard(card);
+  state.flipped = items.length ? items[0].key !== 'term' : false;
+  state.speechHighlight = null;
+  renderCard();
   if (!items.length) {
     moveAudioNext();
     return;
@@ -308,7 +309,7 @@ function applySpeechHighlight() {
   const key = state.speechHighlight;
   if (!key) return;
   const target = {
-    term: document.querySelector('.back-term-line'),
+    term: state.flipped ? document.querySelector('.back-term-line') : document.querySelector('.front-term-line'),
     definition: $('definition').closest('section'),
     detail: $('detail'),
     related: $('related').closest('section'),
