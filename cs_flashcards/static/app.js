@@ -238,22 +238,17 @@ function speechItemsForCard(card) {
 }
 
 
-function preferredVoiceForItem(item) {
+function preferredVoiceForItem(_item) {
   const voices = window.speechSynthesis?.getVoices?.() || [];
   if (!voices.length) return null;
   const koreanVoices = voices.filter((voice) => /ko|Korean|한국|한국어/i.test(`${voice.lang} ${voice.name}`));
   const pool = koreanVoices.length ? koreanVoices : voices;
-  if (item.key === 'term') {
-    return pool.find((voice) => /male|남성|man|injoon|준|yuna male/i.test(voice.name))
-      || pool.find((voice) => !/female|여성|woman|heami|yuna|유나/i.test(voice.name))
-      || pool[0];
-  }
   return pool.find((voice) => /female|여성|woman|heami|yuna|유나/i.test(voice.name))
     || pool[0];
 }
 
-function speechPitchForItem(item) {
-  return item.key === 'term' ? 0.88 : 1;
+function speechPitchForItem(_item) {
+  return 1;
 }
 
 function speechRateForItem(item) {
