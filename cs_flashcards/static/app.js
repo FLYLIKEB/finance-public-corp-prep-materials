@@ -360,7 +360,6 @@ function speakQueue(items, done) {
   state.flipped = item.key !== 'term';
   state.backPage = item.key === 'exam' ? 1 : 0;
   renderCard();
-  scheduleFallbackWordHighlight(item, token);
 
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
@@ -379,11 +378,33 @@ function speakQueue(items, done) {
     finish();
   };
 
-  setSpeechTimer(finish, estimatedItemDurationMs(item) + 900);
-  try {
-    window.speechSynthesis.speak(utterance);
-  } catch (_error) {
+  let watchdogExtensions = 0;
+  const finishWhenSpeechIsIdle = () => {
+    if (finished || !state.audioPlaying || state.speechToken !== token) return;
+    const synthesis = window.speechSynthesis;
+    if ((synthesis?.speaking || synthesis?.pending) && watchdogExtensions < 16) {
+      watchdogExtensions += 1;
+      setSpeechTimer(finishWhenSpeechIsIdle, 500);
+      return;
+    }
     finish();
+  };
+
+  const speak = () => {
+    if (!state.audioPlaying || state.speechToken !== token) return;
+    scheduleFallbackWordHighlight(item, token);
+    setSpeechTimer(finishWhenSpeechIsIdle, estimatedItemDurationMs(item) + 1400);
+    try {
+      window.speechSynthesis.speak(utterance);
+    } catch (_error) {
+      finish();
+    }
+  };
+
+  if (item.key === 'term') {
+    setSpeechTimer(speak, 320);
+  } else {
+    speak();
   }
 }
 
