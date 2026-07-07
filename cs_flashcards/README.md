@@ -46,5 +46,5 @@ git push
 수동으로 즉시 서버에 반영해야 할 때만 아래 명령을 사용합니다.
 
 ```bash
-CS_FLASHCARDS_PASSWORD="$(cat .omx/cs_flashcards_public_password)" ./cs_flashcards/scripts/deploy_lightsail_flashcards.sh
+CS_FLASHCARDS_PASSWORD="$(cat cs_flashcards/.omx/cs_flashcards_public_password)" ./cs_flashcards/scripts/deploy_lightsail_flashcards.sh
 ```

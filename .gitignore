@@ -7,3 +7,5 @@ __pycache__/
 cs_flashcards/backups/
 
 .omx/
+
+cs_flashcards/.omx/
