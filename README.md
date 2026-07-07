@@ -73,3 +73,38 @@ CS_FLASHCARDS_USERNAME=cs CS_FLASHCARDS_PASSWORD='원하는비밀번호' ./run_p
 ```bash
 rm .omx/cs_flashcards_tunnel.env
 ```
+
+### chamung.com 도메인 활용
+
+ChaLog 설정 기준 `chamung.com`은 현재 Vercel DNS를 사용합니다. 그래서 Cloudflare DNS 자동 라우팅은 아니고, `cs.chamung.com` 같은 서브도메인을 Cloudflare Tunnel CNAME으로 연결하는 방식입니다.
+
+기본 권장 주소:
+
+```text
+https://cs.chamung.com
+```
+
+최초 1회:
+
+```bash
+./setup_chamung_flashcards_tunnel.sh
+```
+
+다른 서브도메인을 쓰고 싶으면:
+
+```bash
+./setup_chamung_flashcards_tunnel.sh flashcards.chamung.com
+```
+
+이 스크립트는:
+
+- Cloudflare named tunnel을 생성/재사용합니다.
+- `chamung.com`이 Vercel DNS임을 감지합니다.
+- 가능하면 Vercel CLI로 CNAME을 자동 추가합니다.
+- 자동 추가가 실패하면 Vercel 대시보드에 넣을 CNAME 값을 출력합니다.
+
+설정 후 실행은 항상 동일합니다.
+
+```bash
+./run_public_flashcards.sh
+```

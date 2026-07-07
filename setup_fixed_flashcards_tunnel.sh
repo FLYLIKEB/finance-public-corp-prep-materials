@@ -11,16 +11,21 @@ CONFIG_FILE="$PID_DIR/cs_flashcards_tunnel.env"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 USERNAME="${CS_FLASHCARDS_USERNAME:-cs}"
 PASSWORD_FILE="$PID_DIR/cs_flashcards_public_password"
+DNS_PROVIDER=""
+TUNNEL_ID=""
+CNAME_TARGET=""
 
 if [[ -z "$HOSTNAME" ]]; then
   cat >&2 <<'EOF'
 사용법:
   ./setup_fixed_flashcards_tunnel.sh cards.example.com
+  ./setup_chamung_flashcards_tunnel.sh
 
 필수 조건:
   - Cloudflare 계정이 있어야 합니다.
-  - 해당 도메인이 Cloudflare DNS에 연결되어 있어야 합니다.
-  - 예: cards.your-domain.com
+  - 고정주소로 쓸 도메인/서브도메인이 있어야 합니다.
+  - Cloudflare DNS면 자동 route dns를 사용합니다.
+  - Vercel DNS면 CNAME을 자동 추가하거나 수동 추가 안내를 출력합니다.
 EOF
   exit 2
 fi
@@ -57,6 +62,115 @@ PY
   chmod 600 "$PASSWORD_FILE" 2>/dev/null || true
 }
 
+base_domain() {
+  "$PYTHON_BIN" - "$HOSTNAME" <<'PY'
+import sys
+host = sys.argv[1].strip('.').lower()
+parts = host.split('.')
+print('.'.join(parts[-2:]) if len(parts) >= 2 else host)
+PY
+}
+
+subdomain_part() {
+  "$PYTHON_BIN" - "$HOSTNAME" "$(base_domain)" <<'PY'
+import sys
+host = sys.argv[1].strip('.').lower()
+base = sys.argv[2].strip('.').lower()
+if host == base:
+    print('@')
+elif host.endswith('.' + base):
+    print(host[:-(len(base)+1)])
+else:
+    print(host)
+PY
+}
+
+detect_dns_provider() {
+  local base ns
+  base="$(base_domain)"
+  ns="$(dig +short "$base" NS 2>/dev/null | tr '[:upper:]' '[:lower:]' | tr '\n' ' ')"
+  if [[ "$ns" == *cloudflare* ]]; then
+    DNS_PROVIDER="cloudflare"
+  elif [[ "$ns" == *vercel-dns* ]] || [[ "$ns" == *zeit-world* ]]; then
+    DNS_PROVIDER="vercel"
+  else
+    DNS_PROVIDER="manual"
+  fi
+}
+
+read_tunnel_id() {
+  TUNNEL_ID="$(cloudflared tunnel list --name "$TUNNEL_NAME" --output json 2>/dev/null | "$PYTHON_BIN" -c 'import json,sys; data=json.load(sys.stdin); data=data.get("tunnels", data.get("result", [])) if isinstance(data, dict) else data; print((data[0].get("id") or data[0].get("ID") or "") if data else "")' 2>/dev/null || true)"
+  if [[ -z "$TUNNEL_ID" ]]; then
+    TUNNEL_ID="$(find "$HOME/.cloudflared" -maxdepth 1 -name '*.json' -type f -print 2>/dev/null | while read -r f; do "$PYTHON_BIN" - "$f" "$TUNNEL_NAME" <<'PY'
+import json, sys
+from pathlib import Path
+path = Path(sys.argv[1])
+name = sys.argv[2]
+try:
+    data = json.loads(path.read_text())
+except Exception:
+    data = {}
+if data.get('TunnelName') == name and data.get('TunnelID'):
+    print(data['TunnelID'])
+PY
+done | head -n 1)"
+  fi
+  if [[ -z "$TUNNEL_ID" ]]; then
+    printf 'Tunnel UUID를 확인하지 못했습니다. cloudflared tunnel list를 확인하세요.\n' >&2
+    exit 1
+  fi
+  CNAME_TARGET="${TUNNEL_ID}.cfargotunnel.com"
+}
+
+configure_dns() {
+  detect_dns_provider
+  read_tunnel_id
+  case "$DNS_PROVIDER" in
+    cloudflare)
+      printf 'Cloudflare DNS 라우팅 설정: %s -> %s\n' "$HOSTNAME" "$TUNNEL_NAME"
+      cloudflared tunnel route dns --overwrite-dns "$TUNNEL_NAME" "$HOSTNAME"
+      ;;
+    vercel)
+      local base sub
+      base="$(base_domain)"
+      sub="$(subdomain_part)"
+      printf 'Vercel DNS 감지: %s\n' "$base"
+      if command -v vercel >/dev/null 2>&1; then
+        if vercel dns add "$base" "$sub" CNAME "$CNAME_TARGET" --non-interactive; then
+          printf 'Vercel DNS CNAME 추가 완료: %s -> %s\n' "$HOSTNAME" "$CNAME_TARGET"
+        else
+          cat <<EOF
+
+⚠️ Vercel DNS 자동 추가에 실패했습니다. Vercel 대시보드에서 직접 추가하세요.
+도메인: $base
+Type: CNAME
+Name: $sub
+Value: $CNAME_TARGET
+EOF
+        fi
+      else
+        cat <<EOF
+
+⚠️ Vercel CLI가 없습니다. Vercel 대시보드에서 직접 추가하세요.
+도메인: $base
+Type: CNAME
+Name: $sub
+Value: $CNAME_TARGET
+EOF
+      fi
+      ;;
+    *)
+      cat <<EOF
+
+⚠️ DNS 제공자를 자동 인식하지 못했습니다. DNS 관리자에서 직접 CNAME을 추가하세요.
+Type: CNAME
+Name: $HOSTNAME
+Value: $CNAME_TARGET
+EOF
+      ;;
+  esac
+}
+
 install_cloudflared_if_needed
 make_password_if_needed
 
@@ -72,8 +186,7 @@ else
   cloudflared tunnel create "$TUNNEL_NAME"
 fi
 
-printf 'DNS 라우팅 설정: %s -> %s\n' "$HOSTNAME" "$TUNNEL_NAME"
-cloudflared tunnel route dns --overwrite-dns "$TUNNEL_NAME" "$HOSTNAME"
+configure_dns
 
 cat > "$CONFIG_FILE" <<EOF
 CS_FLASHCARDS_PUBLIC_HOSTNAME="$HOSTNAME"
@@ -90,6 +203,8 @@ cat <<EOF
 아이디: $USERNAME
 비밀번호: $(cat "$PASSWORD_FILE")
 Tunnel: $TUNNEL_NAME
+DNS: $DNS_PROVIDER
+CNAME: ${CNAME_TARGET:-Cloudflare route dns}
 설정파일: $CONFIG_FILE
 
 앞으로는 아래 명령만 실행하면 같은 주소로 열립니다:
