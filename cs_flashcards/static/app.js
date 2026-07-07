@@ -234,6 +234,47 @@ function speechRateForItem(item) {
   return baseRate;
 }
 
+function estimateSpeechSeconds() {
+  if (!state.filtered.length) return 0;
+  const chars = state.filtered.reduce((total, card) => {
+    return total + speechItemsForCard(card).reduce((sum, item) => sum + item.text.replace(/\s+/g, '').length, 0);
+  }, 0);
+  const baseCharsPerSecond = 7.2;
+  const speechSeconds = chars / (baseCharsPerSecond * speechRate());
+  const transitionSeconds = Math.max(0, state.filtered.length - 1) * 0.62;
+  const chimeSeconds = state.filtered.length * 0.26;
+  return Math.ceil(speechSeconds + transitionSeconds + chimeSeconds);
+}
+
+function formatDuration(seconds) {
+  if (!seconds) return '0초';
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  if (minutes >= 60) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}시간 ${mins}분`;
+  }
+  if (minutes > 0) return `${minutes}분 ${rest}초`;
+  return `${rest}초`;
+}
+
+function updateAudioEstimate() {
+  const el = $('audioEstimate');
+  if (!el) return;
+  const parts = selectedSpeechParts();
+  if (!Object.values(parts).some(Boolean)) {
+    el.textContent = '들을 항목을 선택하면 예상 시간이 표시됩니다.';
+    return;
+  }
+  if (!state.filtered.length) {
+    el.textContent = '현재 검색 범위에 재생할 카드가 없습니다.';
+    return;
+  }
+  const seconds = estimateSpeechSeconds();
+  el.textContent = `예상 재생시간 약 ${formatDuration(seconds)} · ${state.filtered.length}개 카드 기준`;
+}
+
 function speakQueue(items, done) {
   if (!state.audioPlaying) return;
   const item = items.shift();
@@ -569,6 +610,7 @@ async function loadCards() {
   renderStats(data.summary);
   $('csvPath').textContent = data.summary.csv_path;
   setAudioButtons();
+  updateAudioEstimate();
 }
 
 function buildCategoryOptions(categories) {
@@ -622,6 +664,7 @@ function applyFilters(keepCurrentId = null) {
   state.flipped = false;
   state.backPage = 0;
   renderCard();
+  updateAudioEstimate();
 }
 
 function renderCard() {
@@ -760,6 +803,9 @@ $('unknownBtn').addEventListener('click', () => mark('X'));
 $('unknownOnlyBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
 $('playAudioBtn').addEventListener('click', startAudioPlayback);
 $('stopAudioBtn').addEventListener('click', () => stopAudioPlayback());
+['speakTerm', 'speakDefinition', 'speakDetail', 'speakRelated', 'speakExam', 'speechRate'].forEach((id) => {
+  $(id).addEventListener('change', updateAudioEstimate);
+});
 $('searchInput').addEventListener('input', () => { state.index = 0; applyFilters(); });
 $('categorySelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
 $('statusSelect').addEventListener('change', () => { state.index = 0; applyFilters(); });

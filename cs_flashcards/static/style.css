@@ -873,3 +873,14 @@ p { line-height: 1.55; }
 .detail-관련-개념 .detail-icon { color: #5856d6; background: rgba(88, 86, 214, .09); }
 .detail-구분-포인트 .detail-icon { color: #b25000; background: rgba(255, 149, 0, .1); }
 .detail-시험-대비 .detail-icon { color: #d70015; background: rgba(255, 59, 48, .09); }
+
+.audio-estimate {
+  color: rgba(60, 60, 67, .72);
+  background: rgba(31, 58, 95, .045);
+  border: 1px solid rgba(31, 58, 95, .08);
+  border-radius: 12px;
+  padding: .48rem .58rem;
+  font-size: .78rem;
+  font-weight: 720;
+  line-height: 1.35;
+}
