@@ -1779,3 +1779,51 @@ select {
   align-items: center;
   justify-content: center;
 }
+
+/* Hover tooltips for icon buttons */
+.has-tip {
+  position: relative;
+}
+.has-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: calc(100% + .45rem);
+  top: 50%;
+  transform: translateY(-50%) translateX(-3px);
+  z-index: 50;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  padding: .3rem .48rem;
+  border-radius: 9px;
+  background: rgba(17, 24, 39, .88);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 650;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .14);
+  transition: opacity .12s ease, transform .12s ease;
+}
+.has-tip:hover::after,
+.has-tip:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.header-actions .has-tip::after,
+.mark-row .has-tip::after,
+.back-page-toolbar .has-tip::after {
+  left: 50%;
+  top: auto;
+  bottom: calc(100% + .42rem);
+  transform: translateX(-50%) translateY(3px);
+}
+.header-actions .has-tip:hover::after,
+.header-actions .has-tip:focus-visible::after,
+.mark-row .has-tip:hover::after,
+.mark-row .has-tip:focus-visible::after,
+.back-page-toolbar .has-tip:hover::after,
+.back-page-toolbar .has-tip:focus-visible::after {
+  transform: translateX(-50%) translateY(0);
+}
+.has-tip:disabled::after {
+  display: none;
+}

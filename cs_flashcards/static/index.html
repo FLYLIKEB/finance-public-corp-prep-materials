@@ -17,7 +17,7 @@
       <input id="searchInput" type="search" placeholder="검색" />
     </div>
     <div class="header-actions">
-      <button id="refreshBtn" class="icon-btn" type="button" title="새로고침" aria-label="새로고침">↻</button>
+      <button id="refreshBtn" class="icon-btn has-tip" type="button" title="새로고침" aria-label="새로고침" data-tip="새로고침">↻</button>
     </div>
     <div class="stats" aria-live="polite">
       <span title="전체">Σ <strong id="statTotal">0</strong></span>
@@ -30,12 +30,12 @@
   <main class="layout">
     <aside id="controlsPanel" class="panel controls">
       <div class="collapsed-quick-actions" aria-label="빠른 자동 듣기">
-        <button id="collapsedPlayBtn" type="button" title="재생">▶</button>
-        <button id="collapsedStopBtn" type="button" title="정지">■</button>
-        <button id="collapsedShuffleBtn" type="button" title="랜덤">↯</button>
-        <button id="collapsedUnknownBtn" type="button" title="X만 복습">X</button>
+        <button id="collapsedPlayBtn" class="has-tip" type="button" title="재생" data-tip="자동 듣기 재생">▶</button>
+        <button id="collapsedStopBtn" class="has-tip" type="button" title="정지" data-tip="자동 듣기 정지">■</button>
+        <button id="collapsedShuffleBtn" class="has-tip" type="button" title="랜덤" data-tip="랜덤 카드">↯</button>
+        <button id="collapsedUnknownBtn" class="has-tip" type="button" title="X만 복습" data-tip="X만 복습">X</button>
       </div>
-      <button id="controlsToggle" class="controls-toggle" type="button" aria-expanded="true" aria-controls="controlsBody">검색/필터 접기</button>
+      <button id="controlsToggle" class="controls-toggle has-tip" type="button" aria-expanded="true" aria-controls="controlsBody" data-tip="필터 열기/접기">검색/필터 접기</button>
       <div id="controlsBody" class="controls-body">
       <label title="카테고리">▦
         <select id="categorySelect"><option value="">전체</option></select>
@@ -66,14 +66,14 @@
         </label>
         <div id="audioEstimate" class="audio-estimate" aria-live="polite">예상 재생시간 계산 중...</div>
         <div class="audio-buttons">
-          <button id="playAudioBtn" type="button" title="재생">▶</button>
-          <button id="stopAudioBtn" type="button" title="정지">■</button>
+          <button id="playAudioBtn" class="has-tip" type="button" title="재생" data-tip="자동 듣기 재생">▶</button>
+          <button id="stopAudioBtn" class="has-tip" type="button" title="정지" data-tip="자동 듣기 정지">■</button>
         </div>
       </div>
 
       <div class="button-grid">
-        <button id="shuffleBtn" type="button" title="랜덤">↯</button>
-        <button id="unknownOnlyBtn" type="button" title="모른다만 복습">X</button>
+        <button id="shuffleBtn" class="has-tip" type="button" title="랜덤" data-tip="랜덤 카드">↯</button>
+        <button id="unknownOnlyBtn" class="has-tip" type="button" title="모른다만 복습" data-tip="X만 복습">X</button>
       </div>
       <p class="hint">Space · ←/→ · ↑/↓ · O/X</p>
       <p id="message" class="message" role="status"></p>
@@ -119,9 +119,9 @@
                 </span>
               </div>
               <div class="back-page-toolbar" aria-label="카드 뒷면 페이지 이동">
-                <button id="backPagePrev" type="button" aria-label="이전 뒷면 페이지">↑</button>
+                <button id="backPagePrev" class="has-tip" type="button" aria-label="이전 뒷면 페이지" data-tip="윗 페이지">↑</button>
                 <span id="backPageText">1 / 2</span>
-                <button id="backPageNext" type="button" aria-label="다음 뒷면 페이지">↓</button>
+                <button id="backPageNext" class="has-tip" type="button" aria-label="다음 뒷면 페이지" data-tip="아랫 페이지">↓</button>
               </div>
               <div id="backPageOne" class="back-page active" data-page="1">
                 <section>
@@ -154,8 +154,8 @@
       </article>
 
       <div class="mark-row">
-        <button id="knownBtn" class="mark known" type="button" title="안다">O</button>
-        <button id="unknownBtn" class="mark unknown" type="button" title="모른다">X</button>
+        <button id="knownBtn" class="mark known has-tip" type="button" title="안다" data-tip="안다">O</button>
+        <button id="unknownBtn" class="mark unknown has-tip" type="button" title="모른다" data-tip="모른다">X</button>
       </div>
     </section>
   </main>
