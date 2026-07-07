@@ -192,7 +192,7 @@ function speechItemsForCard(card) {
     items.push({key: 'definition', text: `${prefix}${targetText}`, targetText, prefixLength: prefix.length});
   }
   if (parts.detail) {
-    detailedSections(card.detailed_explanation).forEach((section) => {
+    detailedSections(card.detailed_explanation).filter((section) => section.label !== '구분 포인트').forEach((section) => {
       const prefix = `상세설명. ${section.label}. `;
       items.push({key: 'detail', detailLabel: section.label, text: `${prefix}${section.content}`, targetText: section.content, prefixLength: prefix.length});
     });
@@ -457,7 +457,7 @@ function detailMeta(label) {
 }
 
 function renderDetailedExplanation(text) {
-  const sections = detailedSections(text);
+  const sections = detailedSections(text).filter((section) => section.label !== '구분 포인트');
   if (!sections.length) return `<div class="detail-card"><p>${currentWordHtml(text || '', 'detail')}</p></div>`;
   return sections.map((section) => {
     const meta = detailMeta(section.label);
