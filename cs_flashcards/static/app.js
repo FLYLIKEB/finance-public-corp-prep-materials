@@ -124,14 +124,37 @@ function speakCurrentAndAdvance() {
   window.setTimeout(() => speakQueue([...items], moveAudioNext), 260);
 }
 
+
+function playCardDoneSound() {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return;
+  const context = new AudioContextClass();
+  const gain = context.createGain();
+  gain.gain.setValueAtTime(0.0001, context.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + 0.015);
+  gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.24);
+  gain.connect(context.destination);
+
+  [660, 880].forEach((frequency, index) => {
+    const oscillator = context.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, context.currentTime + index * 0.08);
+    oscillator.connect(gain);
+    oscillator.start(context.currentTime + index * 0.08);
+    oscillator.stop(context.currentTime + index * 0.08 + 0.15);
+  });
+  window.setTimeout(() => context.close().catch(() => {}), 420);
+}
+
 function moveAudioNext() {
   if (!state.audioPlaying) return;
+  playCardDoneSound();
   if (!state.filtered.length || state.index >= state.filtered.length - 1) {
-    stopAudioPlayback('자동 듣기가 끝났습니다.');
+    window.setTimeout(() => stopAudioPlayback('자동 듣기가 끝났습니다.'), 260);
     return;
   }
   state.index += 1;
-  window.setTimeout(speakCurrentAndAdvance, 220);
+  window.setTimeout(speakCurrentAndAdvance, 360);
 }
 
 function startAudioPlayback() {
