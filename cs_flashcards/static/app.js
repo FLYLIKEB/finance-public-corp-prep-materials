@@ -129,7 +129,7 @@ function jumpToCard(card) {
   state.flipped = true;
   state.backPage = 0;
   renderCard();
-  setMessage(`${card.term} 카드로 이동했습니다.`);
+  setMessage(`${card.term}`);
   cardEl.focus();
   return true;
 }
@@ -143,7 +143,7 @@ function applyControlsCollapsed() {
   panel.classList.toggle('collapsed', state.controlsCollapsed);
   document.body.classList.toggle('controls-collapsed', state.controlsCollapsed);
   button.setAttribute('aria-expanded', String(!state.controlsCollapsed));
-  button.textContent = state.controlsCollapsed ? '검색' : '검색/필터 접기';
+  button.textContent = state.controlsCollapsed ? '⌕' : '⌕ 접기';
 }
 
 function toggleControlsPanel() {
@@ -256,15 +256,15 @@ function updateAudioEstimate() {
   if (!el) return;
   const parts = selectedSpeechParts();
   if (!Object.values(parts).some(Boolean)) {
-    el.textContent = '들을 항목을 선택하면 예상 시간이 표시됩니다.';
+    el.textContent = '항목 선택';
     return;
   }
   if (!state.filtered.length) {
-    el.textContent = '현재 검색 범위에 재생할 카드가 없습니다.';
+    el.textContent = '0개';
     return;
   }
   const seconds = estimateSpeechSeconds();
-  el.textContent = `예상 재생시간 약 ${formatDuration(seconds)} · ${state.filtered.length}개 카드 기준`;
+  el.textContent = `≈ ${formatDuration(seconds)} · ${state.filtered.length}`;
 }
 
 function speakQueue(items, done) {
@@ -303,7 +303,7 @@ function speakQueue(items, done) {
 }
 
 function setAudioButtons() {
-  $('playAudioBtn').textContent = state.audioPlaying ? '▶ 재생 중' : '▶ 재생';
+  $('playAudioBtn').textContent = state.audioPlaying ? '…' : '▶';
   $('playAudioBtn').disabled = state.audioPlaying;
   $('stopAudioBtn').disabled = !state.audioPlaying;
 }
@@ -324,7 +324,7 @@ function speakCurrentAndAdvance() {
     moveAudioNext();
     return;
   }
-  setMessage(`자동 듣기: ${state.index + 1} / ${state.filtered.length} · ${card.term}`);
+  setMessage(`▶ ${state.index + 1}/${state.filtered.length} · ${card.term}`);
   window.setTimeout(() => speakQueue([...items], moveAudioNext), 260);
 }
 
@@ -416,9 +416,9 @@ function stopAudioPlayback(message = '자동 듣기를 정지했습니다.') {
 }
 
 function statusLabel(value) {
-  if (value === 'O') return '안다 O';
-  if (value === 'X') return '모른다 X';
-  return '미학습';
+  if (value === 'O') return 'O';
+  if (value === 'X') return 'X';
+  return '–';
 }
 
 function setMessage(text, isError = false) {
@@ -576,16 +576,16 @@ function renderConceptGraph(card) {
   const expandedHtml = expanded.map((item) => conceptNodeHtml(item.card || item.name, {kind: 'expanded', count: item.count})).join('');
 
   return `
-    <div class="graph-guide">핵심 연결만 추렸습니다. 노드를 누르면 해당 카드로 이동합니다.</div>
+    <div class="graph-guide"></div>
     <div class="graph-center ${centerMeta.className}">
       <span>${escapeHtml(categoryLabel(card.category))}</span>
       <strong>${escapeHtml(card.term)}</strong>
       ${card.english ? `<small>${escapeHtml(card.english)}</small>` : ''}
     </div>
-    <div class="graph-tier-label">바로 이어지는 개념</div>
+    <div class="graph-tier-label">1차</div>
     <div class="graph-links graph-direct-links">${directHtml}</div>
     ${expandedHtml ? `
-      <div class="graph-tier-label expanded">다음 추천 카드</div>
+      <div class="graph-tier-label expanded">추천</div>
       <div class="graph-links graph-expanded-links">${expandedHtml}</div>
     ` : '<div class="graph-empty muted">2차 확장 개념은 아직 충분하지 않습니다.</div>'}
   `;

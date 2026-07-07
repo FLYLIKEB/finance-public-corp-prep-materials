@@ -1180,3 +1180,100 @@ select {
 .flashcard .front::after {
   background: linear-gradient(90deg, #8aa0bd, transparent);
 }
+
+/* Text reduction pass */
+h1 {
+  min-width: 2.2rem;
+}
+.stats span {
+  min-width: 2.45rem;
+  text-align: center;
+}
+.controls-toggle {
+  font-size: 1.15rem;
+}
+.controls-toggle::before {
+  content: "";
+  margin: 0;
+}
+.controls.collapsed .controls-toggle {
+  writing-mode: horizontal-tb;
+  min-height: 3rem;
+  width: 3rem;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 1.2rem;
+}
+.controls.collapsed {
+  padding: .5rem;
+  width: 4rem;
+}
+.controls-collapsed .layout {
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+}
+.audio-title {
+  font-size: 1rem;
+  line-height: 1;
+}
+.audio-options label,
+.audio-rate-label,
+.hint,
+.message {
+  font-size: .78rem;
+}
+.audio-buttons button,
+.button-grid button {
+  min-height: 2.65rem;
+  font-weight: 840;
+  font-size: 1.02rem;
+}
+.mark {
+  font-size: 1.18rem;
+  padding: .72rem;
+}
+.front .badges,
+.front .external-links,
+.back .badges,
+.back .external-links {
+  opacity: .18;
+}
+.back:hover .badges,
+.back:hover .external-links,
+.front:hover .badges,
+.front:hover .external-links,
+.flashcard:focus-within .badges,
+.flashcard:focus-within .external-links {
+  opacity: .46;
+}
+.category-badge {
+  max-width: 2.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.back .category-badge,
+.graph-center .node-category,
+.concept-node .node-category {
+  max-width: none;
+}
+.graph-guide:empty {
+  display: none;
+}
+.graph-tier-label {
+  font-size: .68rem;
+  padding: .13rem .46rem;
+}
+.graph-tier-label::before {
+  margin-right: .18rem;
+}
+.back-page-toolbar span {
+  min-width: 2rem;
+  font-size: .72rem;
+}
+.back-page-toolbar button {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+.audio-estimate {
+  padding: .36rem .48rem;
+  font-size: .72rem;
+}
