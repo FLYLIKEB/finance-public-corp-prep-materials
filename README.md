@@ -79,21 +79,30 @@ rm .omx/cs_flashcards_tunnel.env
 ChaLog 설정을 확인한 결과 `chamung.com`은 현재 **Vercel DNS**를 사용합니다.
 Cloudflare Tunnel 고정주소는 `<UUID>.cfargotunnel.com` CNAME을 쓰지만, 이 대상은 같은 Cloudflare 계정의 DNS 레코드에서만 프록시됩니다. 따라서 Vercel DNS에 CNAME만 추가하는 방식으로는 `cs.chamung.com`을 바로 연결할 수 없습니다.
 
-`https://cs.chamung.com`을 쓰려면 먼저 `chamung.com`의 네임서버를 Cloudflare로 이전해야 합니다. 이전 후 최초 1회:
+현재는 Cloudflare 네임서버 이전 없이, 아래의 Lightsail + Vercel HTTPS 프록시 방식을 최종 구성으로 사용합니다.
+
+## 휴대폰 공개 접속: Lightsail + Vercel HTTPS 프록시
+
+플래시카드 앱과 CSV 저장은 기존 Lightsail 서버에서 처리하고, `cs.chamung.com`의 HTTPS 접속만 Vercel이 프록시합니다. Lightsail 외부 방화벽에서 443이 닫혀 있어도 아이폰/외부망에서는 HTTPS 주소를 사용할 수 있습니다.
+
+- 공개 주소: `https://cs.chamung.com`
+- 로그인: `cs` / `az980831`
+- 원본 주소: `http://cs-origin.chamung.com` -> Lightsail `3.39.48.139`
+- 서버 경로: `/home/ubuntu/cs-flashcards`
+- systemd 서비스: `cs-flashcards`
+- 서버 CSV: `/home/ubuntu/cs-flashcards/pages/CS_encyclopedia_300plus.csv`
+
+Lightsail 앱 재배포:
 
 ```bash
-./setup_chamung_flashcards_tunnel.sh
+./deploy_lightsail_flashcards.sh
 ```
 
-이후 실행:
+Vercel HTTPS 프록시 재배포:
 
 ```bash
-./run_public_flashcards.sh
+vercel --cwd vercel-cs-proxy --prod --yes
 ```
 
-아직 DNS를 Cloudflare로 옮기지 않았다면 임시 주소 모드를 사용하세요.
+DNS는 `cs.chamung.com -> Vercel(A 76.76.21.21)`, `cs-origin.chamung.com -> Lightsail(A 3.39.48.139)` 구조입니다. 두 레코드를 분리해야 프록시 루프가 생기지 않습니다.
 
-```bash
-rm -f .omx/cs_flashcards_tunnel.env
-./run_public_flashcards.sh
-```
