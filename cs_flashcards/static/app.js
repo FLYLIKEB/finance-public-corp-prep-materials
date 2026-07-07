@@ -8,7 +8,7 @@ const state = {
   speechHighlight: null,
   speechCurrent: null,
   audioContext: null,
-  controlsCollapsed: localStorage.getItem('controlsCollapsed') === '1',
+  controlsCollapsed: localStorage.getItem('controlsCollapsed') !== '0',
   backPage: 0,
 };
 
@@ -87,19 +87,11 @@ function frontIllustrationUrl(card) {
   const category = card?.category || '';
   const color = CATEGORY_COLORS[category] || '#1f3a5f';
   const meta = categoryMeta(category);
-  const term = String(card?.term || '').trim();
-  const english = String(card?.english || '').trim();
-  const keyword = xmlEscape(term.slice(0, 10));
-  const sub = xmlEscape(english.slice(0, 18));
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
-    <rect width="900" height="560" fill="white"/>
-    <circle cx="450" cy="280" r="212" fill="${xmlEscape(color)}" opacity="0.038"/>
-    <circle cx="450" cy="280" r="128" fill="none" stroke="${xmlEscape(color)}" stroke-width="12" opacity="0.028"/>
+    <circle cx="450" cy="280" r="210" fill="${xmlEscape(color)}" opacity="0.055"/>
+    <circle cx="450" cy="280" r="132" fill="none" stroke="${xmlEscape(color)}" stroke-width="14" opacity="0.05"/>
     <g transform="translate(98 8) scale(2)">${categorySymbolSvg(category, color)}</g>
-    <text x="450" y="174" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif" font-size="126" font-weight="800" fill="${xmlEscape(color)}" opacity="0.045">${xmlEscape(meta.emoji)}</text>
-    <text x="450" y="422" text-anchor="middle" font-family="'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif" font-size="56" font-weight="800" fill="${xmlEscape(color)}" opacity="0.06">${keyword}</text>
-    <text x="450" y="476" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="${xmlEscape(color)}" opacity="0.05">${sub}</text>
-    <path d="M154 470 C292 420, 368 504, 450 456 S608 420, 746 470" fill="none" stroke="${xmlEscape(color)}" stroke-width="10" stroke-linecap="round" opacity="0.04"/>
+    <text x="450" y="174" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif" font-size="124" font-weight="800" fill="${xmlEscape(color)}" opacity="0.07">${xmlEscape(meta.emoji)}</text>
   </svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
@@ -151,7 +143,7 @@ function applyControlsCollapsed() {
   panel.classList.toggle('collapsed', state.controlsCollapsed);
   document.body.classList.toggle('controls-collapsed', state.controlsCollapsed);
   button.setAttribute('aria-expanded', String(!state.controlsCollapsed));
-  button.textContent = state.controlsCollapsed ? '검색/필터 열기' : '검색/필터 접기';
+  button.textContent = state.controlsCollapsed ? '검색' : '검색/필터 접기';
 }
 
 function toggleControlsPanel() {
@@ -569,11 +561,11 @@ function expandedConcepts(card, directCards) {
 
   return [...scores.values()]
     .sort((a, b) => b.count - a.count || (a.card?.category || '').localeCompare(b.card?.category || '') || a.name.localeCompare(b.name))
-    .slice(0, 10);
+    .slice(0, 4);
 }
 
 function renderConceptGraph(card) {
-  const directCards = relatedTargetCards(card).slice(0, 8);
+  const directCards = relatedTargetCards(card).slice(0, 5);
   const expanded = expandedConcepts(card, directCards);
   const centerMeta = categoryMeta(card.category);
   if (!directCards.length) {
@@ -584,16 +576,16 @@ function renderConceptGraph(card) {
   const expandedHtml = expanded.map((item) => conceptNodeHtml(item.card || item.name, {kind: 'expanded', count: item.count})).join('');
 
   return `
-    <div class="graph-guide">현재 개념에서 바로 이어지는 개념과, 그 다음에 함께 묶어 볼 2차 확장 개념입니다.</div>
+    <div class="graph-guide">핵심 연결만 추렸습니다. 노드를 누르면 해당 카드로 이동합니다.</div>
     <div class="graph-center ${centerMeta.className}">
       <span>${escapeHtml(categoryLabel(card.category))}</span>
       <strong>${escapeHtml(card.term)}</strong>
       ${card.english ? `<small>${escapeHtml(card.english)}</small>` : ''}
     </div>
-    <div class="graph-tier-label">1차 직접 관련</div>
+    <div class="graph-tier-label">바로 이어지는 개념</div>
     <div class="graph-links graph-direct-links">${directHtml}</div>
     ${expandedHtml ? `
-      <div class="graph-tier-label expanded">2차 확장 연결</div>
+      <div class="graph-tier-label expanded">다음 추천 카드</div>
       <div class="graph-links graph-expanded-links">${expandedHtml}</div>
     ` : '<div class="graph-empty muted">2차 확장 개념은 아직 충분하지 않습니다.</div>'}
   `;

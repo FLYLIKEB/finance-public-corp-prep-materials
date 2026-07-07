@@ -884,3 +884,188 @@ p { line-height: 1.55; }
   font-weight: 720;
   line-height: 1.35;
 }
+
+/* Focused study hierarchy pass */
+.topbar {
+  align-items: center;
+  padding: .72rem clamp(1rem, 2.4vw, 2rem);
+  background: rgba(255, 255, 255, .76);
+}
+h1 {
+  margin: 0;
+  font-size: clamp(1.06rem, 1.8vw, 1.42rem);
+  font-weight: 820;
+}
+#csvPath {
+  display: none;
+}
+.stats {
+  gap: .28rem;
+  opacity: .64;
+}
+.stats span {
+  padding: .25rem .48rem;
+  font-size: .76rem;
+  background: rgba(255,255,255,.54);
+}
+.stats strong {
+  font-weight: 720;
+}
+.layout {
+  max-width: 1500px;
+  padding-top: clamp(.7rem, 2vw, 1.45rem);
+}
+.controls:not(.collapsed) {
+  max-height: calc(100vh - 6.5rem);
+  overflow: auto;
+}
+.controls.collapsed {
+  position: sticky;
+  top: 5.2rem;
+}
+.flashcard {
+  min-height: min(72vh, 700px);
+}
+.card-inner {
+  min-height: min(72vh, 700px);
+}
+.back-scroll {
+  max-height: calc(min(72vh, 700px) - 1.2rem);
+}
+.front::before {
+  opacity: 1;
+  background-size: min(64vw, 520px) auto;
+}
+.front .badges,
+.front .external-links {
+  opacity: .22;
+}
+.front:hover .badges,
+.front:hover .external-links,
+.flashcard:focus-within .front .badges,
+.flashcard:focus-within .front .external-links {
+  opacity: .5;
+}
+h2 {
+  font-size: clamp(1.9rem, 4.1vw, 3.35rem);
+  font-weight: 680;
+  letter-spacing: -0.055em;
+}
+.front h2 {
+  text-shadow: 0 1px 0 rgba(255,255,255,.82), 0 10px 34px rgba(255,255,255,.88);
+}
+.english {
+  color: rgba(31, 58, 95, .78);
+  font-size: clamp(.86rem, 1.4vw, 1.05rem);
+}
+.back section { margin-top: .48rem; }
+.back h2 {
+  font-size: clamp(1.18rem, 2.15vw, 1.78rem);
+}
+.back .term-line {
+  margin-bottom: .35rem;
+}
+.detail-grid {
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: .46rem;
+}
+@media (min-width: 1180px) {
+  .detail-grid { grid-template-columns: 1fr 1fr; }
+  .detail-의미, .detail-시험-대비 { grid-column: auto; }
+}
+.detail-card {
+  min-height: 8.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.chips {
+  gap: .28rem;
+}
+.chip {
+  padding: .24rem .48rem;
+  font-size: .78rem;
+  background: rgba(238, 243, 248, .72);
+}
+.concept-graph {
+  padding: .62rem;
+  gap: .46rem;
+}
+.graph-guide {
+  font-size: .72rem;
+  margin-bottom: 0;
+}
+.graph-center {
+  min-width: min(100%, 15rem);
+  padding: .42rem .62rem;
+  border-radius: 14px;
+  box-shadow: none;
+}
+.graph-links {
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: .36rem;
+}
+.graph-edge-card {
+  grid-template-rows: .26rem auto;
+}
+.graph-line {
+  height: .26rem;
+  opacity: .55;
+}
+.concept-node {
+  min-height: 3.45rem;
+  padding: .38rem .46rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,.74) !important;
+}
+.concept-node strong {
+  font-size: .8rem;
+}
+.concept-node small,
+.graph-center small {
+  font-size: .65rem;
+}
+.node-category,
+.graph-center span {
+  font-size: .61rem;
+  opacity: .65;
+}
+.graph-expanded-links .concept-node {
+  opacity: .78;
+}
+.source-details,
+#examNote {
+  font-size: .84rem;
+}
+.audio-panel,
+.button-grid button,
+.controls-toggle,
+input,
+select {
+  box-shadow: none;
+}
+
+/* Final density corrections after visual audit */
+.flashcard,
+.card-inner {
+  min-height: min(64vh, 620px);
+}
+.back-scroll {
+  max-height: calc(min(64vh, 620px) - 1.2rem);
+}
+.front::before {
+  background-size: min(58vw, 470px) auto;
+}
+.controls.collapsed .controls-toggle {
+  min-height: 6.8rem;
+  letter-spacing: .02em;
+}
+.controls-collapsed .layout {
+  grid-template-columns: 3.9rem minmax(0, 1fr);
+}
+.mark-row {
+  gap: .75rem;
+}
+.mark {
+  padding: .82rem;
+}
