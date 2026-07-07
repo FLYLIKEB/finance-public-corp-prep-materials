@@ -175,6 +175,42 @@ h2 {
   letter-spacing: -0.06em;
 }
 .back h2 { font-size: clamp(1.65rem, 3.8vw, 3rem); }
+
+.term-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .72rem;
+  width: 100%;
+}
+.back-term-line { justify-content: flex-start; align-items: flex-start; }
+.term-line h2 { margin-right: .1rem; }
+.wiki-link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1.45rem;
+  line-height: 1;
+  transform: translateY(.1rem);
+  transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.wiki-link:hover {
+  background: var(--accent-soft);
+  border-color: rgba(31, 58, 95, .2);
+  box-shadow: 0 10px 24px rgba(29, 25, 20, .07);
+  transform: translateY(0);
+}
+.front-term-line .wiki-link { margin-top: .55rem; }
+.back-term-line .wiki-link { margin-top: .7rem; }
+
 .english { color: var(--accent); font-size: clamp(1.05rem, 2.4vw, 1.55rem); margin: .3rem 0; }
 .tap-hint { margin-top: 2rem; color: var(--muted); }
 

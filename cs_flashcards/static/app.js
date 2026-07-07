@@ -9,6 +9,11 @@ const state = {
 const $ = (id) => document.getElementById(id);
 const cardEl = $('card');
 
+function wikiSearchUrl(card) {
+  const query = [card.term, card.english].filter(Boolean).join(' ');
+  return `https://ko.wikipedia.org/w/index.php?search=${encodeURIComponent(query)}`;
+}
+
 function statusLabel(value) {
   if (value === 'O') return '안다 O';
   if (value === 'X') return '모른다 X';
@@ -87,6 +92,8 @@ function renderCard() {
     $('frontEnglish').textContent = '필터 조건을 바꿔주세요.';
     $('frontCategory').textContent = '-';
     $('frontStatus').textContent = '-';
+    $('frontWikiLink').href = '#';
+    $('backWikiLink').href = '#';
     return;
   }
 
@@ -96,6 +103,11 @@ function renderCard() {
   $('frontStatus').className = `badge status ${c.known_status === 'O' ? 'o' : c.known_status === 'X' ? 'x' : ''}`;
   $('frontTerm').textContent = c.term;
   $('frontEnglish').textContent = c.english || '';
+  const wikiUrl = wikiSearchUrl(c);
+  $('frontWikiLink').href = wikiUrl;
+  $('frontWikiLink').title = `${c.term} 위키백과 검색`;
+  $('backWikiLink').href = wikiUrl;
+  $('backWikiLink').title = `${c.term} 위키백과 검색`;
 
   $('backCategory').textContent = c.category || '-';
   $('backId').textContent = c.id;
@@ -148,7 +160,7 @@ async function mark(status) {
 }
 
 cardEl.addEventListener('click', (e) => {
-  if (e.target.closest('button')) return;
+  if (e.target.closest('button, a')) return;
   state.flipped = !state.flipped;
   renderCard();
 });
