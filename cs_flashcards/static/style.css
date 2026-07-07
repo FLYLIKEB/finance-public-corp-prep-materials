@@ -235,6 +235,52 @@ input:focus, select:focus {
 .badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
 .front .badges { justify-content: center; }
 .badge { background: #fff; }
+
+.category-badge {
+  font-weight: 850;
+  border-width: 1.5px;
+}
+.flashcard.cat-database { --cat-color: #2563eb; --cat-bg: #eff6ff; --cat-border: #bfdbfe; }
+.flashcard.cat-os { --cat-color: #475569; --cat-bg: #f1f5f9; --cat-border: #cbd5e1; }
+.flashcard.cat-network { --cat-color: #0891b2; --cat-bg: #ecfeff; --cat-border: #a5f3fc; }
+.flashcard.cat-algorithm { --cat-color: #7c3aed; --cat-bg: #f5f3ff; --cat-border: #ddd6fe; }
+.flashcard.cat-language { --cat-color: #16a34a; --cat-bg: #f0fdf4; --cat-border: #bbf7d0; }
+.flashcard.cat-software { --cat-color: #ca8a04; --cat-bg: #fefce8; --cat-border: #fde68a; }
+.flashcard.cat-architecture { --cat-color: #9333ea; --cat-bg: #faf5ff; --cat-border: #e9d5ff; }
+.flashcard.cat-security { --cat-color: #dc2626; --cat-bg: #fef2f2; --cat-border: #fecaca; }
+.flashcard.cat-cloud { --cat-color: #0284c7; --cat-bg: #f0f9ff; --cat-border: #bae6fd; }
+.flashcard.cat-ai { --cat-color: #db2777; --cat-bg: #fdf2f8; --cat-border: #fbcfe8; }
+.flashcard.cat-finance { --cat-color: #0f766e; --cat-bg: #f0fdfa; --cat-border: #99f6e4; }
+.flashcard.cat-default { --cat-color: var(--accent); --cat-bg: var(--accent-soft); --cat-border: var(--line); }
+.flashcard .card-face {
+  border-top: 5px solid var(--cat-color, var(--line));
+}
+.flashcard .front::after {
+  content: "";
+  position: absolute;
+  inset: auto 1.2rem 1.2rem 1.2rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cat-color, var(--accent)), transparent);
+  opacity: .45;
+}
+.category-badge.cat-database,
+.category-badge.cat-os,
+.category-badge.cat-network,
+.category-badge.cat-algorithm,
+.category-badge.cat-language,
+.category-badge.cat-software,
+.category-badge.cat-architecture,
+.category-badge.cat-security,
+.category-badge.cat-cloud,
+.category-badge.cat-ai,
+.category-badge.cat-finance,
+.category-badge.cat-default {
+  color: var(--cat-color, var(--accent));
+  background: var(--cat-bg, var(--accent-soft));
+  border-color: var(--cat-border, var(--line));
+}
+
 .status.o { color: var(--known); background: var(--known-soft); border-color: rgba(23, 107, 77, .18); }
 .status.x { color: var(--unknown); background: var(--unknown-soft); border-color: rgba(159, 47, 63, .18); }
 

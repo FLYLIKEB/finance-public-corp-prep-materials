@@ -13,6 +13,37 @@ const state = {
 const $ = (id) => document.getElementById(id);
 const cardEl = $('card');
 
+
+const CATEGORY_META = {
+  '데이터베이스': {emoji: '🗄️', className: 'cat-database'},
+  '운영체제': {emoji: '⚙️', className: 'cat-os'},
+  '네트워크': {emoji: '🌐', className: 'cat-network'},
+  '자료구조·알고리즘': {emoji: '🧩', className: 'cat-algorithm'},
+  '프로그래밍 언어': {emoji: '💻', className: 'cat-language'},
+  '소프트웨어공학': {emoji: '🏗️', className: 'cat-software'},
+  '컴퓨터구조': {emoji: '🧠', className: 'cat-architecture'},
+  '보안': {emoji: '🛡️', className: 'cat-security'},
+  '클라우드·분산시스템': {emoji: '☁️', className: 'cat-cloud'},
+  '인공지능·데이터': {emoji: '🤖', className: 'cat-ai'},
+  '금융IT·신기술': {emoji: '💳', className: 'cat-finance'},
+};
+
+function categoryMeta(category) {
+  return CATEGORY_META[category] || {emoji: '📘', className: 'cat-default'};
+}
+
+function categoryLabel(category) {
+  const meta = categoryMeta(category);
+  return `${meta.emoji} ${category || '미분류'}`;
+}
+
+function applyCategoryTheme(category) {
+  const meta = categoryMeta(category);
+  cardEl.classList.remove(...Object.values(CATEGORY_META).map((item) => item.className), 'cat-default');
+  cardEl.classList.add(meta.className);
+}
+
+
 function namuSearchUrl(query) {
   return `https://namu.wiki/Search?q=${encodeURIComponent(query || '')}`;
 }
@@ -403,13 +434,17 @@ function renderCard() {
     $('frontEnglish').textContent = '필터 조건을 바꿔주세요.';
     $('frontCategory').textContent = '-';
     $('frontStatus').textContent = '-';
+    applyCategoryTheme('');
     ['frontNamuKoLink', 'frontNamuEnLink', 'backNamuKoLink', 'backNamuEnLink'].forEach((id) => { $(id).href = '#'; });
     return;
   }
 
   const c = state.filtered[state.index];
-  $('frontCategory').textContent = c.category || '-';
+  applyCategoryTheme(c.category);
+  $('frontCategory').textContent = categoryLabel(c.category);
   $('frontStatus').textContent = statusLabel(c.known_status);
+  $('frontCategory').className = `badge category-badge ${categoryMeta(c.category).className}`;
+  $('backCategory').className = `badge category-badge ${categoryMeta(c.category).className}`;
   $('frontStatus').className = `badge status ${c.known_status === 'O' ? 'o' : c.known_status === 'X' ? 'x' : ''}`;
   $('frontTerm').innerHTML = currentWordHtml(c.term, 'term');
   $('frontEnglish').textContent = c.english || '';
@@ -424,7 +459,7 @@ function renderCard() {
   $('backNamuEnLink').href = namuEnUrl;
   $('backNamuEnLink').title = `${c.english || c.term} 나무위키 검색`;
 
-  $('backCategory').textContent = c.category || '-';
+  $('backCategory').textContent = categoryLabel(c.category);
   $('backId').textContent = c.id;
   $('backTerm').innerHTML = `${currentWordHtml(c.term, 'term')}${c.english ? ' / ' + escapeHtml(c.english) : ''}`;
   $('definition').innerHTML = currentWordHtml(c.definition || '', 'definition');
