@@ -947,7 +947,10 @@ function bindConceptGraphNodes() {
 }
 
 $('related').addEventListener('click', handleConceptJump);
-$('conceptGraph').addEventListener('click', handleConceptJump);
+$('conceptGraph').addEventListener('click', handleConceptJump, true);
+$('conceptGraph').addEventListener('mousedown', (e) => {
+  if (e.target.closest('[data-term]')) e.preventDefault();
+}, true);
 
 document.addEventListener('keydown', (e) => {
   if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) {

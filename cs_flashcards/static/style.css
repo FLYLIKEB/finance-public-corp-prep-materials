@@ -2066,3 +2066,36 @@ select {
   letter-spacing: -0.025em;
   text-shadow: 0 1px 0 rgba(255,255,255,.86);
 }
+
+/* Make graph chip text non-selectable so button receives intent */
+.concept-graph,
+.concept-graph * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.concept-graph .concept-node,
+.concept-graph .concept-node * {
+  cursor: pointer;
+}
+.concept-graph .concept-node strong {
+  pointer-events: none !important;
+}
+
+/* Ensure flipped back face receives graph interactions */
+.flashcard:not(.flipped) .back {
+  pointer-events: none;
+}
+.flashcard.flipped .front {
+  pointer-events: none;
+}
+.flashcard.flipped .back {
+  pointer-events: auto;
+  z-index: 4;
+}
+.flashcard.flipped .card-inner {
+  pointer-events: auto;
+}
+.flashcard.flipped .concept-graph {
+  isolation: isolate;
+}
