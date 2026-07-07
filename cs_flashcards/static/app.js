@@ -8,6 +8,9 @@ const state = {
   speechHighlight: null,
   speechCurrent: null,
   audioContext: null,
+  speechTimers: [],
+  speechToken: 0,
+  speechKeepAlive: null,
   controlsCollapsed: localStorage.getItem('controlsCollapsed') !== '0',
   backPage: 0,
   statusFilter: '',
@@ -299,8 +302,47 @@ function updateAudioEstimate() {
   el.textContent = `≈ ${formatDuration(seconds)} · ${state.filtered.length}`;
 }
 
+
+function clearSpeechTimers() {
+  state.speechTimers.forEach((timer) => window.clearTimeout(timer));
+  state.speechTimers = [];
+}
+
+function setSpeechTimer(callback, delay) {
+  const timer = window.setTimeout(() => {
+    state.speechTimers = state.speechTimers.filter((item) => item !== timer);
+    callback();
+  }, delay);
+  state.speechTimers.push(timer);
+  return timer;
+}
+
+function estimatedItemDurationMs(item) {
+  const compactLength = Math.max(1, String(item.text || '').replace(/\s+/g, '').length);
+  const charsPerSecond = item.key === 'term' ? 5.8 : 6.8;
+  const seconds = compactLength / (charsPerSecond * speechRateForItem(item));
+  return Math.max(850, Math.ceil(seconds * 1000) + 450);
+}
+
+function scheduleFallbackWordHighlight(item, token) {
+  const source = String(item.targetText || item.text || '');
+  const words = [...source.matchAll(/\S+/g)];
+  if (!words.length) return;
+  const duration = estimatedItemDurationMs(item);
+  words.forEach((match, index) => {
+    const at = Math.min(duration - 160, Math.round((index / Math.max(1, words.length)) * duration));
+    setSpeechTimer(() => {
+      if (!state.audioPlaying || state.speechToken !== token || !state.speechCurrent) return;
+      if (state.speechCurrent.key !== item.key) return;
+      state.speechCurrent.charIndex = match.index || 0;
+      renderCard();
+    }, at);
+  });
+}
+
 function speakQueue(items, done) {
   if (!state.audioPlaying) return;
+  clearSpeechTimers();
   const item = items.shift();
   if (!item) {
     state.speechHighlight = null;
@@ -309,11 +351,22 @@ function speakQueue(items, done) {
     done();
     return;
   }
+  const token = ++state.speechToken;
+  let finished = false;
+  const finish = () => {
+    if (finished || !state.audioPlaying || state.speechToken !== token) return;
+    finished = true;
+    clearSpeechTimers();
+    speakQueue(items, done);
+  };
+
   state.speechHighlight = item.key;
   state.speechCurrent = {...item, charIndex: 0};
   state.flipped = item.key !== 'term';
   state.backPage = item.key === 'exam' ? 1 : 0;
   renderCard();
+  scheduleFallbackWordHighlight(item, token);
+
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
   const preferredVoice = preferredVoiceForItem(item);
@@ -321,17 +374,22 @@ function speakQueue(items, done) {
   utterance.rate = speechRateForItem(item);
   utterance.pitch = speechPitchForItem(item);
   utterance.onboundary = (event) => {
-    if (!state.audioPlaying || !state.speechCurrent) return;
+    if (!state.audioPlaying || !state.speechCurrent || state.speechToken !== token) return;
     state.speechCurrent.charIndex = Math.max(0, (event.charIndex || 0) - item.prefixLength);
     renderCard();
   };
-  utterance.onend = () => speakQueue(items, done);
-  utterance.onerror = () => {
-    setMessage('음성 재생 중 오류가 발생했습니다.', true);
-    stopAudioPlayback();
+  utterance.onend = finish;
+  utterance.onerror = (event) => {
+    if (event.error === 'interrupted' || event.error === 'canceled') return;
+    finish();
   };
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+
+  setSpeechTimer(finish, estimatedItemDurationMs(item) + 900);
+  try {
+    window.speechSynthesis.speak(utterance);
+  } catch (_error) {
+    finish();
+  }
 }
 
 function setAudioButtons() {
@@ -360,7 +418,7 @@ function speakCurrentAndAdvance() {
     return;
   }
   setMessage(`▶ ${state.index + 1}/${state.filtered.length} · ${card.term}`);
-  window.setTimeout(() => speakQueue([...items], moveAudioNext), selectedSpeechParts().term ? 420 : 180);
+  speakQueue([...items], moveAudioNext);
 }
 
 
@@ -371,59 +429,69 @@ function ensureAudioContext() {
   if (!state.audioContext || state.audioContext.state === 'closed') {
     state.audioContext = new AudioContextClass();
   }
-  if (state.audioContext.state === 'suspended') {
-    state.audioContext.resume().catch(() => {});
-  }
   return state.audioContext;
 }
 
-function unlockAudioContext() {
+function withAudioContext(callback) {
   const context = ensureAudioContext();
   if (!context) return;
-  const gain = context.createGain();
-  gain.gain.value = 0.0001;
-  gain.connect(context.destination);
-  const oscillator = context.createOscillator();
-  oscillator.connect(gain);
-  oscillator.start();
-  oscillator.stop(context.currentTime + 0.02);
+  const run = () => {
+    try { callback(context); } catch (_error) {}
+  };
+  if (context.state === 'suspended') {
+    context.resume().then(run).catch(() => {});
+  } else {
+    run();
+  }
+}
+
+function unlockAudioContext() {
+  withAudioContext((context) => {
+    const gain = context.createGain();
+    gain.gain.value = 0.0001;
+    gain.connect(context.destination);
+    const oscillator = context.createOscillator();
+    oscillator.connect(gain);
+    oscillator.start();
+    oscillator.stop(context.currentTime + 0.02);
+  });
 }
 
 function playCardStartSound() {
-  const context = ensureAudioContext();
-  if (!context) return;
-  const now = context.currentTime;
-  const gain = context.createGain();
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(0.16, now + 0.012);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
-  gain.connect(context.destination);
-  [523.25, 659.25].forEach((frequency, index) => {
-    const oscillator = context.createOscillator();
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(frequency, now + index * 0.045);
-    oscillator.connect(gain);
-    oscillator.start(now + index * 0.045);
-    oscillator.stop(now + index * 0.045 + 0.12);
+  withAudioContext((context) => {
+    const now = context.currentTime;
+    const gain = context.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.16, now + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+    gain.connect(context.destination);
+    [523.25, 659.25].forEach((frequency, index) => {
+      const oscillator = context.createOscillator();
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(frequency, now + index * 0.045);
+      oscillator.connect(gain);
+      oscillator.start(now + index * 0.045);
+      oscillator.stop(now + index * 0.045 + 0.12);
+    });
   });
 }
 
 function playToneSequence(frequencies, {volume = 0.12, duration = 0.11, gap = 0.045, type = 'sine'} = {}) {
-  const context = ensureAudioContext();
-  if (!context) return;
-  const now = context.currentTime;
-  const gain = context.createGain();
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(volume, now + 0.01);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + frequencies.length * gap + duration + 0.08);
-  gain.connect(context.destination);
-  frequencies.forEach((frequency, index) => {
-    const oscillator = context.createOscillator();
-    oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, now + index * gap);
-    oscillator.connect(gain);
-    oscillator.start(now + index * gap);
-    oscillator.stop(now + index * gap + duration);
+  withAudioContext((context) => {
+    const now = context.currentTime;
+    const gain = context.createGain();
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(volume, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + frequencies.length * gap + duration + 0.08);
+    gain.connect(context.destination);
+    frequencies.forEach((frequency, index) => {
+      const oscillator = context.createOscillator();
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, now + index * gap);
+      oscillator.connect(gain);
+      oscillator.start(now + index * gap);
+      oscillator.stop(now + index * gap + duration);
+    });
   });
 }
 
@@ -444,22 +512,22 @@ function playMarkSound(status) {
 }
 
 function playCardDoneSound() {
-  const context = ensureAudioContext();
-  if (!context) return;
-  const now = context.currentTime;
-  const master = context.createGain();
-  master.gain.setValueAtTime(0.0001, now);
-  master.gain.exponentialRampToValueAtTime(0.22, now + 0.018);
-  master.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
-  master.connect(context.destination);
+  withAudioContext((context) => {
+    const now = context.currentTime;
+    const master = context.createGain();
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.22, now + 0.018);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
+    master.connect(context.destination);
 
-  [784, 1046.5, 1318.5].forEach((frequency, index) => {
-    const oscillator = context.createOscillator();
-    oscillator.type = 'triangle';
-    oscillator.frequency.setValueAtTime(frequency, now + index * 0.075);
-    oscillator.connect(master);
-    oscillator.start(now + index * 0.075);
-    oscillator.stop(now + index * 0.075 + 0.18);
+    [784, 1046.5, 1318.5].forEach((frequency, index) => {
+      const oscillator = context.createOscillator();
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(frequency, now + index * 0.075);
+      oscillator.connect(master);
+      oscillator.start(now + index * 0.075);
+      oscillator.stop(now + index * 0.075 + 0.18);
+    });
   });
 }
 
@@ -474,12 +542,34 @@ function moveAudioNext() {
   window.setTimeout(speakCurrentAndAdvance, 360);
 }
 
+function startSpeechKeepAlive() {
+  stopSpeechKeepAlive();
+  if (!('speechSynthesis' in window)) return;
+  state.speechKeepAlive = window.setInterval(() => {
+    if (!state.audioPlaying) return;
+    try {
+      if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    } catch (_error) {}
+  }, 7000);
+}
+
+function stopSpeechKeepAlive() {
+  if (state.speechKeepAlive) {
+    window.clearInterval(state.speechKeepAlive);
+    state.speechKeepAlive = null;
+  }
+}
+
 function startAudioPlayback() {
   if (!('speechSynthesis' in window)) {
     setMessage('이 브라우저는 음성 합성을 지원하지 않습니다.', true);
     return;
   }
   unlockAudioContext();
+  window.speechSynthesis.cancel();
   window.speechSynthesis.getVoices();
   if (!state.filtered.length) {
     setMessage('재생할 카드가 없습니다.', true);
@@ -491,12 +581,16 @@ function startAudioPlayback() {
     return;
   }
   state.audioPlaying = true;
+  startSpeechKeepAlive();
   setAudioButtons();
   speakCurrentAndAdvance();
 }
 
 function stopAudioPlayback(message = '자동 듣기를 정지했습니다.') {
   state.audioPlaying = false;
+  state.speechToken += 1;
+  clearSpeechTimers();
+  stopSpeechKeepAlive();
   state.speechHighlight = null;
   state.speechCurrent = null;
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
