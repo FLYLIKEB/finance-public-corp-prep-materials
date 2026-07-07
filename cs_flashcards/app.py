@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import base64
 import csv
+import hmac
 import os
 import shutil
 import tempfile
@@ -8,8 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -20,6 +22,8 @@ BACKUP_DIR = Path(os.environ.get("CS_FLASHCARD_BACKUP_DIR", ROOT / "cs_flashcard
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 REVIEW_COLUMNS = ["known_status", "last_reviewed", "review_count"]
 VALID_STATUSES = {"O", "X", ""}
+PUBLIC_USERNAME = os.environ.get("CS_FLASHCARDS_USERNAME", "cs")
+PUBLIC_PASSWORD = os.environ.get("CS_FLASHCARDS_PASSWORD", "")
 
 app = FastAPI(title="CS Encyclopedia Flashcards", version="1.0.0")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
@@ -27,6 +31,32 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 class MarkRequest(BaseModel):
     known_status: str = Field(pattern="^(O|X)$")
+
+
+def is_authorized(authorization: str | None) -> bool:
+    if not PUBLIC_PASSWORD:
+        return True
+    if not authorization or not authorization.startswith("Basic "):
+        return False
+    try:
+        decoded = base64.b64decode(authorization.removeprefix("Basic "), validate=True).decode("utf-8")
+    except Exception:
+        return False
+    username, sep, password = decoded.partition(":")
+    if not sep:
+        return False
+    return hmac.compare_digest(username, PUBLIC_USERNAME) and hmac.compare_digest(password, PUBLIC_PASSWORD)
+
+
+@app.middleware("http")
+async def optional_basic_auth(request: Request, call_next):
+    if is_authorized(request.headers.get("authorization")):
+        return await call_next(request)
+    return Response(
+        "Authentication required",
+        status_code=401,
+        headers={"WWW-Authenticate": 'Basic realm="CS Flashcards"'},
+    )
 
 
 def utc_now_iso() -> str:

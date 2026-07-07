@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import cs_flashcards.app as flashcard_app
 from cs_flashcards.app import mark_card, read_cards, summarize
 
 
@@ -41,6 +42,24 @@ class FlashcardCsvTests(unittest.TestCase):
             self.assertEqual(summary['known'], 1)
             self.assertEqual(summary['unknown'], 0)
             self.assertEqual(summary['unreviewed'], 0)
+
+
+    def test_optional_basic_auth_helper(self):
+        original_user = flashcard_app.PUBLIC_USERNAME
+        original_password = flashcard_app.PUBLIC_PASSWORD
+        try:
+            flashcard_app.PUBLIC_USERNAME = 'cs'
+            flashcard_app.PUBLIC_PASSWORD = 'secret'
+            self.assertFalse(flashcard_app.is_authorized(None))
+            self.assertFalse(flashcard_app.is_authorized('Basic bad-token'))
+            import base64
+            header = 'Basic ' + base64.b64encode(b'cs:secret').decode()
+            self.assertTrue(flashcard_app.is_authorized(header))
+            wrong = 'Basic ' + base64.b64encode(b'cs:wrong').decode()
+            self.assertFalse(flashcard_app.is_authorized(wrong))
+        finally:
+            flashcard_app.PUBLIC_USERNAME = original_user
+            flashcard_app.PUBLIC_PASSWORD = original_password
 
 
 if __name__ == '__main__':

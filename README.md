@@ -17,3 +17,31 @@ uvicorn cs_flashcards.app:app --reload
 ```
 
 접속: http://127.0.0.1:8000
+
+## iPhone/외부 접속: Cloudflare Tunnel
+
+폰에서 같은 Wi‑Fi가 아니어도 접속하려면 아래 스크립트 하나를 실행하세요.
+
+```bash
+./run_public_flashcards.sh
+```
+
+동작:
+
+- 로컬 FastAPI 서버를 비밀번호 보호 상태로 실행합니다.
+- Cloudflare Tunnel 임시 공개 주소(`https://...trycloudflare.com`)를 생성합니다.
+- 터미널에 표시되는 주소/아이디/비밀번호로 iPhone Safari 또는 Chrome에서 접속합니다.
+- O/X 체크 결과는 이 Mac의 `pages/CS_encyclopedia_300plus.csv`에 저장됩니다.
+
+기본 아이디는 `cs`입니다. 비밀번호는 처음 실행 시 자동 생성되어 `.omx/cs_flashcards_public_password`에 저장됩니다.
+직접 지정하려면 다음처럼 실행하세요.
+
+```bash
+CS_FLASHCARDS_USERNAME=cs CS_FLASHCARDS_PASSWORD='원하는비밀번호' ./run_public_flashcards.sh
+```
+
+주의:
+
+- 이 터미널을 닫으면 외부 공개 접속도 종료됩니다.
+- `cloudflared`가 없으면 macOS에서는 Homebrew로 자동 설치를 시도합니다.
+- 공개 URL은 임시 주소입니다. 다시 실행하면 주소가 바뀔 수 있습니다.
