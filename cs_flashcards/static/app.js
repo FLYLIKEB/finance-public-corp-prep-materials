@@ -64,11 +64,14 @@ function detailedSections(text) {
   if (!source) return [];
   const labels = ['의미', '동작/활용', '관련 개념', '구분 포인트', '시험 대비'];
   return labels.map((label, index) => {
-    const nextLabel = labels[index + 1];
     const start = source.indexOf(`${label}:`);
     if (start < 0) return null;
     const contentStart = start + label.length + 1;
-    const end = nextLabel ? source.indexOf(`${nextLabel}:`, contentStart) : -1;
+    const nextPositions = labels
+      .slice(index + 1)
+      .map((nextLabel) => source.indexOf(`${nextLabel}:`, contentStart))
+      .filter((position) => position >= 0);
+    const end = nextPositions.length ? Math.min(...nextPositions) : -1;
     const content = source.slice(contentStart, end >= 0 ? end : undefined).trim();
     return content ? {label, content} : null;
   }).filter(Boolean);
