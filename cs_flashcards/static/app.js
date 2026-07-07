@@ -44,6 +44,69 @@ function applyCategoryTheme(category) {
 }
 
 
+const CATEGORY_COLORS = {
+  '데이터베이스': '#2563eb',
+  '운영체제': '#475569',
+  '네트워크': '#0891b2',
+  '자료구조·알고리즘': '#7c3aed',
+  '프로그래밍 언어': '#16a34a',
+  '소프트웨어공학': '#ca8a04',
+  '컴퓨터구조': '#9333ea',
+  '보안': '#dc2626',
+  '클라우드·분산시스템': '#0284c7',
+  '인공지능·데이터': '#db2777',
+  '금융IT·신기술': '#0f766e',
+};
+
+function xmlEscape(value) {
+  return String(value || '').replace(/[&<>"]/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+}
+
+function categorySymbolSvg(category, color) {
+  const stroke = xmlEscape(color);
+  const soft = 'opacity="0.18"';
+  const shapes = {
+    '데이터베이스': `<ellipse cx="176" cy="82" rx="62" ry="20" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M114 82v86c0 12 28 22 62 22s62-10 62-22V82" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M114 126c0 12 28 22 62 22s62-10 62-22" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/>` ,
+    '운영체제': `<circle cx="176" cy="136" r="52" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M176 62v32M176 178v32M102 136h32M218 136h32M124 84l23 23M205 165l23 23M228 84l-23 23M147 165l-23 23" stroke="${stroke}" stroke-width="8" stroke-linecap="round" ${soft}/>` ,
+    '네트워크': `<circle cx="106" cy="96" r="18" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><circle cx="232" cy="88" r="18" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><circle cx="170" cy="178" r="22" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M123 101l90-10M116 112l40 49M221 104l-37 55" stroke="${stroke}" stroke-width="7" stroke-linecap="round" ${soft}/>` ,
+    '자료구조·알고리즘': `<path d="M98 86h66v44H98zM188 86h66v44h-66zM143 166h66v44h-66z" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M164 108h24M176 130v36" stroke="${stroke}" stroke-width="8" stroke-linecap="round" ${soft}/>` ,
+    '프로그래밍 언어': `<path d="M132 92l-48 44 48 44M220 92l48 44-48 44M194 78l-36 116" fill="none" stroke="${stroke}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" ${soft}/>` ,
+    '소프트웨어공학': `<path d="M92 174l84-92 84 92" fill="none" stroke="${stroke}" stroke-width="9" stroke-linecap="round" ${soft}/><path d="M120 174v-48h112v48M144 174v-24h64v24" fill="none" stroke="${stroke}" stroke-width="8" stroke-linejoin="round" ${soft}/>` ,
+    '컴퓨터구조': `<rect x="102" y="74" width="148" height="116" rx="20" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M126 54v28M162 54v28M198 54v28M234 54v28M126 190v28M162 190v28M198 190v28M234 190v28M82 104h28M82 140h28M242 104h28M242 140h28" stroke="${stroke}" stroke-width="7" stroke-linecap="round" ${soft}/>` ,
+    '보안': `<path d="M176 58l78 30v50c0 50-31 82-78 104-47-22-78-54-78-104V88z" fill="none" stroke="${stroke}" stroke-width="9" stroke-linejoin="round" ${soft}/><path d="M142 140l22 22 48-54" fill="none" stroke="${stroke}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" ${soft}/>` ,
+    '클라우드·분산시스템': `<path d="M112 168h128c25 0 42-15 42-36 0-20-16-35-38-35-9-28-35-47-66-47-35 0-63 24-70 58-23 2-40 15-40 34 0 16 13 26 44 26z" fill="none" stroke="${stroke}" stroke-width="9" stroke-linejoin="round" ${soft}/><path d="M132 204h88M176 168v36" stroke="${stroke}" stroke-width="8" stroke-linecap="round" ${soft}/>` ,
+    '인공지능·데이터': `<path d="M124 108c0-28 20-50 52-50s52 22 52 50c0 19-9 32-22 43v31h-60v-31c-13-11-22-24-22-43z" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M146 208h60M154 232h44M150 118h52M176 92v52" stroke="${stroke}" stroke-width="8" stroke-linecap="round" ${soft}/>` ,
+    '금융IT·신기술': `<rect x="92" y="82" width="168" height="112" rx="20" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M92 118h168M130 156h42M206 156h20" stroke="${stroke}" stroke-width="8" stroke-linecap="round" ${soft}/><circle cx="176" cy="218" r="18" fill="none" stroke="${stroke}" stroke-width="7" ${soft}/>` ,
+  };
+  return shapes[category] || `<circle cx="176" cy="136" r="70" fill="none" stroke="${stroke}" stroke-width="8" ${soft}/><path d="M136 136h80M176 96v80" stroke="${stroke}" stroke-width="8" stroke-linecap="round" ${soft}/>`;
+}
+
+function frontIllustrationUrl(card) {
+  const category = card?.category || '';
+  const color = CATEGORY_COLORS[category] || '#1f3a5f';
+  const meta = categoryMeta(category);
+  const term = String(card?.term || '').trim();
+  const english = String(card?.english || '').trim();
+  const keyword = xmlEscape(term.slice(0, 10));
+  const sub = xmlEscape(english.slice(0, 18));
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+    <rect width="900" height="560" fill="white"/>
+    <circle cx="710" cy="134" r="168" fill="${xmlEscape(color)}" opacity="0.045"/>
+    <circle cx="182" cy="432" r="136" fill="${xmlEscape(color)}" opacity="0.035"/>
+    <g transform="translate(548 74) scale(1.72)">${categorySymbolSvg(category, color)}</g>
+    <text x="95" y="190" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif" font-size="118" font-weight="800" fill="${xmlEscape(color)}" opacity="0.07">${xmlEscape(meta.emoji)}</text>
+    <text x="90" y="334" font-family="'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif" font-size="58" font-weight="800" fill="${xmlEscape(color)}" opacity="0.065">${keyword}</text>
+    <text x="94" y="392" font-family="Georgia,serif" font-size="34" font-weight="700" fill="${xmlEscape(color)}" opacity="0.055">${sub}</text>
+    <path d="M86 454 C220 402, 330 510, 476 448 S718 400, 820 456" fill="none" stroke="${xmlEscape(color)}" stroke-width="10" stroke-linecap="round" opacity="0.045"/>
+  </svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+function applyFrontIllustration(card) {
+  document.querySelector('.front')?.style.setProperty('--front-illustration', frontIllustrationUrl(card));
+}
+
+
 function namuSearchUrl(query) {
   return `https://namu.wiki/Search?q=${encodeURIComponent(query || '')}`;
 }
@@ -377,39 +440,80 @@ function uniqueRelatedConcepts(text) {
   return [...new Set(parseRelated(text).map((item) => item.trim()).filter(Boolean))];
 }
 
+function conceptNodeHtml(cardOrName, {kind = 'direct', count = 0} = {}) {
+  const target = typeof cardOrName === 'string' ? findCardByConcept(cardOrName) : cardOrName;
+  const label = typeof cardOrName === 'string' ? cardOrName : cardOrName?.term;
+  const meta = categoryMeta(target?.category || '');
+  const english = target?.english ? `<small>${escapeHtml(target.english)}</small>` : '';
+  const category = target?.category ? `<span>${escapeHtml(categoryLabel(target.category))}</span>` : '<span>📘 미등록</span>';
+  const missing = target ? '' : ' graph-missing';
+  const countBadge = count > 1 ? `<em>공유 ${count}</em>` : '';
+  const targetTerm = target?.term || label;
+  return `
+    <button class="concept-node ${meta.className} graph-${kind}${missing}" type="button" data-term="${escapeHtml(targetTerm)}">
+      <span class="node-category">${category}</span>
+      <strong>${escapeHtml(target?.term || label || '')}</strong>
+      ${english}
+      ${countBadge}
+    </button>
+  `;
+}
+
+function relatedTargetCards(card) {
+  return uniqueRelatedConcepts(card.related_concepts)
+    .map((name) => findCardByConcept(name) || {term: name, english: '', category: '', related_concepts: ''})
+    .filter((item) => normalizeTerm(item.term) !== normalizeTerm(card.term));
+}
+
+function expandedConcepts(card, directCards) {
+  const directTerms = new Set(directCards.map((item) => normalizeTerm(item.term)));
+  directTerms.add(normalizeTerm(card.term));
+  const scores = new Map();
+
+  directCards.forEach((direct) => {
+    const realDirect = findCardByConcept(direct.term);
+    if (!realDirect) return;
+    uniqueRelatedConcepts(realDirect.related_concepts).forEach((name) => {
+      const target = findCardByConcept(name);
+      const normalized = normalizeTerm(target?.term || name);
+      if (!normalized || directTerms.has(normalized)) return;
+      const previous = scores.get(normalized) || {name, card: target, count: 0, via: []};
+      previous.count += 1;
+      previous.via.push(realDirect.term);
+      if (target) previous.card = target;
+      scores.set(normalized, previous);
+    });
+  });
+
+  return [...scores.values()]
+    .sort((a, b) => b.count - a.count || (a.card?.category || '').localeCompare(b.card?.category || '') || a.name.localeCompare(b.name))
+    .slice(0, 10);
+}
+
 function renderConceptGraph(card) {
-  const related = uniqueRelatedConcepts(card.related_concepts).slice(0, 12);
+  const directCards = relatedTargetCards(card).slice(0, 8);
+  const expanded = expandedConcepts(card, directCards);
   const centerMeta = categoryMeta(card.category);
-  if (!related.length) {
+  if (!directCards.length) {
     return '<div class="graph-empty muted">연결된 관련 개념이 없습니다.</div>';
   }
 
-  const nodes = related.map((name) => {
-    const target = findCardByConcept(name);
-    const meta = categoryMeta(target?.category || '');
-    const english = target?.english ? `<small>${escapeHtml(target.english)}</small>` : '';
-    const category = target?.category ? `<span>${escapeHtml(categoryLabel(target.category))}</span>` : '<span>📘 미등록</span>';
-    const disabledClass = target ? '' : ' graph-missing';
-    const targetId = target ? ` data-term="${escapeHtml(target.term)}"` : ` data-term="${escapeHtml(name)}"`;
-    return `
-      <div class="graph-edge-card">
-        <span class="graph-line" aria-hidden="true"></span>
-        <button class="concept-node ${meta.className}${disabledClass}" type="button"${targetId}>
-          <span class="node-category">${category}</span>
-          <strong>${escapeHtml(target?.term || name)}</strong>
-          ${english}
-        </button>
-      </div>
-    `;
-  }).join('');
+  const directHtml = directCards.map((target) => conceptNodeHtml(target, {kind: 'direct'})).join('');
+  const expandedHtml = expanded.map((item) => conceptNodeHtml(item.card || item.name, {kind: 'expanded', count: item.count})).join('');
 
   return `
+    <div class="graph-guide">현재 개념에서 바로 이어지는 개념과, 그 다음에 함께 묶어 볼 2차 확장 개념입니다.</div>
     <div class="graph-center ${centerMeta.className}">
       <span>${escapeHtml(categoryLabel(card.category))}</span>
       <strong>${escapeHtml(card.term)}</strong>
       ${card.english ? `<small>${escapeHtml(card.english)}</small>` : ''}
     </div>
-    <div class="graph-links">${nodes}</div>
+    <div class="graph-tier-label">1차 직접 관련</div>
+    <div class="graph-links graph-direct-links">${directHtml}</div>
+    ${expandedHtml ? `
+      <div class="graph-tier-label expanded">2차 확장 연결</div>
+      <div class="graph-links graph-expanded-links">${expandedHtml}</div>
+    ` : '<div class="graph-empty muted">2차 확장 개념은 아직 충분하지 않습니다.</div>'}
   `;
 }
 
@@ -476,6 +580,7 @@ function renderCard() {
     $('frontCategory').textContent = '-';
     $('frontStatus').textContent = '-';
     applyCategoryTheme('');
+    applyFrontIllustration({term: '카드 없음', english: '', category: ''});
     $('conceptGraph').innerHTML = '<div class="graph-empty muted">표시할 그래프가 없습니다.</div>';
     ['frontNamuKoLink', 'frontNamuEnLink', 'backNamuKoLink', 'backNamuEnLink'].forEach((id) => { $(id).href = '#'; });
     return;
@@ -483,6 +588,7 @@ function renderCard() {
 
   const c = state.filtered[state.index];
   applyCategoryTheme(c.category);
+  applyFrontIllustration(c);
   $('frontCategory').textContent = categoryLabel(c.category);
   $('frontStatus').textContent = statusLabel(c.known_status);
   $('frontCategory').className = `badge category-badge ${categoryMeta(c.category).className}`;
@@ -618,6 +724,7 @@ document.addEventListener('keydown', (e) => {
 
 loadCards().catch((err) => {
   setMessage(`로딩 실패: ${err.message}`, true);
+  applyFrontIllustration({term: '로딩 실패', english: '', category: ''});
   $('frontTerm').textContent = '로딩 실패';
   $('frontEnglish').textContent = err.message;
 });

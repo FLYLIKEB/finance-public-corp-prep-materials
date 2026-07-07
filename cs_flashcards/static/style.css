@@ -219,6 +219,22 @@ input:focus, select:focus {
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
+}
+.front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--front-illustration);
+  background-size: cover;
+  background-position: center;
+  opacity: .9;
+  pointer-events: none;
+}
+.front > * {
+  position: relative;
+  z-index: 1;
 }
 .back { transform: rotateY(180deg); }
 .back-scroll { max-height: calc(min(74vh, 760px) - 1.2rem); overflow: auto; padding-right: .45rem; }
@@ -556,4 +572,54 @@ p { line-height: 1.55; }
   padding: .65rem;
   text-align: center;
   font-size: .86rem;
+}
+
+.graph-guide {
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.45;
+  text-align: center;
+  margin-bottom: -.1rem;
+}
+.graph-tier-label {
+  justify-self: center;
+  color: var(--accent);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .18rem .55rem;
+  font-size: .72rem;
+  font-weight: 850;
+  position: relative;
+}
+.graph-tier-label::before {
+  content: "↓";
+  color: var(--line-strong);
+  margin-right: .28rem;
+}
+.graph-tier-label.expanded {
+  color: #6d4ba3;
+  background: #fbf8ff;
+}
+.graph-direct {
+  border-width: 1.5px;
+}
+.graph-expanded {
+  background: #fff !important;
+  border-style: dashed;
+}
+.concept-node em {
+  display: inline-flex;
+  margin-top: .22rem;
+  color: var(--node-color);
+  background: rgba(255,255,255,.72);
+  border: 1px solid var(--node-border);
+  border-radius: 999px;
+  padding: .06rem .34rem;
+  font-size: .66rem;
+  font-style: normal;
+  font-weight: 820;
+}
+.graph-expanded-links {
+  opacity: .94;
 }
