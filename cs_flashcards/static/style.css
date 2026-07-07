@@ -2354,3 +2354,19 @@ select,
 .controls.collapsed .controls-toggle::before {
   display: none;
 }
+
+/* Reduce header search footprint */
+.header-search {
+  flex: 0 1 18rem;
+  max-width: 22rem;
+  margin-left: clamp(.35rem, 1.2vw, .8rem);
+}
+.header-search input {
+  width: 100%;
+}
+@media (max-width: 860px) {
+  .header-search {
+    flex: 1 1 12rem;
+    max-width: none;
+  }
+}
