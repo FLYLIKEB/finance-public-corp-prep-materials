@@ -17,10 +17,10 @@
       <input id="searchInput" type="search" placeholder="검색" />
     </div>
     <div class="stats" aria-live="polite">
-      <button id="filterAllBtn" class="stat-filter active" type="button" data-status-filter="" title="전체">Σ <strong id="statTotal">0</strong></button>
-      <button id="filterKnownBtn" class="stat-filter" type="button" data-status-filter="O" title="안다">O <strong id="statKnown">0</strong></button>
-      <button id="filterUnknownBtn" class="stat-filter" type="button" data-status-filter="X" title="모른다">X <strong id="statUnknown">0</strong></button>
-      <button id="filterUnreviewedBtn" class="stat-filter" type="button" data-status-filter="unreviewed" title="미학습">– <strong id="statUnreviewed">0</strong></button>
+      <button id="filterAllBtn" class="stat-filter active has-tip" type="button" data-status-filter="" title="전체" data-tip="전체">Σ <strong id="statTotal">0</strong></button>
+      <button id="filterKnownBtn" class="stat-filter has-tip" type="button" data-status-filter="O" title="안다" data-tip="안다">O <strong id="statKnown">0</strong></button>
+      <button id="filterUnknownBtn" class="stat-filter has-tip" type="button" data-status-filter="X" title="모른다" data-tip="모른다">X <strong id="statUnknown">0</strong></button>
+      <button id="filterUnreviewedBtn" class="stat-filter has-tip" type="button" data-status-filter="unreviewed" title="미학습" data-tip="미학습">– <strong id="statUnreviewed">0</strong></button>
     </div>
   </header>
 
@@ -71,7 +71,6 @@
         </select>
         <div class="study-toggles" aria-label="학습 토글">
           <button id="shuffleBtn" class="has-tip study-toggle" type="button" title="랜덤 모드" data-tip="랜덤 모드">↯</button>
-          <button id="unknownOnlyBtn" class="has-tip study-toggle" type="button" title="X만 복습" data-tip="X만 복습">X</button>
         </div>
       </div>
 

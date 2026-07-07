@@ -2370,3 +2370,50 @@ select,
     max-width: none;
   }
 }
+
+/* Header stat tooltips and cleaner collapsed audio */
+.stats .has-tip::after {
+  left: 50%;
+  top: calc(100% + .42rem);
+  bottom: auto;
+  transform: translateX(-50%) translateY(-3px);
+}
+.stats .has-tip:hover::after,
+.stats .has-tip:focus-visible::after {
+  transform: translateX(-50%) translateY(0);
+}
+.study-toggles {
+  min-width: 1.9rem;
+}
+.controls.collapsed {
+  background: rgba(255,255,255,.72);
+}
+.controls.collapsed .collapsed-quick-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .38rem;
+  padding: .32rem;
+  margin-bottom: .38rem;
+  border-radius: 999px;
+  background: rgba(241, 245, 249, .82);
+}
+.collapsed-quick-actions button {
+  width: 2.28rem;
+  height: 2.28rem;
+}
+.controls.collapsed .collapsed-audio-main {
+  box-shadow: none;
+}
+.controls.collapsed #collapsedPlayBtn:not(:disabled) {
+  background: #24364f;
+  color: #fff;
+}
+.controls.collapsed #collapsedStopBtn:not(:disabled) {
+  background: #eef2f7;
+  color: #24364f;
+}
+.controls.collapsed .controls-toggle {
+  width: 2.28rem;
+  height: 2.28rem;
+  min-height: 2.28rem;
+}

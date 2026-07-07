@@ -944,7 +944,6 @@ $('backPageNext').addEventListener('click', () => setBackPage(state.backPage + 1
 $('shuffleBtn').addEventListener('click', toggleRandomMode);
 $('knownBtn').addEventListener('click', () => mark('O'));
 $('unknownBtn').addEventListener('click', () => mark('X'));
-$('unknownOnlyBtn').addEventListener('click', () => setStatusFilter('X'));
 $('playAudioBtn').addEventListener('click', startAudioPlayback);
 $('stopAudioBtn').addEventListener('click', () => stopAudioPlayback());
 $('collapsedPlayBtn').addEventListener('click', startAudioPlayback);
