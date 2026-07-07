@@ -1381,3 +1381,14 @@ h3 {
   opacity: .62;
   border-style: dashed;
 }
+
+/* Merge related list into mini graph */
+.hidden-related {
+  display: none !important;
+}
+.back-page[data-page="1"] .concept-graph {
+  margin-top: .12rem;
+}
+.back-page[data-page="2"] {
+  padding-top: .25rem;
+}
