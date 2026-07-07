@@ -8,6 +8,7 @@ const state = {
   speechHighlight: null,
   speechCurrent: null,
   audioContext: null,
+  controlsCollapsed: localStorage.getItem('controlsCollapsed') === '1',
 };
 
 const $ = (id) => document.getElementById(id);
@@ -91,13 +92,13 @@ function frontIllustrationUrl(card) {
   const sub = xmlEscape(english.slice(0, 18));
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
     <rect width="900" height="560" fill="white"/>
-    <circle cx="710" cy="134" r="168" fill="${xmlEscape(color)}" opacity="0.045"/>
-    <circle cx="182" cy="432" r="136" fill="${xmlEscape(color)}" opacity="0.035"/>
-    <g transform="translate(548 74) scale(1.72)">${categorySymbolSvg(category, color)}</g>
-    <text x="95" y="190" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif" font-size="118" font-weight="800" fill="${xmlEscape(color)}" opacity="0.07">${xmlEscape(meta.emoji)}</text>
-    <text x="90" y="334" font-family="'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif" font-size="58" font-weight="800" fill="${xmlEscape(color)}" opacity="0.065">${keyword}</text>
-    <text x="94" y="392" font-family="Georgia,serif" font-size="34" font-weight="700" fill="${xmlEscape(color)}" opacity="0.055">${sub}</text>
-    <path d="M86 454 C220 402, 330 510, 476 448 S718 400, 820 456" fill="none" stroke="${xmlEscape(color)}" stroke-width="10" stroke-linecap="round" opacity="0.045"/>
+    <circle cx="450" cy="280" r="212" fill="${xmlEscape(color)}" opacity="0.038"/>
+    <circle cx="450" cy="280" r="128" fill="none" stroke="${xmlEscape(color)}" stroke-width="12" opacity="0.028"/>
+    <g transform="translate(98 8) scale(2)">${categorySymbolSvg(category, color)}</g>
+    <text x="450" y="174" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif" font-size="126" font-weight="800" fill="${xmlEscape(color)}" opacity="0.045">${xmlEscape(meta.emoji)}</text>
+    <text x="450" y="422" text-anchor="middle" font-family="'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif" font-size="56" font-weight="800" fill="${xmlEscape(color)}" opacity="0.06">${keyword}</text>
+    <text x="450" y="476" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="${xmlEscape(color)}" opacity="0.05">${sub}</text>
+    <path d="M154 470 C292 420, 368 504, 450 456 S608 420, 746 470" fill="none" stroke="${xmlEscape(color)}" stroke-width="10" stroke-linecap="round" opacity="0.04"/>
   </svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
@@ -139,6 +140,23 @@ function jumpToCard(card) {
   return true;
 }
 
+
+
+function applyControlsCollapsed() {
+  const panel = $('controlsPanel');
+  const button = $('controlsToggle');
+  if (!panel || !button) return;
+  panel.classList.toggle('collapsed', state.controlsCollapsed);
+  document.body.classList.toggle('controls-collapsed', state.controlsCollapsed);
+  button.setAttribute('aria-expanded', String(!state.controlsCollapsed));
+  button.textContent = state.controlsCollapsed ? '검색/필터 열기' : '검색/필터 접기';
+}
+
+function toggleControlsPanel() {
+  state.controlsCollapsed = !state.controlsCollapsed;
+  localStorage.setItem('controlsCollapsed', state.controlsCollapsed ? '1' : '0');
+  applyControlsCollapsed();
+}
 
 function selectedSpeechParts() {
   return {
@@ -685,6 +703,7 @@ cardEl.addEventListener('click', (e) => {
   state.flipped = !state.flipped;
   renderCard();
 });
+$('controlsToggle').addEventListener('click', toggleControlsPanel);
 $('prevBtn').addEventListener('click', () => move(-1));
 $('nextBtn').addEventListener('click', () => move(1));
 $('shuffleBtn').addEventListener('click', randomCard);
@@ -721,6 +740,8 @@ document.addEventListener('keydown', (e) => {
   else if (e.key.toLowerCase() === 'r') randomCard();
   else if (e.key.toLowerCase() === 'f') { e.preventDefault(); $('searchInput').focus(); }
 });
+
+applyControlsCollapsed();
 
 loadCards().catch((err) => {
   setMessage(`로딩 실패: ${err.message}`, true);

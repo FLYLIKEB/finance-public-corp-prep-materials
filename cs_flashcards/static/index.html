@@ -21,7 +21,9 @@
   </header>
 
   <main class="layout">
-    <aside class="panel controls">
+    <aside id="controlsPanel" class="panel controls">
+      <button id="controlsToggle" class="controls-toggle" type="button" aria-expanded="true" aria-controls="controlsBody">검색/필터 접기</button>
+      <div id="controlsBody" class="controls-body">
       <label>검색
         <input id="searchInput" type="search" placeholder="개념, 설명, 관련 개념 검색" />
       </label>
@@ -66,6 +68,7 @@
       </div>
       <p class="hint">단축키: Space 뒤집기 · ←/→ 이동 · O 안다 · X 모른다 · R 랜덤 · F 검색</p>
       <p id="message" class="message" role="status"></p>
+      </div>
     </aside>
 
     <section class="study-area">

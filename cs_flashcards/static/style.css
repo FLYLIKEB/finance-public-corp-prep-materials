@@ -623,3 +623,95 @@ p { line-height: 1.55; }
 .graph-expanded-links {
   opacity: .94;
 }
+
+.controls-toggle {
+  width: 100%;
+  color: var(--accent);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: .72rem .78rem;
+  font-weight: 850;
+  box-shadow: 0 8px 18px rgba(29, 25, 20, .04);
+}
+.controls-toggle::before {
+  content: "⌕";
+  margin-right: .35rem;
+  color: var(--cat-color, var(--accent));
+}
+.controls-body {
+  display: grid;
+  gap: 1rem;
+}
+.controls.collapsed {
+  padding: .62rem;
+  border-radius: 18px;
+}
+.controls.collapsed .controls-body {
+  display: none;
+}
+.controls.collapsed .controls-toggle {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  min-height: 9rem;
+  padding: .72rem .48rem;
+  white-space: nowrap;
+}
+.controls-collapsed .layout {
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+}
+.front::before {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media (max-width: 860px) {
+  .controls-collapsed .layout { grid-template-columns: 1fr; }
+  .controls.collapsed .controls-toggle {
+    writing-mode: horizontal-tb;
+    min-height: auto;
+    padding: .72rem .78rem;
+  }
+}
+
+.front .badges,
+.front .external-links,
+.back .badges,
+.back .external-links {
+  opacity: .38;
+  filter: saturate(.65);
+  transition: opacity .14s ease, filter .14s ease;
+}
+.front:hover .badges,
+.front:hover .external-links,
+.back:hover .badges,
+.back:hover .external-links,
+.flashcard:focus-within .badges,
+.flashcard:focus-within .external-links {
+  opacity: .72;
+  filter: saturate(.9);
+}
+.front .badge,
+.back .badge,
+.front .external-link,
+.back .external-link {
+  background: rgba(255, 255, 255, .58);
+  color: rgba(31, 58, 95, .64);
+  border-color: rgba(216, 210, 200, .58);
+  box-shadow: none;
+}
+.front .status,
+.back #backId {
+  color: rgba(111, 111, 106, .62);
+}
+.front .category-badge,
+.back .category-badge {
+  color: color-mix(in srgb, var(--cat-color, var(--accent)) 58%, #9ca3af);
+}
+.front .external-link,
+.back .external-link {
+  min-width: 1.55rem;
+  height: 1.55rem;
+  font-size: .68rem;
+}
