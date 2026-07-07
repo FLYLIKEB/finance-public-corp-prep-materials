@@ -1069,3 +1069,114 @@ select {
 .mark {
   padding: .82rem;
 }
+
+/* Unified calm blue-gray color system */
+:root {
+  --accent: #24364f;
+  --accent-soft: #f1f5f9;
+  --cat-color: #24364f;
+  --cat-bg: #f6f8fb;
+  --cat-border: #dbe3ee;
+}
+.flashcard.cat-database,
+.flashcard.cat-os,
+.flashcard.cat-network,
+.flashcard.cat-algorithm,
+.flashcard.cat-language,
+.flashcard.cat-software,
+.flashcard.cat-architecture,
+.flashcard.cat-security,
+.flashcard.cat-cloud,
+.flashcard.cat-ai,
+.flashcard.cat-finance,
+.flashcard.cat-default {
+  --cat-color: #24364f;
+  --cat-bg: #f6f8fb;
+  --cat-border: #dbe3ee;
+}
+.category-badge.cat-database,
+.category-badge.cat-os,
+.category-badge.cat-network,
+.category-badge.cat-algorithm,
+.category-badge.cat-language,
+.category-badge.cat-software,
+.category-badge.cat-architecture,
+.category-badge.cat-security,
+.category-badge.cat-cloud,
+.category-badge.cat-ai,
+.category-badge.cat-finance,
+.category-badge.cat-default {
+  color: rgba(36, 54, 79, .72);
+  background: rgba(246, 248, 251, .76);
+  border-color: rgba(219, 227, 238, .76);
+}
+.graph-center.cat-database,
+.graph-center.cat-os,
+.graph-center.cat-network,
+.graph-center.cat-algorithm,
+.graph-center.cat-language,
+.graph-center.cat-software,
+.graph-center.cat-architecture,
+.graph-center.cat-security,
+.graph-center.cat-cloud,
+.graph-center.cat-ai,
+.graph-center.cat-finance,
+.graph-center.cat-default,
+.concept-node.cat-database,
+.concept-node.cat-os,
+.concept-node.cat-network,
+.concept-node.cat-algorithm,
+.concept-node.cat-language,
+.concept-node.cat-software,
+.concept-node.cat-architecture,
+.concept-node.cat-security,
+.concept-node.cat-cloud,
+.concept-node.cat-ai,
+.concept-node.cat-finance,
+.concept-node.cat-default {
+  --node-color: #24364f;
+  --node-bg: #f8fafc;
+  --node-border: #dbe3ee;
+}
+.detail-card::before,
+.detail-의미::before,
+.detail-동작-활용::before,
+.detail-관련-개념::before,
+.detail-구분-포인트::before,
+.detail-시험-대비::before {
+  background: #8aa0bd;
+}
+.detail-icon,
+.detail-의미 .detail-icon,
+.detail-동작-활용 .detail-icon,
+.detail-관련-개념 .detail-icon,
+.detail-구분-포인트 .detail-icon,
+.detail-시험-대비 .detail-icon {
+  color: #52657f;
+  background: #f1f5f9;
+}
+.chip {
+  color: #24364f;
+  background: #f1f5f9;
+  border-color: #dbe3ee;
+}
+.graph-tier-label,
+.graph-tier-label.expanded {
+  color: #52657f;
+  background: #fff;
+  border-color: #dbe3ee;
+}
+.graph-expanded-links .concept-node {
+  border-color: #e4e9f1;
+}
+.audio-estimate {
+  color: #52657f;
+  background: #f6f8fb;
+  border-color: #dbe3ee;
+}
+.external-link {
+  color: #52657f;
+}
+.flashcard .front::after {
+  background: linear-gradient(90deg, #8aa0bd, transparent);
+}
