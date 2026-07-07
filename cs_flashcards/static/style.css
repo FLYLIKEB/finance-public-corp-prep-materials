@@ -2130,3 +2130,50 @@ select {
 .controls-body > label[title="학습 상태"] {
   display: none;
 }
+
+/* Reduce overall boldness */
+body {
+  font-weight: 400;
+}
+h1 {
+  font-weight: 680;
+}
+h2 {
+  font-weight: 600;
+}
+.back h2 {
+  font-weight: 620;
+}
+button,
+input,
+select,
+.badge,
+.stats strong,
+.audio-title,
+.detail-label,
+.chip,
+.concept-node strong,
+.mark,
+.position-jump,
+.top-filters select,
+.icon-btn,
+.controls-toggle,
+.collapsed-quick-actions button {
+  font-weight: 560 !important;
+}
+#definition {
+  font-weight: 430;
+}
+.detail-card p,
+#examNote,
+.source-details,
+.message,
+.hint {
+  font-weight: 400;
+}
+.term-emphasis {
+  font-weight: 650;
+}
+.current-word {
+  font-weight: 650;
+}
