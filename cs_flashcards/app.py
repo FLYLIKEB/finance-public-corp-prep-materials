@@ -16,7 +16,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CSV_PATH = ROOT / "pages" / "CS_encyclopedia_300plus.csv"
+DEFAULT_CSV_PATH = ROOT / "cs_flashcards" / "data" / "CS_encyclopedia_300plus.csv"
 CSV_PATH = Path(os.environ.get("CS_FLASHCARD_CSV", DEFAULT_CSV_PATH)).expanduser().resolve()
 BACKUP_DIR = Path(os.environ.get("CS_FLASHCARD_BACKUP_DIR", ROOT / "cs_flashcards" / "backups")).expanduser().resolve()
 STATIC_DIR = Path(__file__).resolve().parent / "static"

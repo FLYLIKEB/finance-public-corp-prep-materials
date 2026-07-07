@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$ROOT_DIR"
 
 DOMAIN="${CS_FLASHCARDS_DOMAIN:-cs.chamung.com}"
@@ -54,7 +55,7 @@ COPYFILE_DISABLE=1 tar --no-xattrs -czf "$TMP_ARCHIVE" \
   cs_flashcards/app.py \
   cs_flashcards/requirements.txt \
   cs_flashcards/static \
-  pages/CS_encyclopedia_300plus.csv
+  cs_flashcards/data/CS_encyclopedia_300plus.csv
 
 "${SSH[@]}" "mkdir -p '$REMOTE_DIR' '$REMOTE_DIR/backups'"
 "${SCP[@]}" "$TMP_ARCHIVE" "$REMOTE_USER@$REMOTE_HOST:/tmp/cs-flashcards.tar.gz"
@@ -92,7 +93,7 @@ User=ubuntu
 WorkingDirectory=$REMOTE_DIR
 Environment=CS_FLASHCARDS_USERNAME=$USERNAME
 Environment=CS_FLASHCARDS_PASSWORD=$PASSWORD
-Environment=CS_FLASHCARD_CSV=$REMOTE_DIR/pages/CS_encyclopedia_300plus.csv
+Environment=CS_FLASHCARD_CSV=$REMOTE_DIR/cs_flashcards/data/CS_encyclopedia_300plus.csv
 Environment=CS_FLASHCARD_BACKUP_DIR=$REMOTE_DIR/backups
 ExecStart=$REMOTE_DIR/.venv/bin/uvicorn cs_flashcards.app:app --host 127.0.0.1 --port $REMOTE_PORT
 Restart=always
