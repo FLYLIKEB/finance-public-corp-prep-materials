@@ -54,6 +54,11 @@ function selectedSpeechParts() {
   };
 }
 
+function speechRate() {
+  const rate = Number($('speechRate')?.value || 1);
+  return Number.isFinite(rate) ? Math.min(2, Math.max(1, rate)) : 1;
+}
+
 function plainRelated(text) {
   return parseRelated(text).join(', ');
 }
@@ -88,7 +93,7 @@ function speakQueue(items, done) {
   renderCard();
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
-  utterance.rate = 1.05;
+  utterance.rate = speechRate();
   utterance.pitch = 1;
   utterance.onend = () => speakQueue(items, done);
   utterance.onerror = () => {
