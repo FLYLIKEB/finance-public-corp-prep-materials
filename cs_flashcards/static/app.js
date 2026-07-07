@@ -9,9 +9,36 @@ const state = {
 const $ = (id) => document.getElementById(id);
 const cardEl = $('card');
 
-function wikiSearchUrl(card) {
-  const query = [card.term, card.english].filter(Boolean).join(' ');
-  return `https://ko.wikipedia.org/w/index.php?search=${encodeURIComponent(query)}`;
+function namuSearchUrl(query) {
+  return `https://namu.wiki/Search?q=${encodeURIComponent(query || '')}`;
+}
+
+function normalizeTerm(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function findCardByConcept(concept) {
+  const target = normalizeTerm(concept);
+  if (!target) return null;
+  return state.cards.find((card) => normalizeTerm(card.term) === target)
+    || state.cards.find((card) => normalizeTerm(card.english) === target)
+    || state.cards.find((card) => normalizeTerm(card.term).includes(target) || target.includes(normalizeTerm(card.term)));
+}
+
+function jumpToCard(card) {
+  if (!card) return false;
+  $('searchInput').value = '';
+  $('categorySelect').value = '';
+  $('statusSelect').value = '';
+  state.filtered = [...state.cards];
+  const found = state.filtered.findIndex((item) => item.id === card.id);
+  if (found < 0) return false;
+  state.index = found;
+  state.flipped = true;
+  renderCard();
+  setMessage(`${card.term} 카드로 이동했습니다.`);
+  cardEl.focus();
+  return true;
 }
 
 function statusLabel(value) {
@@ -92,8 +119,7 @@ function renderCard() {
     $('frontEnglish').textContent = '필터 조건을 바꿔주세요.';
     $('frontCategory').textContent = '-';
     $('frontStatus').textContent = '-';
-    $('frontWikiLink').href = '#';
-    $('backWikiLink').href = '#';
+    ['frontNamuKoLink', 'frontNamuEnLink', 'backNamuKoLink', 'backNamuEnLink'].forEach((id) => { $(id).href = '#'; });
     return;
   }
 
@@ -103,11 +129,16 @@ function renderCard() {
   $('frontStatus').className = `badge status ${c.known_status === 'O' ? 'o' : c.known_status === 'X' ? 'x' : ''}`;
   $('frontTerm').textContent = c.term;
   $('frontEnglish').textContent = c.english || '';
-  const wikiUrl = wikiSearchUrl(c);
-  $('frontWikiLink').href = wikiUrl;
-  $('frontWikiLink').title = `${c.term} 위키백과 검색`;
-  $('backWikiLink').href = wikiUrl;
-  $('backWikiLink').title = `${c.term} 위키백과 검색`;
+  const namuKoUrl = namuSearchUrl(c.term);
+  const namuEnUrl = namuSearchUrl(c.english || c.term);
+  $('frontNamuKoLink').href = namuKoUrl;
+  $('frontNamuKoLink').title = `${c.term} 나무위키 검색`;
+  $('backNamuKoLink').href = namuKoUrl;
+  $('backNamuKoLink').title = `${c.term} 나무위키 검색`;
+  $('frontNamuEnLink').href = namuEnUrl;
+  $('frontNamuEnLink').title = `${c.english || c.term} 나무위키 검색`;
+  $('backNamuEnLink').href = namuEnUrl;
+  $('backNamuEnLink').title = `${c.english || c.term} 나무위키 검색`;
 
   $('backCategory').textContent = c.category || '-';
   $('backId').textContent = c.id;
@@ -176,11 +207,10 @@ $('statusSelect').addEventListener('change', () => { state.index = 0; applyFilte
 $('related').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-term]');
   if (!btn) return;
-  $('searchInput').value = btn.dataset.term;
-  $('statusSelect').value = '';
-  $('categorySelect').value = '';
-  state.index = 0;
-  applyFilters();
+  const card = findCardByConcept(btn.dataset.term);
+  if (!jumpToCard(card)) {
+    setMessage(`${btn.dataset.term} 카드를 찾지 못했습니다.`, true);
+  }
 });
 
 document.addEventListener('keydown', (e) => {
