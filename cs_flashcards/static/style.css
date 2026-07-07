@@ -2177,3 +2177,14 @@ select,
 .current-word {
   font-weight: 650;
 }
+
+/* Soften top filter text */
+.top-filters select {
+  color: rgba(36, 54, 79, .46) !important;
+  font-weight: 400 !important;
+  background: rgba(246, 248, 251, .58);
+}
+.top-filters select:has(option:checked:not([value=""])) {
+  color: rgba(36, 54, 79, .72) !important;
+  font-weight: 500 !important;
+}
