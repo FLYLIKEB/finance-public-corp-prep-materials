@@ -1973,3 +1973,25 @@ select {
   margin-left: auto;
   overflow: auto;
 }
+
+/* Make graph concept chips clearly clickable */
+.concept-graph .concept-node {
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease, color .12s ease;
+}
+.concept-graph .concept-node:hover,
+.concept-graph .concept-node:focus-visible {
+  transform: translateY(-1px);
+  background: #eef2f7 !important;
+  border-color: rgba(36, 54, 79, .28) !important;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, .08) !important;
+  outline: none;
+}
+.concept-graph .concept-node:hover strong,
+.concept-graph .concept-node:focus-visible strong {
+  color: #111827;
+}
+.concept-graph .concept-node:active {
+  transform: translateY(0);
+  box-shadow: none !important;
+}
