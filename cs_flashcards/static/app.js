@@ -134,6 +134,31 @@ function jumpToCard(card) {
   return true;
 }
 
+function findCardForJump(value) {
+  const query = String(value || '').trim();
+  if (!query) return null;
+  const numeric = Number(query);
+  if (Number.isInteger(numeric) && numeric >= 1 && numeric <= state.cards.length) {
+    return state.cards[numeric - 1];
+  }
+  const normalized = normalizeTerm(query);
+  const idQuery = query.toUpperCase();
+  return state.cards.find((card) => card.id.toUpperCase() === idQuery)
+    || state.cards.find((card) => normalizeTerm(card.term) === normalized)
+    || state.cards.find((card) => normalizeTerm(card.english) === normalized)
+    || state.cards.find((card) => normalizeTerm(card.term).includes(normalized) || normalizeTerm(card.english).includes(normalized));
+}
+
+function jumpFromInput() {
+  const input = $('jumpInput');
+  const card = findCardForJump(input.value);
+  if (!jumpToCard(card)) {
+    setMessage('카드를 찾지 못했습니다.', true);
+    return;
+  }
+  input.value = '';
+}
+
 
 
 function applyControlsCollapsed() {
@@ -642,6 +667,18 @@ async function loadCards() {
   updateAudioEstimate();
 }
 
+async function refreshCards() {
+  if (state.audioPlaying) stopAudioPlayback('정지');
+  const currentId = state.filtered[state.index]?.id;
+  await loadCards();
+  if (currentId) {
+    const found = state.filtered.findIndex((card) => card.id === currentId);
+    if (found >= 0) state.index = found;
+  }
+  renderCard();
+  setMessage('↻');
+}
+
 function buildCategoryOptions(categories) {
   const current = $('categorySelect').value;
   $('categorySelect').innerHTML = '<option value="">전체</option>' +
@@ -818,13 +855,20 @@ async function mark(status) {
 
 cardEl.addEventListener('click', (e) => {
   if (e.target.closest('button, a')) return;
+  const rect = cardEl.getBoundingClientRect();
+  const edge = Math.max(78, rect.width * 0.12);
+  if (e.clientX - rect.left <= edge) { move(-1); return; }
+  if (rect.right - e.clientX <= edge) { move(1); return; }
   state.speechHighlight = null;
   state.speechCurrent = null;
   state.flipped = !state.flipped;
   if (state.flipped) state.backPage = 0;
   renderCard();
 });
+$('refreshBtn').addEventListener('click', () => refreshCards().catch((err) => setMessage(err.message, true)));
 $('controlsToggle').addEventListener('click', toggleControlsPanel);
+$('jumpBtn').addEventListener('click', jumpFromInput);
+$('jumpInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') jumpFromInput(); });
 $('backPagePrev').addEventListener('click', () => setBackPage(state.backPage - 1));
 $('backPageNext').addEventListener('click', () => setBackPage(state.backPage + 1));
 $('prevBtn').addEventListener('click', () => move(-1));

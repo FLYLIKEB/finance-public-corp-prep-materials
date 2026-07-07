@@ -1602,3 +1602,79 @@ select {
 .front::before {
   background-size: min(62vw, 540px) auto;
 }
+
+/* Jump controls and edge navigation */
+.jump-row {
+  display: grid;
+  grid-template-columns: 1fr 2.15rem;
+  gap: .3rem;
+}
+.jump-row button {
+  border-radius: 11px;
+  background: #f1f5f9;
+  color: #24364f;
+  font-weight: 850;
+}
+.flashcard::before,
+.flashcard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: max(78px, 12%);
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .14s ease;
+}
+.flashcard::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(36,54,79,.045), transparent);
+}
+.flashcard::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(36,54,79,.045), transparent);
+}
+.flashcard:hover::before,
+.flashcard:hover::after {
+  opacity: 1;
+}
+
+/* Minimal Apple-like mark buttons */
+.mark {
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 18px;
+  font-weight: 850;
+  backdrop-filter: blur(12px);
+}
+.known {
+  color: #0f5132;
+  background: linear-gradient(180deg, rgba(236, 248, 241, .95), rgba(218, 242, 229, .92));
+}
+.unknown {
+  color: #842029;
+  background: linear-gradient(180deg, rgba(255, 240, 241, .96), rgba(250, 222, 225, .92));
+}
+.mark:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(29, 25, 20, .055) !important;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.icon-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(246, 248, 251, .82);
+  color: rgba(36, 54, 79, .72);
+  font-size: 1rem;
+  font-weight: 850;
+}
+.icon-btn:hover {
+  background: #eef2f7;
+}
