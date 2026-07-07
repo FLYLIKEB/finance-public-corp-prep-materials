@@ -112,12 +112,12 @@ function preferredVoiceForItem(item) {
 }
 
 function speechPitchForItem(item) {
-  return item.key === 'term' ? 0.62 : 1;
+  return item.key === 'term' ? 0.88 : 1;
 }
 
 function speechRateForItem(item) {
   const baseRate = speechRate();
-  return item.key === 'term' ? Math.max(0.85, baseRate * 0.92) : baseRate;
+  return baseRate;
 }
 
 function speakQueue(items, done) {
