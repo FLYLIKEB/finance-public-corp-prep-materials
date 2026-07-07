@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CS 개념 플래시카드</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>CS 개념 플래시카드</h1>
+      <p id="csvPath" class="muted">CSV 로딩 중...</p>
+    </div>
+    <div class="stats" aria-live="polite">
+      <span>전체 <strong id="statTotal">0</strong></span>
+      <span>O <strong id="statKnown">0</strong></span>
+      <span>X <strong id="statUnknown">0</strong></span>
+      <span>미학습 <strong id="statUnreviewed">0</strong></span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel controls">
+      <label>검색
+        <input id="searchInput" type="search" placeholder="개념, 설명, 관련 개념 검색" />
+      </label>
+      <label>카테고리
+        <select id="categorySelect"><option value="">전체</option></select>
+      </label>
+      <label>학습 상태
+        <select id="statusSelect">
+          <option value="">전체</option>
+          <option value="unreviewed">미학습</option>
+          <option value="O">안다 O</option>
+          <option value="X">모른다 X</option>
+        </select>
+      </label>
+      <div class="button-grid">
+        <button id="prevBtn" type="button">← 이전</button>
+        <button id="nextBtn" type="button">다음 →</button>
+        <button id="shuffleBtn" type="button">랜덤</button>
+        <button id="unknownOnlyBtn" type="button">X만 복습</button>
+      </div>
+      <p class="hint">단축키: Space 뒤집기 · ←/→ 이동 · O 안다 · X 모른다 · R 랜덤 · F 검색</p>
+      <p id="message" class="message" role="status"></p>
+    </aside>
+
+    <section class="study-area">
+      <div class="progress-line">
+        <span id="positionText">0 / 0</span>
+        <span id="filterText" class="muted">필터 없음</span>
+      </div>
+
+      <article id="card" class="flashcard" tabindex="0" aria-label="플래시카드. 클릭하면 뒤집힙니다.">
+        <div class="card-inner">
+          <div class="card-face front">
+            <div class="badges">
+              <span id="frontCategory" class="badge"></span>
+              <span id="frontStatus" class="badge status"></span>
+            </div>
+            <h2 id="frontTerm">로딩 중...</h2>
+            <p id="frontEnglish" class="english"></p>
+            <p class="tap-hint">카드를 눌러 설명 보기</p>
+          </div>
+          <div class="card-face back">
+            <div class="back-scroll">
+              <div class="badges">
+                <span id="backCategory" class="badge"></span>
+                <span id="backId" class="badge"></span>
+              </div>
+              <h2 id="backTerm"></h2>
+              <section>
+                <h3>간단 설명</h3>
+                <p id="definition"></p>
+              </section>
+              <section>
+                <h3>상세 설명</h3>
+                <p id="detail"></p>
+              </section>
+              <section>
+                <h3>관련 개념</h3>
+                <div id="related" class="chips"></div>
+              </section>
+              <section>
+                <h3>출처 파일</h3>
+                <p id="sources" class="small"></p>
+              </section>
+              <section>
+                <h3>시험 포인트</h3>
+                <p id="examNote"></p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="mark-row">
+        <button id="knownBtn" class="mark known" type="button">안다 O</button>
+        <button id="unknownBtn" class="mark unknown" type="button">모른다 X</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

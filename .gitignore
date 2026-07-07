@@ -1,3 +1,7 @@
 .obsidian
 준비자료/
 .omc/
+.venv/
+__pycache__/
+*.pyc
+cs_flashcards/backups/
