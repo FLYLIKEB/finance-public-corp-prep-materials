@@ -330,6 +330,8 @@ function setAudioButtons() {
   $('playAudioBtn').textContent = state.audioPlaying ? '…' : '▶';
   $('playAudioBtn').disabled = state.audioPlaying;
   $('stopAudioBtn').disabled = !state.audioPlaying;
+  if ($('collapsedPlayBtn')) $('collapsedPlayBtn').disabled = state.audioPlaying;
+  if ($('collapsedStopBtn')) $('collapsedStopBtn').disabled = !state.audioPlaying;
 }
 
 function speakCurrentAndAdvance() {
@@ -879,6 +881,8 @@ $('unknownBtn').addEventListener('click', () => mark('X'));
 $('unknownOnlyBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
 $('playAudioBtn').addEventListener('click', startAudioPlayback);
 $('stopAudioBtn').addEventListener('click', () => stopAudioPlayback());
+$('collapsedPlayBtn').addEventListener('click', startAudioPlayback);
+$('collapsedStopBtn').addEventListener('click', () => stopAudioPlayback());
 ['speakTerm', 'speakDefinition', 'speakDetail', 'speakRelated', 'speakExam', 'speechRate'].forEach((id) => {
   $(id).addEventListener('change', updateAudioEstimate);
 });

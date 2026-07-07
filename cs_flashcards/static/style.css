@@ -1678,3 +1678,29 @@ select {
 .icon-btn:hover {
   background: #eef2f7;
 }
+
+/* Collapsed sidebar audio controls */
+.collapsed-quick-actions {
+  display: none;
+}
+.controls.collapsed .collapsed-quick-actions {
+  display: grid;
+  gap: .32rem;
+  margin-bottom: .36rem;
+}
+.collapsed-quick-actions button {
+  width: 2.42rem;
+  height: 2.42rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #24364f;
+  font-weight: 850;
+  box-shadow: none;
+}
+.collapsed-quick-actions button:disabled {
+  opacity: .34;
+  cursor: not-allowed;
+}
+.controls.collapsed .controls-toggle {
+  margin-top: 0;
+}
