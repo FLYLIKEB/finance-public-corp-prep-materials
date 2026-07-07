@@ -149,14 +149,19 @@ function findCardForJump(value) {
     || state.cards.find((card) => normalizeTerm(card.term).includes(normalized) || normalizeTerm(card.english).includes(normalized));
 }
 
-function jumpFromInput() {
-  const input = $('jumpInput');
-  const card = findCardForJump(input.value);
-  if (!jumpToCard(card)) {
-    setMessage('카드를 찾지 못했습니다.', true);
+function jumpFromInput(value = null) {
+  const query = String(value ?? ($('positionInput')?.value || '')).trim();
+  const numeric = Number(query);
+  if (Number.isInteger(numeric) && numeric >= 1 && numeric <= state.filtered.length) {
+    state.index = numeric - 1;
+    state.flipped = false;
+    state.backPage = 0;
+    playMoveSound(1);
+    renderCard();
     return;
   }
-  input.value = '';
+  setMessage('범위를 벗어났습니다.', true);
+  renderCard();
 }
 
 
@@ -739,7 +744,9 @@ function renderCard() {
   cardEl.classList.toggle('flipped', state.flipped);
   renderBackPage();
   const total = state.filtered.length;
-  $('positionText').textContent = total ? `${state.index + 1} / ${total}` : '0 / 0';
+  if (document.activeElement !== $('positionInput')) $('positionInput').value = total ? String(state.index + 1) : '0';
+  $('positionInput').max = String(total || 0);
+  $('positionTotal').textContent = String(total || 0);
   const filters = [];
   if ($('searchInput').value.trim()) filters.push(`검색: ${$('searchInput').value.trim()}`);
   if ($('categorySelect').value) filters.push(`분야: ${$('categorySelect').value}`);
@@ -869,13 +876,13 @@ cardEl.addEventListener('click', (e) => {
 });
 $('refreshBtn').addEventListener('click', () => refreshCards().catch((err) => setMessage(err.message, true)));
 $('controlsToggle').addEventListener('click', toggleControlsPanel);
-$('jumpBtn').addEventListener('click', jumpFromInput);
-$('jumpInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') jumpFromInput(); });
+$('positionInput').addEventListener('change', () => jumpFromInput());
+$('positionInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); jumpFromInput(); $('positionInput').blur(); } });
 $('backPagePrev').addEventListener('click', () => setBackPage(state.backPage - 1));
 $('backPageNext').addEventListener('click', () => setBackPage(state.backPage + 1));
-$('prevBtn').addEventListener('click', () => move(-1));
-$('nextBtn').addEventListener('click', () => move(1));
 $('shuffleBtn').addEventListener('click', randomCard);
+$('collapsedShuffleBtn').addEventListener('click', randomCard);
+$('collapsedUnknownBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
 $('knownBtn').addEventListener('click', () => mark('O'));
 $('unknownBtn').addEventListener('click', () => mark('X'));
 $('unknownOnlyBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
