@@ -10,6 +10,7 @@ const state = {
   audioContext: null,
   controlsCollapsed: localStorage.getItem('controlsCollapsed') !== '0',
   backPage: 0,
+  statusFilter: '',
 };
 
 const $ = (id) => document.getElementById(id);
@@ -120,8 +121,9 @@ function findCardByConcept(concept) {
 function jumpToCard(card) {
   if (!card) return false;
   $('searchInput').value = '';
-  $('categorySelect').value = '';
-  $('statusSelect').value = '';
+  if ($('categorySelect')) $('categorySelect').value = '';
+  state.statusFilter = '';
+  updateStatFilterButtons();
   state.filtered = [...state.cards];
   const found = state.filtered.findIndex((item) => item.id === card.id);
   if (found < 0) return false;
@@ -173,7 +175,7 @@ function applyControlsCollapsed() {
   panel.classList.toggle('collapsed', state.controlsCollapsed);
   document.body.classList.toggle('controls-collapsed', state.controlsCollapsed);
   button.setAttribute('aria-expanded', String(!state.controlsCollapsed));
-  button.textContent = state.controlsCollapsed ? '⌕' : '⌕ 접기';
+  button.textContent = state.controlsCollapsed ? '⚙' : '⚙';
 }
 
 function toggleControlsPanel() {
@@ -710,10 +712,11 @@ async function refreshCards() {
 }
 
 function buildCategoryOptions(categories) {
-  const current = $('categorySelect').value;
+  const current = $('categorySelect')?.value || '';
+  if (!$('categorySelect')) return;
   $('categorySelect').innerHTML = '<option value="">▦ *</option>' +
-    categories.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
-  $('categorySelect').value = current;
+    categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(categoryLabel(category))}</option>`).join('');
+  $('categorySelect').value = categories.includes(current) ? current : '';
 }
 
 function renderStats(summary) {
@@ -721,6 +724,7 @@ function renderStats(summary) {
   $('statKnown').textContent = summary.known;
   $('statUnknown').textContent = summary.unknown;
   $('statUnreviewed').textContent = summary.unreviewed;
+  updateStatFilterButtons();
 }
 
 function setBackPage(page) {
@@ -744,8 +748,8 @@ function renderBackPage() {
 function applyFilters(keepCurrentId = null) {
   if (state.audioPlaying) stopAudioPlayback('필터가 바뀌어 자동 듣기를 정지했습니다.');
   const query = $('searchInput').value.trim().toLowerCase();
-  const category = $('categorySelect').value;
-  const status = $('statusSelect').value;
+  const category = $('categorySelect')?.value || '';
+  const status = state.statusFilter;
   state.filtered = state.cards.filter((c) => {
     const haystack = [c.id, c.term, c.english, c.category, c.definition, c.detailed_explanation, c.related_concepts, c.exam_note].join(' ').toLowerCase();
     const statusOk = !status || (status === 'unreviewed' ? !c.known_status : c.known_status === status);
@@ -770,12 +774,6 @@ function renderCard() {
   if (document.activeElement !== $('positionInput')) $('positionInput').value = total ? String(state.index + 1) : '0';
   $('positionInput').max = String(total || 0);
   $('positionTotal').textContent = String(total || 0);
-  const filters = [];
-  if ($('searchInput').value.trim()) filters.push(`검색: ${$('searchInput').value.trim()}`);
-  if ($('categorySelect').value) filters.push(`분야: ${$('categorySelect').value}`);
-  if ($('statusSelect').value) filters.push(`상태: ${$('statusSelect').selectedOptions[0].textContent}`);
-  $('filterText').title = filters.join(' · ') || '필터 없음';
-
   if (!total) {
     $('frontTerm').textContent = '카드 없음';
     $('frontEnglish').textContent = '필터 조건을 바꿔주세요.';
@@ -899,7 +897,21 @@ cardEl.addEventListener('click', (e) => {
   if (state.flipped) state.backPage = 0;
   renderCard();
 });
-$('refreshBtn').addEventListener('click', () => refreshCards().catch((err) => setMessage(err.message, true)));
+function updateStatFilterButtons() {
+  document.querySelectorAll('[data-status-filter]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.statusFilter === state.statusFilter);
+  });
+}
+
+function setStatusFilter(status) {
+  state.statusFilter = status;
+  state.index = 0;
+  updateStatFilterButtons();
+  applyFilters();
+}
+
+$('logoRefreshBtn').addEventListener('click', () => refreshCards().catch((err) => setMessage(err.message, true)));
+document.querySelectorAll('[data-status-filter]').forEach((button) => button.addEventListener('click', () => setStatusFilter(button.dataset.statusFilter)));
 $('controlsToggle').addEventListener('click', toggleControlsPanel);
 $('positionInput').addEventListener('change', () => jumpFromInput());
 $('positionInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); jumpFromInput(); $('positionInput').blur(); } });
@@ -907,10 +919,10 @@ $('backPagePrev').addEventListener('click', () => setBackPage(state.backPage - 1
 $('backPageNext').addEventListener('click', () => setBackPage(state.backPage + 1));
 $('shuffleBtn').addEventListener('click', randomCard);
 $('collapsedShuffleBtn').addEventListener('click', randomCard);
-$('collapsedUnknownBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
+$('collapsedUnknownBtn').addEventListener('click', () => setStatusFilter('X'));
 $('knownBtn').addEventListener('click', () => mark('O'));
 $('unknownBtn').addEventListener('click', () => mark('X'));
-$('unknownOnlyBtn').addEventListener('click', () => { $('statusSelect').value = 'X'; state.index = 0; applyFilters(); });
+$('unknownOnlyBtn').addEventListener('click', () => setStatusFilter('X'));
 $('playAudioBtn').addEventListener('click', startAudioPlayback);
 $('stopAudioBtn').addEventListener('click', () => stopAudioPlayback());
 $('collapsedPlayBtn').addEventListener('click', startAudioPlayback);
@@ -920,7 +932,6 @@ $('collapsedStopBtn').addEventListener('click', () => stopAudioPlayback());
 });
 $('searchInput').addEventListener('input', () => { state.index = 0; applyFilters(); });
 $('categorySelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
-$('statusSelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
 function goToConceptTerm(term) {
   const card = findCardByConcept(term);
   if (!jumpToCard(card)) {

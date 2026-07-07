@@ -9,33 +9,30 @@
 <body>
   <header class="topbar">
     <div>
-      <h1>CS</h1>
+      <button id="logoRefreshBtn" class="logo-refresh" type="button" title="새로고침" aria-label="새로고침">CS</button>
       <p id="csvPath" class="muted">CSV 로딩 중...</p>
     </div>
     <div class="header-search" title="검색">
       <span>⌕</span>
       <input id="searchInput" type="search" placeholder="검색" />
     </div>
-    <div class="header-actions">
-      <button id="refreshBtn" class="icon-btn has-tip" type="button" title="새로고침" aria-label="새로고침" data-tip="새로고침">↻</button>
-    </div>
     <div class="stats" aria-live="polite">
-      <span title="전체">Σ <strong id="statTotal">0</strong></span>
-      <span title="안다">O <strong id="statKnown">0</strong></span>
-      <span title="모른다">X <strong id="statUnknown">0</strong></span>
-      <span title="미학습">– <strong id="statUnreviewed">0</strong></span>
+      <button id="filterAllBtn" class="stat-filter active" type="button" data-status-filter="" title="전체">Σ <strong id="statTotal">0</strong></button>
+      <button id="filterKnownBtn" class="stat-filter" type="button" data-status-filter="O" title="안다">O <strong id="statKnown">0</strong></button>
+      <button id="filterUnknownBtn" class="stat-filter" type="button" data-status-filter="X" title="모른다">X <strong id="statUnknown">0</strong></button>
+      <button id="filterUnreviewedBtn" class="stat-filter" type="button" data-status-filter="unreviewed" title="미학습">– <strong id="statUnreviewed">0</strong></button>
     </div>
   </header>
 
   <main class="layout">
     <aside id="controlsPanel" class="panel controls">
       <div class="collapsed-quick-actions" aria-label="빠른 자동 듣기">
-        <button id="collapsedPlayBtn" class="has-tip" type="button" title="재생" data-tip="자동 듣기 재생">▶</button>
-        <button id="collapsedStopBtn" class="has-tip" type="button" title="정지" data-tip="자동 듣기 정지">■</button>
-        <button id="collapsedShuffleBtn" class="has-tip" type="button" title="랜덤" data-tip="랜덤 카드">↯</button>
-        <button id="collapsedUnknownBtn" class="has-tip" type="button" title="X만 복습" data-tip="X만 복습">X</button>
+        <button id="collapsedPlayBtn" class="has-tip collapsed-audio-main" type="button" title="재생" data-tip="자동 듣기 재생">▶</button>
+        <button id="collapsedStopBtn" class="has-tip collapsed-audio-main" type="button" title="정지" data-tip="자동 듣기 정지">■</button>
+        <button id="collapsedShuffleBtn" class="has-tip collapsed-secondary" type="button" title="랜덤" data-tip="랜덤 카드">↯</button>
+        <button id="collapsedUnknownBtn" class="has-tip collapsed-secondary" type="button" title="X만 복습" data-tip="X만 복습">X</button>
       </div>
-      <button id="controlsToggle" class="controls-toggle has-tip" type="button" aria-expanded="true" aria-controls="controlsBody" data-tip="필터 열기/접기">검색/필터 접기</button>
+      <button id="controlsToggle" class="controls-toggle has-tip" type="button" aria-expanded="true" aria-controls="controlsBody" data-tip="듣기 설정">검색/필터 접기</button>
       <div id="controlsBody" class="controls-body">
       <div class="audio-panel" aria-label="자동 음성 재생 설정">
         <div class="audio-title" title="자동 듣기">▶</div>
@@ -75,15 +72,9 @@
           <input id="positionInput" type="number" min="1" value="0" />
           <span>/ <span id="positionTotal">0</span></span>
         </label>
-        <div id="filterText" class="top-filters" aria-label="필터">
-          <select id="categorySelect" title="카테고리"><option value="">▦ *</option></select>
-          <select id="statusSelect" title="학습 상태">
-            <option value="">◐ *</option>
-            <option value="unreviewed">–</option>
-            <option value="O">O</option>
-            <option value="X">X</option>
-          </select>
-        </div>
+        <select id="categorySelect" class="category-filter" title="카테고리">
+          <option value="">▦ *</option>
+        </select>
       </div>
 
       <article id="card" class="flashcard" tabindex="0" aria-label="플래시카드. 클릭하면 뒤집힙니다.">
