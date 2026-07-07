@@ -5,6 +5,7 @@ const state = {
   flipped: false,
   summary: null,
   audioPlaying: false,
+  speechHighlight: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -57,20 +58,44 @@ function plainRelated(text) {
   return parseRelated(text).join(', ');
 }
 
-function speechTextForCard(card) {
+function speechItemsForCard(card) {
   const parts = selectedSpeechParts();
-  const lines = [];
-  if (parts.term) lines.push(`카드명. ${card.term}${card.english ? `. ${card.english}` : ''}`);
-  if (parts.definition) lines.push(`간단설명. ${card.definition || ''}`);
+  const items = [];
+  if (parts.term) items.push({key: 'term', text: `카드명. ${card.term}${card.english ? `. ${card.english}` : ''}`});
+  if (parts.definition) items.push({key: 'definition', text: `간단설명. ${card.definition || ''}`});
   if (parts.detail) {
     const detailText = detailedSections(card.detailed_explanation)
       .map((section) => `${section.label}. ${section.content}`)
       .join('. ');
-    lines.push(`상세설명. ${detailText}`);
+    items.push({key: 'detail', text: `상세설명. ${detailText}`});
   }
-  if (parts.related) lines.push(`관련개념. ${plainRelated(card.related_concepts)}`);
-  if (parts.exam) lines.push(`시험포인트. ${card.exam_note || ''}`);
-  return lines.filter((line) => line.replace(/[.\s]/g, '').length > 0).join('. ');
+  if (parts.related) items.push({key: 'related', text: `관련개념. ${plainRelated(card.related_concepts)}`});
+  if (parts.exam) items.push({key: 'exam', text: `시험포인트. ${card.exam_note || ''}`});
+  return items.filter((item) => item.text.replace(/[.\s]/g, '').length > 0);
+}
+
+function speakQueue(items, done) {
+  if (!state.audioPlaying) return;
+  const item = items.shift();
+  if (!item) {
+    state.speechHighlight = null;
+    renderCard();
+    done();
+    return;
+  }
+  state.speechHighlight = item.key;
+  renderCard();
+  const utterance = new SpeechSynthesisUtterance(item.text);
+  utterance.lang = 'ko-KR';
+  utterance.rate = 1.05;
+  utterance.pitch = 1;
+  utterance.onend = () => speakQueue(items, done);
+  utterance.onerror = () => {
+    setMessage('음성 재생 중 오류가 발생했습니다.', true);
+    stopAudioPlayback();
+  };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
 }
 
 function setAudioButtons() {
@@ -85,26 +110,17 @@ function speakCurrentAndAdvance() {
     setAudioButtons();
     return;
   }
-  state.flipped = false;
+  state.flipped = true;
+  state.speechHighlight = null;
   renderCard();
   const card = state.filtered[state.index];
-  const text = speechTextForCard(card);
-  if (!text) {
+  const items = speechItemsForCard(card);
+  if (!items.length) {
     moveAudioNext();
     return;
   }
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'ko-KR';
-  utterance.rate = 1.05;
-  utterance.pitch = 1;
-  utterance.onend = moveAudioNext;
-  utterance.onerror = () => {
-    setMessage('음성 재생 중 오류가 발생했습니다.', true);
-    stopAudioPlayback();
-  };
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
   setMessage(`자동 듣기: ${state.index + 1} / ${state.filtered.length} · ${card.term}`);
+  window.setTimeout(() => speakQueue([...items], moveAudioNext), 260);
 }
 
 function moveAudioNext() {
@@ -138,6 +154,7 @@ function startAudioPlayback() {
 
 function stopAudioPlayback(message = '자동 듣기를 정지했습니다.') {
   state.audioPlaying = false;
+  state.speechHighlight = null;
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   setAudioButtons();
   setMessage(message);
@@ -282,6 +299,22 @@ function renderCard() {
   $('examNote').textContent = c.exam_note || '';
   const related = parseRelated(c.related_concepts);
   $('related').innerHTML = related.map((r) => `<button class="chip" type="button" data-term="${escapeHtml(r)}">${escapeHtml(r)}</button>`).join('') || '<span class="muted">없음</span>';
+  applySpeechHighlight();
+}
+
+
+function applySpeechHighlight() {
+  document.querySelectorAll('.speaking').forEach((element) => element.classList.remove('speaking'));
+  const key = state.speechHighlight;
+  if (!key) return;
+  const target = {
+    term: document.querySelector('.back-term-line'),
+    definition: $('definition').closest('section'),
+    detail: $('detail'),
+    related: $('related').closest('section'),
+    exam: $('examNote').closest('section'),
+  }[key];
+  if (target) target.classList.add('speaking');
 }
 
 function escapeHtml(value) {
@@ -327,6 +360,7 @@ async function mark(status) {
 
 cardEl.addEventListener('click', (e) => {
   if (e.target.closest('button, a')) return;
+  state.speechHighlight = null;
   state.flipped = !state.flipped;
   renderCard();
 });

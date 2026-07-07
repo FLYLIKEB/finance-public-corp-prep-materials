@@ -339,6 +339,25 @@ p { line-height: 1.55; }
   transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 
+
+.speaking {
+  border-color: rgba(220, 38, 38, .42) !important;
+  background: #fff5f5 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, .08), 0 8px 20px rgba(220, 38, 38, .08) !important;
+}
+.speaking h2,
+.speaking h3,
+.speaking p,
+.speaking .detail-label,
+.speaking .chip,
+.speaking a {
+  color: #dc2626 !important;
+}
+.detail-grid.speaking .detail-card {
+  border-color: rgba(220, 38, 38, .34);
+  background: #fff7f7;
+}
+
 .mark-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .mark {
   border-radius: 18px;
