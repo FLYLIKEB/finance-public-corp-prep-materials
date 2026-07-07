@@ -537,13 +537,36 @@ function detailedSections(text) {
   }).filter(Boolean);
 }
 
-function currentWordHtml(text, key, detailLabel = null) {
+function highlightTermsHtml(text, terms = []) {
+  const source = String(text || '');
+  const cleanTerms = [...new Set(terms.map((term) => String(term || '').trim()).filter((term) => term.length >= 2))]
+    .sort((a, b) => b.length - a.length);
+  if (!cleanTerms.length) return escapeHtml(source);
+  const escapedTerms = cleanTerms.map((term) => term.replace(/[.*+?^${}()|[\\\]]/g, '\\$&'));
+  const pattern = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
+  let html = '';
+  let lastIndex = 0;
+  source.replace(pattern, (match, _value, offset) => {
+    html += escapeHtml(source.slice(lastIndex, offset));
+    html += `<strong class="term-emphasis">${escapeHtml(match)}</strong>`;
+    lastIndex = offset + match.length;
+    return match;
+  });
+  html += escapeHtml(source.slice(lastIndex));
+  return html;
+}
+
+function cardTerms(card) {
+  return [card?.term, card?.english].filter(Boolean);
+}
+
+function currentWordHtml(text, key, detailLabel = null, terms = []) {
   const source = String(text || '');
   const current = state.speechCurrent;
   const shouldHighlight = current
     && current.key === key
     && (detailLabel === null || current.detailLabel === detailLabel);
-  if (!shouldHighlight) return escapeHtml(source);
+  if (!shouldHighlight) return highlightTermsHtml(source, terms);
 
   const charIndex = Math.max(0, current.charIndex || 0);
   const matches = [...source.matchAll(/\S+/g)];
@@ -575,9 +598,9 @@ function detailMeta(label) {
   }[label] || {icon: '·', title: label};
 }
 
-function renderDetailedExplanation(text) {
+function renderDetailedExplanation(text, terms = []) {
   const sections = detailedSections(text);
-  if (!sections.length) return `<div class="detail-card"><p>${currentWordHtml(text || '', 'detail')}</p></div>`;
+  if (!sections.length) return `<div class="detail-card"><p>${currentWordHtml(text || '', 'detail', null, terms)}</p></div>`;
   return sections.map((section) => {
     const meta = detailMeta(section.label);
     return `
@@ -588,7 +611,7 @@ function renderDetailedExplanation(text) {
             <div class="detail-label" data-raw-label="${escapeHtml(section.label)}">${escapeHtml(meta.title)}</div>
           </div>
         </div>
-        <p>${currentWordHtml(section.content, 'detail', section.label)}</p>
+        <p>${currentWordHtml(section.content, 'detail', section.label, terms)}</p>
       </article>
     `;
   }).join('');
@@ -789,10 +812,11 @@ function renderCard() {
   $('backCategory').textContent = categoryLabel(c.category);
   $('backId').textContent = c.id;
   $('backTerm').innerHTML = `${currentWordHtml(c.term, 'term')}${c.english ? ' / ' + escapeHtml(c.english) : ''}`;
-  $('definition').innerHTML = currentWordHtml(c.definition || '', 'definition');
-  $('detail').innerHTML = renderDetailedExplanation(c.detailed_explanation);
+  const emphasisTerms = cardTerms(c);
+  $('definition').innerHTML = currentWordHtml(c.definition || '', 'definition', null, emphasisTerms);
+  $('detail').innerHTML = renderDetailedExplanation(c.detailed_explanation, emphasisTerms);
   $('sources').textContent = c.source_files || '';
-  $('examNote').innerHTML = currentWordHtml(c.exam_note || '', 'exam');
+  $('examNote').innerHTML = currentWordHtml(c.exam_note || '', 'exam', null, emphasisTerms);
   const related = parseRelated(c.related_concepts);
   $('related').innerHTML = related.map((r) => `<button class="chip" type="button" data-term="${escapeHtml(r)}">${currentWordHtml(r, 'related')}</button>`).join('') || '<span class="muted">없음</span>';
   $('conceptGraph').innerHTML = renderConceptGraph(c);
