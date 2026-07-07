@@ -1392,3 +1392,41 @@ h3 {
 .back-page[data-page="2"] {
   padding-top: .25rem;
 }
+
+/* Improve back definition readability */
+#definition {
+  position: relative;
+  margin: .32rem 0 .58rem;
+  padding: .72rem .9rem .72rem 1.05rem;
+  border-radius: 16px;
+  background: rgba(248, 250, 252, .92);
+  border: 1px solid #dbe3ee;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans KR", sans-serif;
+  font-size: clamp(.98rem, 1.25vw, 1.08rem);
+  font-weight: 560;
+  line-height: 1.62;
+  letter-spacing: -0.025em;
+}
+#definition::before {
+  content: "“";
+  position: absolute;
+  left: .38rem;
+  top: .08rem;
+  color: rgba(36, 54, 79, .22);
+  font-family: ui-serif, Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+#definition::after {
+  content: "”";
+  color: rgba(36, 54, 79, .22);
+  font-family: ui-serif, Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 0;
+  margin-left: .18rem;
+  vertical-align: -.32rem;
+}
+.back section:first-child h3 {
+  display: none;
+}
