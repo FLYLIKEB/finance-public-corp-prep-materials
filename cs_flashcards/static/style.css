@@ -1317,3 +1317,67 @@ h3 {
   font-size: .78rem;
   color: rgba(36, 54, 79, .42);
 }
+
+/* Minimal concept graph */
+.concept-graph {
+  padding: .5rem;
+  gap: .34rem;
+  background: rgba(255,255,255,.78);
+}
+.graph-center,
+.graph-guide,
+.graph-tier-label,
+.graph-edge-card .graph-line {
+  display: none;
+}
+.graph-mini-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .34rem;
+}
+.graph-mini-row + .graph-mini-row {
+  margin-top: .28rem;
+  padding-top: .34rem;
+  border-top: 1px solid rgba(219, 227, 238, .72);
+}
+.graph-expanded-links::before {
+  content: "↳";
+  align-self: center;
+  color: rgba(36, 54, 79, .36);
+  font-weight: 800;
+  margin-right: .02rem;
+}
+.concept-node {
+  width: auto;
+  min-height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .24rem;
+  padding: .28rem .5rem;
+  border-radius: 999px;
+  text-align: center;
+  background: #f8fafc !important;
+  border-color: #dbe3ee;
+}
+.concept-node strong {
+  margin: 0;
+  font-size: .78rem;
+  line-height: 1.1;
+  font-weight: 760;
+}
+.concept-node small,
+.concept-node .node-category {
+  display: none;
+}
+.concept-node em {
+  margin: 0;
+  padding: 0 .26rem;
+  font-size: .6rem;
+  background: #eef2f7;
+  border-color: #dbe3ee;
+  color: rgba(36, 54, 79, .58);
+}
+.graph-expanded-links .concept-node {
+  opacity: .62;
+  border-style: dashed;
+}

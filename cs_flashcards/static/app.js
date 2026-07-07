@@ -516,17 +516,12 @@ function uniqueRelatedConcepts(text) {
 function conceptNodeHtml(cardOrName, {kind = 'direct', count = 0} = {}) {
   const target = typeof cardOrName === 'string' ? findCardByConcept(cardOrName) : cardOrName;
   const label = typeof cardOrName === 'string' ? cardOrName : cardOrName?.term;
-  const meta = categoryMeta(target?.category || '');
-  const english = target?.english ? `<small>${escapeHtml(target.english)}</small>` : '';
-  const category = target?.category ? `<span>${escapeHtml(categoryLabel(target.category))}</span>` : '<span>📘 미등록</span>';
   const missing = target ? '' : ' graph-missing';
-  const countBadge = count > 1 ? `<em>공유 ${count}</em>` : '';
+  const countBadge = count > 1 ? `<em>${count}</em>` : '';
   const targetTerm = target?.term || label;
   return `
-    <button class="concept-node ${meta.className} graph-${kind}${missing}" type="button" data-term="${escapeHtml(targetTerm)}">
-      <span class="node-category">${category}</span>
+    <button class="concept-node graph-${kind}${missing}" type="button" data-term="${escapeHtml(targetTerm)}" title="${escapeHtml(target?.english || targetTerm || '')}">
       <strong>${escapeHtml(target?.term || label || '')}</strong>
-      ${english}
       ${countBadge}
     </button>
   `;
@@ -560,33 +555,22 @@ function expandedConcepts(card, directCards) {
 
   return [...scores.values()]
     .sort((a, b) => b.count - a.count || (a.card?.category || '').localeCompare(b.card?.category || '') || a.name.localeCompare(b.name))
-    .slice(0, 4);
+    .slice(0, 3);
 }
 
 function renderConceptGraph(card) {
-  const directCards = relatedTargetCards(card).slice(0, 5);
+  const directCards = relatedTargetCards(card).slice(0, 4);
   const expanded = expandedConcepts(card, directCards);
-  const centerMeta = categoryMeta(card.category);
   if (!directCards.length) {
-    return '<div class="graph-empty muted">연결된 관련 개념이 없습니다.</div>';
+    return '<div class="graph-empty muted">—</div>';
   }
 
   const directHtml = directCards.map((target) => conceptNodeHtml(target, {kind: 'direct'})).join('');
   const expandedHtml = expanded.map((item) => conceptNodeHtml(item.card || item.name, {kind: 'expanded', count: item.count})).join('');
 
   return `
-    <div class="graph-guide"></div>
-    <div class="graph-center ${centerMeta.className}">
-      <span>${escapeHtml(categoryLabel(card.category))}</span>
-      <strong>${escapeHtml(card.term)}</strong>
-      ${card.english ? `<small>${escapeHtml(card.english)}</small>` : ''}
-    </div>
-    <div class="graph-tier-label">1차</div>
-    <div class="graph-links graph-direct-links">${directHtml}</div>
-    ${expandedHtml ? `
-      <div class="graph-tier-label expanded">추천</div>
-      <div class="graph-links graph-expanded-links">${expandedHtml}</div>
-    ` : '<div class="graph-empty muted">2차 확장 개념은 아직 충분하지 않습니다.</div>'}
+    <div class="graph-mini-row graph-direct-links">${directHtml}</div>
+    ${expandedHtml ? `<div class="graph-mini-row graph-expanded-links">${expandedHtml}</div>` : ''}
   `;
 }
 
