@@ -1590,3 +1590,15 @@ select {
 .controls-collapsed .layout {
   grid-template-columns: 3rem minmax(0, 1fr);
 }
+
+/* Restore tall study card */
+.flashcard,
+.card-inner {
+  min-height: min(78vh, 800px);
+}
+.back-scroll {
+  max-height: calc(min(78vh, 800px) - 1.2rem);
+}
+.front::before {
+  background-size: min(62vw, 540px) auto;
+}
