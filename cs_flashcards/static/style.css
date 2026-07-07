@@ -1277,3 +1277,26 @@ h1 {
   padding: .36rem .48rem;
   font-size: .72rem;
 }
+
+/* Remove secondary detail helper text */
+.detail-hint {
+  display: none;
+}
+.detail-heading {
+  grid-template-columns: 1.2rem auto;
+  gap: .34rem;
+  align-items: center;
+}
+.detail-icon {
+  width: 1.12rem;
+  height: 1.12rem;
+  font-size: .68rem;
+}
+.detail-label {
+  font-size: .8rem;
+  font-weight: 760;
+}
+.detail-card p {
+  margin-top: .28rem;
+  padding-left: 1.45rem;
+}

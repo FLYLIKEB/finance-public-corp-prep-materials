@@ -481,12 +481,12 @@ function currentWordHtml(text, key, detailLabel = null) {
 
 function detailMeta(label) {
   return {
-    '의미': {icon: '○', title: '의미', hint: '정의와 핵심'},
-    '동작/활용': {icon: '⌁', title: '동작·활용', hint: '작동 방식'},
-    '관련 개념': {icon: '↔', title: '연결', hint: '같이 볼 개념'},
-    '구분 포인트': {icon: '◇', title: '구분', hint: '혼동 방지'},
-    '시험 대비': {icon: '✓', title: '시험', hint: '출제 포인트'},
-  }[label] || {icon: '·', title: label, hint: '핵심 설명'};
+    '의미': {icon: '○', title: '의미'},
+    '동작/활용': {icon: '⌁', title: '활용'},
+    '관련 개념': {icon: '↔', title: '연결'},
+    '구분 포인트': {icon: '◇', title: '구분'},
+    '시험 대비': {icon: '✓', title: '시험'},
+  }[label] || {icon: '·', title: label};
 }
 
 function renderDetailedExplanation(text) {
@@ -500,7 +500,6 @@ function renderDetailedExplanation(text) {
           <span class="detail-icon" aria-hidden="true">${escapeHtml(meta.icon)}</span>
           <div>
             <div class="detail-label" data-raw-label="${escapeHtml(section.label)}">${escapeHtml(meta.title)}</div>
-            <div class="detail-hint">${escapeHtml(meta.hint)}</div>
           </div>
         </div>
         <p>${currentWordHtml(section.content, 'detail', section.label)}</p>
