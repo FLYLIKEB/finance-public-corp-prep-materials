@@ -1300,3 +1300,20 @@ h1 {
   margin-top: .28rem;
   padding-left: 1.45rem;
 }
+
+/* Minimize section headings */
+h3 {
+  margin: .42rem 0 .18rem;
+  color: rgba(36, 54, 79, .46);
+  font-size: .78rem;
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.back section:first-child h3 {
+  margin-top: .18rem;
+}
+.source-details summary {
+  font-size: .78rem;
+  color: rgba(36, 54, 79, .42);
+}
