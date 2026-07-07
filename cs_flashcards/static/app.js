@@ -192,7 +192,7 @@ function speechItemsForCard(card) {
     items.push({key: 'definition', text: `${prefix}${targetText}`, targetText, prefixLength: prefix.length});
   }
   if (parts.detail) {
-    detailedSections(card.detailed_explanation).filter((section) => section.label !== '구분 포인트').forEach((section) => {
+    detailedSections(card.detailed_explanation).forEach((section) => {
       const prefix = `상세설명. ${section.label}. `;
       items.push({key: 'detail', detailLabel: section.label, text: `${prefix}${section.content}`, targetText: section.content, prefixLength: prefix.length});
     });
@@ -247,7 +247,7 @@ function speakQueue(items, done) {
   state.speechHighlight = item.key;
   state.speechCurrent = {...item, charIndex: 0};
   state.flipped = item.key !== 'term';
-  state.backPage = ['related', 'exam'].includes(item.key) ? 1 : 0;
+  state.backPage = item.key === 'exam' ? 1 : 0;
   renderCard();
   const utterance = new SpeechSynthesisUtterance(item.text);
   utterance.lang = 'ko-KR';
@@ -284,7 +284,7 @@ function speakCurrentAndAdvance() {
   const card = state.filtered[state.index];
   const items = speechItemsForCard(card);
   state.flipped = items.length ? items[0].key !== 'term' : false;
-  state.backPage = items.length && ['related', 'exam'].includes(items[0].key) ? 1 : 0;
+  state.backPage = items.length && items[0].key === 'exam' ? 1 : 0;
   state.speechHighlight = null;
   renderCard();
   if (!items.length) {
@@ -457,7 +457,7 @@ function detailMeta(label) {
 }
 
 function renderDetailedExplanation(text) {
-  const sections = detailedSections(text).filter((section) => section.label !== '구분 포인트');
+  const sections = detailedSections(text);
   if (!sections.length) return `<div class="detail-card"><p>${currentWordHtml(text || '', 'detail')}</p></div>`;
   return sections.map((section) => {
     const meta = detailMeta(section.label);
