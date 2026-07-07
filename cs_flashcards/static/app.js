@@ -372,6 +372,47 @@ function renderDetailedExplanation(text) {
   `).join('');
 }
 
+
+function uniqueRelatedConcepts(text) {
+  return [...new Set(parseRelated(text).map((item) => item.trim()).filter(Boolean))];
+}
+
+function renderConceptGraph(card) {
+  const related = uniqueRelatedConcepts(card.related_concepts).slice(0, 12);
+  const centerMeta = categoryMeta(card.category);
+  if (!related.length) {
+    return '<div class="graph-empty muted">연결된 관련 개념이 없습니다.</div>';
+  }
+
+  const nodes = related.map((name) => {
+    const target = findCardByConcept(name);
+    const meta = categoryMeta(target?.category || '');
+    const english = target?.english ? `<small>${escapeHtml(target.english)}</small>` : '';
+    const category = target?.category ? `<span>${escapeHtml(categoryLabel(target.category))}</span>` : '<span>📘 미등록</span>';
+    const disabledClass = target ? '' : ' graph-missing';
+    const targetId = target ? ` data-term="${escapeHtml(target.term)}"` : ` data-term="${escapeHtml(name)}"`;
+    return `
+      <div class="graph-edge-card">
+        <span class="graph-line" aria-hidden="true"></span>
+        <button class="concept-node ${meta.className}${disabledClass}" type="button"${targetId}>
+          <span class="node-category">${category}</span>
+          <strong>${escapeHtml(target?.term || name)}</strong>
+          ${english}
+        </button>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="graph-center ${centerMeta.className}">
+      <span>${escapeHtml(categoryLabel(card.category))}</span>
+      <strong>${escapeHtml(card.term)}</strong>
+      ${card.english ? `<small>${escapeHtml(card.english)}</small>` : ''}
+    </div>
+    <div class="graph-links">${nodes}</div>
+  `;
+}
+
 async function loadCards() {
   const res = await fetch('/api/cards');
   if (!res.ok) throw new Error(await res.text());
@@ -435,6 +476,7 @@ function renderCard() {
     $('frontCategory').textContent = '-';
     $('frontStatus').textContent = '-';
     applyCategoryTheme('');
+    $('conceptGraph').innerHTML = '<div class="graph-empty muted">표시할 그래프가 없습니다.</div>';
     ['frontNamuKoLink', 'frontNamuEnLink', 'backNamuKoLink', 'backNamuEnLink'].forEach((id) => { $(id).href = '#'; });
     return;
   }
@@ -468,6 +510,7 @@ function renderCard() {
   $('examNote').innerHTML = currentWordHtml(c.exam_note || '', 'exam');
   const related = parseRelated(c.related_concepts);
   $('related').innerHTML = related.map((r) => `<button class="chip" type="button" data-term="${escapeHtml(r)}">${currentWordHtml(r, 'related')}</button>`).join('') || '<span class="muted">없음</span>';
+  $('conceptGraph').innerHTML = renderConceptGraph(c);
   applySpeechHighlight();
 }
 
@@ -547,14 +590,17 @@ $('stopAudioBtn').addEventListener('click', () => stopAudioPlayback());
 $('searchInput').addEventListener('input', () => { state.index = 0; applyFilters(); });
 $('categorySelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
 $('statusSelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
-$('related').addEventListener('click', (e) => {
+function handleConceptJump(e) {
   const btn = e.target.closest('[data-term]');
   if (!btn) return;
   const card = findCardByConcept(btn.dataset.term);
   if (!jumpToCard(card)) {
     setMessage(`${btn.dataset.term} 카드를 찾지 못했습니다.`, true);
   }
-});
+}
+
+$('related').addEventListener('click', handleConceptJump);
+$('conceptGraph').addEventListener('click', handleConceptJump);
 
 document.addEventListener('keydown', (e) => {
   if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) {

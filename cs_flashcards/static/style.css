@@ -456,3 +456,104 @@ p { line-height: 1.55; }
   .layout { display: grid; grid-template-columns: 1fr; }
   .flashcard, .card-inner { min-height: 74vh; }
 }
+
+.concept-graph {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff, #fbfaf7);
+  padding: .72rem;
+  display: grid;
+  gap: .62rem;
+}
+.graph-center,
+.concept-node {
+  --node-color: var(--accent);
+  --node-bg: var(--accent-soft);
+  --node-border: var(--line);
+}
+.graph-center.cat-database, .concept-node.cat-database { --node-color: #2563eb; --node-bg: #eff6ff; --node-border: #bfdbfe; }
+.graph-center.cat-os, .concept-node.cat-os { --node-color: #475569; --node-bg: #f1f5f9; --node-border: #cbd5e1; }
+.graph-center.cat-network, .concept-node.cat-network { --node-color: #0891b2; --node-bg: #ecfeff; --node-border: #a5f3fc; }
+.graph-center.cat-algorithm, .concept-node.cat-algorithm { --node-color: #7c3aed; --node-bg: #f5f3ff; --node-border: #ddd6fe; }
+.graph-center.cat-language, .concept-node.cat-language { --node-color: #16a34a; --node-bg: #f0fdf4; --node-border: #bbf7d0; }
+.graph-center.cat-software, .concept-node.cat-software { --node-color: #ca8a04; --node-bg: #fefce8; --node-border: #fde68a; }
+.graph-center.cat-architecture, .concept-node.cat-architecture { --node-color: #9333ea; --node-bg: #faf5ff; --node-border: #e9d5ff; }
+.graph-center.cat-security, .concept-node.cat-security { --node-color: #dc2626; --node-bg: #fef2f2; --node-border: #fecaca; }
+.graph-center.cat-cloud, .concept-node.cat-cloud { --node-color: #0284c7; --node-bg: #f0f9ff; --node-border: #bae6fd; }
+.graph-center.cat-ai, .concept-node.cat-ai { --node-color: #db2777; --node-bg: #fdf2f8; --node-border: #fbcfe8; }
+.graph-center.cat-finance, .concept-node.cat-finance { --node-color: #0f766e; --node-bg: #f0fdfa; --node-border: #99f6e4; }
+.graph-center.cat-default, .concept-node.cat-default { --node-color: var(--accent); --node-bg: var(--accent-soft); --node-border: var(--line); }
+.graph-center {
+  justify-self: center;
+  min-width: min(100%, 18rem);
+  border: 1.5px solid var(--node-border);
+  border-radius: 16px;
+  background: var(--node-bg);
+  color: var(--node-color);
+  padding: .52rem .7rem;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(29, 25, 20, .04);
+}
+.graph-center span,
+.node-category {
+  display: block;
+  font-size: .68rem;
+  font-weight: 820;
+  opacity: .86;
+}
+.graph-center strong,
+.concept-node strong {
+  display: block;
+  color: var(--text);
+  font-size: .88rem;
+  line-height: 1.22;
+  margin-top: .12rem;
+}
+.graph-center small,
+.concept-node small {
+  display: block;
+  color: var(--muted);
+  font-size: .7rem;
+  margin-top: .08rem;
+}
+.graph-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.8rem, 1fr));
+  gap: .46rem;
+}
+.graph-edge-card {
+  display: grid;
+  grid-template-rows: .44rem auto;
+  align-items: start;
+}
+.graph-line {
+  width: 2px;
+  height: .44rem;
+  justify-self: center;
+  background: linear-gradient(180deg, var(--line-strong), transparent);
+}
+.concept-node {
+  width: 100%;
+  min-height: 4.1rem;
+  border: 1px solid var(--node-border);
+  border-radius: 14px;
+  background: var(--node-bg);
+  color: var(--node-color);
+  padding: .46rem .5rem;
+  text-align: left;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.concept-node:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(29, 25, 20, .07);
+  border-color: color-mix(in srgb, var(--node-color), var(--node-border) 55%);
+}
+.concept-node.graph-missing {
+  opacity: .68;
+  background: #fafafa;
+}
+.graph-empty {
+  padding: .65rem;
+  text-align: center;
+  font-size: .86rem;
+}
