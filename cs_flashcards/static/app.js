@@ -59,14 +59,30 @@ function parseRelated(text) {
   return (text || '').split(',').map((x) => x.trim()).filter(Boolean);
 }
 
-function formatDetailedExplanation(text) {
+function detailedSections(text) {
   const source = String(text || '').trim();
-  if (!source) return '';
-  return source
-    .replace(/\s+(동작\/활용:)/g, '\n\n$1')
-    .replace(/\s+(관련 개념:)/g, '\n\n$1')
-    .replace(/\s+(구분 포인트:)/g, '\n\n$1')
-    .replace(/\s+(시험 대비:)/g, '\n\n$1');
+  if (!source) return [];
+  const labels = ['의미', '동작/활용', '관련 개념', '구분 포인트', '시험 대비'];
+  return labels.map((label, index) => {
+    const nextLabel = labels[index + 1];
+    const start = source.indexOf(`${label}:`);
+    if (start < 0) return null;
+    const contentStart = start + label.length + 1;
+    const end = nextLabel ? source.indexOf(`${nextLabel}:`, contentStart) : -1;
+    const content = source.slice(contentStart, end >= 0 ? end : undefined).trim();
+    return content ? {label, content} : null;
+  }).filter(Boolean);
+}
+
+function renderDetailedExplanation(text) {
+  const sections = detailedSections(text);
+  if (!sections.length) return `<div class="detail-card"><p>${escapeHtml(text || '')}</p></div>`;
+  return sections.map((section) => `
+    <article class="detail-card detail-${escapeHtml(section.label.replace(/[^가-힣A-Za-z0-9]/g, '-'))}">
+      <div class="detail-label">${escapeHtml(section.label)}</div>
+      <p>${escapeHtml(section.content)}</p>
+    </article>
+  `).join('');
 }
 
 async function loadCards() {
@@ -154,7 +170,7 @@ function renderCard() {
   $('backId').textContent = c.id;
   $('backTerm').textContent = `${c.term}${c.english ? ' / ' + c.english : ''}`;
   $('definition').textContent = c.definition || '';
-  $('detail').textContent = formatDetailedExplanation(c.detailed_explanation);
+  $('detail').innerHTML = renderDetailedExplanation(c.detailed_explanation);
   $('sources').textContent = c.source_files || '';
   $('examNote').textContent = c.exam_note || '';
   const related = parseRelated(c.related_concepts);

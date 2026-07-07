@@ -223,7 +223,51 @@ h3 {
   letter-spacing: -0.02em;
 }
 p { line-height: 1.72; }
-.formatted-detail { white-space: pre-line; }
+
+.detail-grid {
+  display: grid;
+  gap: .82rem;
+  margin-top: .65rem;
+}
+.detail-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  padding: 1rem 1.05rem;
+  box-shadow: 0 10px 28px rgba(29, 25, 20, .045);
+}
+.detail-card p {
+  margin: .5rem 0 0;
+  color: #232323;
+  line-height: 1.78;
+  font-size: 1.01rem;
+}
+.detail-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: .22rem .62rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: .86rem;
+  font-weight: 820;
+  letter-spacing: -0.02em;
+}
+.detail-의미 {
+  border-color: rgba(31, 58, 95, .18);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.detail-의미 .detail-label { background: #e9f1fb; }
+.detail-동작-활용 .detail-label { background: #eef8f1; color: var(--known); }
+.detail-관련-개념 .detail-label { background: #f6f0ff; color: #6044a3; }
+.detail-구분-포인트 .detail-label { background: #fff7e8; color: #8a5a05; }
+.detail-시험-대비 .detail-label { background: var(--unknown-soft); color: var(--unknown); }
+@media (min-width: 1180px) {
+  .detail-grid { grid-template-columns: 1fr 1fr; }
+  .detail-의미, .detail-시험-대비 { grid-column: 1 / -1; }
+}
+
 .small { font-size: .95rem; color: var(--muted); }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .chip {
