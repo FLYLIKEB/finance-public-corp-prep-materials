@@ -1995,3 +1995,34 @@ select {
   transform: translateY(0);
   box-shadow: none !important;
 }
+
+/* Slightly strengthen card metadata visibility */
+.front .badges,
+.front .external-links,
+.back .badges,
+.back .external-links {
+  opacity: .34;
+}
+.front:hover .badges,
+.front:hover .external-links,
+.back:hover .badges,
+.back:hover .external-links,
+.flashcard:focus-within .badges,
+.flashcard:focus-within .external-links {
+  opacity: .62;
+}
+.front .badge,
+.back .badge,
+.front .external-link,
+.back .external-link {
+  color: rgba(36, 54, 79, .72);
+  background: rgba(248, 250, 252, .74);
+}
+.front .category-badge,
+.back .category-badge {
+  color: rgba(36, 54, 79, .76);
+}
+.front .status,
+.back #backId {
+  color: rgba(36, 54, 79, .62);
+}
