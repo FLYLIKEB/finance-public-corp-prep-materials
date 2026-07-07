@@ -1430,3 +1430,49 @@ h3 {
 .back section:first-child h3 {
   display: none;
 }
+
+/* Replace nested borders with soft surfaces */
+#definition,
+.detail-card,
+.concept-graph,
+.source-details,
+.concept-node,
+.chip {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+#definition {
+  background: rgba(246, 248, 251, .9);
+}
+.detail-card {
+  background: rgba(248, 250, 252, .72);
+  border-radius: 16px;
+}
+.detail-card::before {
+  width: 3px;
+  opacity: .38;
+}
+.concept-graph {
+  background: rgba(248, 250, 252, .58);
+  border-radius: 16px;
+}
+.concept-node,
+.chip {
+  background: rgba(241, 245, 249, .72) !important;
+}
+.graph-mini-row + .graph-mini-row {
+  border-top: 0;
+  padding-top: .18rem;
+}
+.source-details {
+  background: rgba(248, 250, 252, .58);
+}
+.back-page-toolbar {
+  border-color: transparent;
+  box-shadow: none;
+}
+.card-face {
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
