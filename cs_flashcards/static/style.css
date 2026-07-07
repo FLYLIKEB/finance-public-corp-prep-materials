@@ -1476,3 +1476,33 @@ h3 {
   border-right-color: transparent;
   border-bottom-color: transparent;
 }
+
+/* Minimal speech highlight */
+.current-word {
+  color: #111827 !important;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: 820;
+  text-decoration: underline;
+  text-decoration-thickness: .14em;
+  text-decoration-color: rgba(36, 54, 79, .28);
+  text-underline-offset: .16em;
+  animation: none;
+}
+.speaking-section {
+  border-color: transparent !important;
+  background: rgba(248, 250, 252, .52) !important;
+  box-shadow: none !important;
+}
+.speaking-section::before {
+  width: 2px;
+  background: rgba(36, 54, 79, .18);
+}
+.front-term-line.speaking-section,
+.back-term-line.speaking-section {
+  border: 0;
+  background: transparent !important;
+  padding: .15rem .25rem;
+}
