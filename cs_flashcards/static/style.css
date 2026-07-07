@@ -1911,3 +1911,50 @@ select {
   font-weight: 820;
   color: #111827;
 }
+
+/* Prevent subtle horizontal overflow on card back */
+.card-face,
+.back,
+.back-scroll,
+.back-page,
+.concept-graph,
+.detail-grid,
+.detail-card,
+.source-details {
+  max-width: 100%;
+}
+.back-scroll {
+  overflow-x: hidden;
+}
+.back-page {
+  overflow-x: clip;
+}
+.back-term-line,
+.term-line {
+  min-width: 0;
+}
+.back-term-line h2,
+.term-line h2 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.graph-mini-row {
+  max-width: 100%;
+  overflow: hidden;
+}
+.concept-node {
+  max-width: 100%;
+}
+.concept-node strong {
+  overflow-wrap: anywhere;
+}
+.source-details {
+  box-sizing: border-box;
+  right: .45rem;
+  max-width: calc(100% - .9rem);
+}
+.has-tip::after {
+  max-width: min(14rem, 70vw);
+  overflow-wrap: break-word;
+  white-space: normal;
+}
