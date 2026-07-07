@@ -37,17 +37,6 @@
       </div>
       <button id="controlsToggle" class="controls-toggle has-tip" type="button" aria-expanded="true" aria-controls="controlsBody" data-tip="필터 열기/접기">검색/필터 접기</button>
       <div id="controlsBody" class="controls-body">
-      <label title="카테고리">▦
-        <select id="categorySelect"><option value="">전체</option></select>
-      </label>
-      <label title="학습 상태">◐
-        <select id="statusSelect">
-          <option value="">전체</option>
-          <option value="unreviewed">미학습</option>
-          <option value="O">안다 O</option>
-          <option value="X">모른다 X</option>
-        </select>
-      </label>
       <div class="audio-panel" aria-label="자동 음성 재생 설정">
         <div class="audio-title" title="자동 듣기">▶</div>
         <div class="audio-options">
@@ -86,7 +75,15 @@
           <input id="positionInput" type="number" min="1" value="0" />
           <span>/ <span id="positionTotal">0</span></span>
         </label>
-        <span id="filterText" class="muted">필터 없음</span>
+        <div id="filterText" class="top-filters" aria-label="필터">
+          <select id="categorySelect" title="카테고리"><option value="">▦ 전체</option></select>
+          <select id="statusSelect" title="학습 상태">
+            <option value="">◐ 전체</option>
+            <option value="unreviewed">–</option>
+            <option value="O">O</option>
+            <option value="X">X</option>
+          </select>
+        </div>
       </div>
 
       <article id="card" class="flashcard" tabindex="0" aria-label="플래시카드. 클릭하면 뒤집힙니다.">

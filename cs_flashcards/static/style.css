@@ -2099,3 +2099,34 @@ select {
 .flashcard.flipped .concept-graph {
   isolation: isolate;
 }
+
+/* Move filters above card */
+.progress-line {
+  align-items: center;
+}
+.top-filters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .34rem;
+  margin-left: auto;
+}
+.top-filters select {
+  width: auto;
+  min-width: 4.4rem;
+  height: 1.9rem;
+  padding: .18rem 1.6rem .18rem .52rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(246, 248, 251, .86);
+  color: rgba(36, 54, 79, .78);
+  font-size: .76rem;
+  font-weight: 720;
+}
+.top-filters select:focus {
+  box-shadow: 0 0 0 3px rgba(36, 54, 79, .08);
+}
+.controls-body > label[title="카테고리"],
+.controls-body > label[title="학습 상태"] {
+  display: none;
+}

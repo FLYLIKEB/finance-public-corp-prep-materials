@@ -711,7 +711,7 @@ async function refreshCards() {
 
 function buildCategoryOptions(categories) {
   const current = $('categorySelect').value;
-  $('categorySelect').innerHTML = '<option value="">전체</option>' +
+  $('categorySelect').innerHTML = '<option value="">▦ 전체</option>' +
     categories.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   $('categorySelect').value = current;
 }
@@ -774,7 +774,7 @@ function renderCard() {
   if ($('searchInput').value.trim()) filters.push(`검색: ${$('searchInput').value.trim()}`);
   if ($('categorySelect').value) filters.push(`분야: ${$('categorySelect').value}`);
   if ($('statusSelect').value) filters.push(`상태: ${$('statusSelect').selectedOptions[0].textContent}`);
-  $('filterText').textContent = filters.join(' · ') || '필터 없음';
+  $('filterText').title = filters.join(' · ') || '필터 없음';
 
   if (!total) {
     $('frontTerm').textContent = '카드 없음';
