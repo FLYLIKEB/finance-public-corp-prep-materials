@@ -796,6 +796,7 @@ function renderCard() {
   const related = parseRelated(c.related_concepts);
   $('related').innerHTML = related.map((r) => `<button class="chip" type="button" data-term="${escapeHtml(r)}">${currentWordHtml(r, 'related')}</button>`).join('') || '<span class="muted">없음</span>';
   $('conceptGraph').innerHTML = renderConceptGraph(c);
+  bindConceptGraphNodes();
   applySpeechHighlight();
 }
 
@@ -896,13 +897,29 @@ $('collapsedStopBtn').addEventListener('click', () => stopAudioPlayback());
 $('searchInput').addEventListener('input', () => { state.index = 0; applyFilters(); });
 $('categorySelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
 $('statusSelect').addEventListener('change', () => { state.index = 0; applyFilters(); });
+function goToConceptTerm(term) {
+  const card = findCardByConcept(term);
+  if (!jumpToCard(card)) {
+    setMessage(`${term} 카드를 찾지 못했습니다.`, true);
+  }
+}
+
 function handleConceptJump(e) {
   const btn = e.target.closest('[data-term]');
   if (!btn) return;
-  const card = findCardByConcept(btn.dataset.term);
-  if (!jumpToCard(card)) {
-    setMessage(`${btn.dataset.term} 카드를 찾지 못했습니다.`, true);
-  }
+  e.preventDefault();
+  e.stopPropagation();
+  goToConceptTerm(btn.dataset.term);
+}
+
+function bindConceptGraphNodes() {
+  document.querySelectorAll('#conceptGraph [data-term]').forEach((node) => {
+    node.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goToConceptTerm(node.dataset.term);
+    };
+  });
 }
 
 $('related').addEventListener('click', handleConceptJump);

@@ -1858,3 +1858,42 @@ select {
 .has-tip::after {
   z-index: 9999;
 }
+
+/* Source note pinned to lower-right */
+.back-page[data-page="2"] {
+  min-height: calc(min(78vh, 800px) - 7rem);
+  position: relative;
+  padding-bottom: 4.8rem;
+}
+.source-details {
+  position: absolute;
+  right: .1rem;
+  bottom: .1rem;
+  width: min(42rem, 62%);
+  max-height: 4.2rem;
+  overflow: auto;
+  padding: .35rem .48rem;
+  opacity: .56;
+  font-size: .68rem;
+  line-height: 1.32;
+}
+.source-details summary {
+  display: inline;
+  margin-right: .28rem;
+  font-size: .68rem;
+}
+.source-details p {
+  display: inline;
+  margin: 0;
+}
+.source-details[open] summary::after {
+  content: " ";
+}
+@media (max-width: 860px) {
+  .source-details {
+    position: static;
+    width: 100%;
+    max-height: 5rem;
+    margin-top: .6rem;
+  }
+}
