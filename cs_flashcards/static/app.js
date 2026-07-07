@@ -174,10 +174,7 @@ function plainRelated(text) {
 function speechItemsForCard(card) {
   const parts = selectedSpeechParts();
   const items = [];
-  if (parts.term) {
-    const prefix = '카드명. ';
-    items.push({key: 'term', text: `${prefix}${card.term}`, targetText: card.term, prefixLength: prefix.length});
-  }
+  // 카드명은 TTS로 읽지 않고 카드 시작 효과음으로 대체합니다.
   if (parts.definition) {
     const prefix = '간단설명. ';
     const targetText = card.definition || '';
@@ -316,16 +313,17 @@ function speakCurrentAndAdvance() {
   }
   const card = state.filtered[state.index];
   const items = speechItemsForCard(card);
-  state.flipped = items.length ? items[0].key !== 'term' : false;
-  state.backPage = items.length && items[0].key === 'exam' ? 1 : 0;
+  state.flipped = false;
+  state.backPage = 0;
   state.speechHighlight = null;
   renderCard();
+  if (selectedSpeechParts().term) playCardStartSound();
   if (!items.length) {
-    moveAudioNext();
+    window.setTimeout(moveAudioNext, 220);
     return;
   }
   setMessage(`▶ ${state.index + 1}/${state.filtered.length} · ${card.term}`);
-  window.setTimeout(() => speakQueue([...items], moveAudioNext), 260);
+  window.setTimeout(() => speakQueue([...items], moveAudioNext), selectedSpeechParts().term ? 420 : 180);
 }
 
 
@@ -352,6 +350,25 @@ function unlockAudioContext() {
   oscillator.connect(gain);
   oscillator.start();
   oscillator.stop(context.currentTime + 0.02);
+}
+
+function playCardStartSound() {
+  const context = ensureAudioContext();
+  if (!context) return;
+  const now = context.currentTime;
+  const gain = context.createGain();
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.16, now + 0.012);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+  gain.connect(context.destination);
+  [523.25, 659.25].forEach((frequency, index) => {
+    const oscillator = context.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, now + index * 0.045);
+    oscillator.connect(gain);
+    oscillator.start(now + index * 0.045);
+    oscillator.stop(now + index * 0.045 + 0.12);
+  });
 }
 
 function playCardDoneSound() {
