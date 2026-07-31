@@ -42,6 +42,10 @@
 - 결과적으로 정상 클라이언트의 연결 수립이 실패한다.
 - 방어 포인트: SYN cookies, 백로그 큐 크기 조정, 접속 속도 제한(rate limiting), 방화벽/로드밸런서 차단 등.
 
+![10-03-02. SYN Flood handshake flow SVG](https://cs.chamung.com/public/wiki-assets/10-03-02-syn-flood-handshake-flow.svg)
+> 그림: 정상 TCP 3-way handshake와 SYN Flood에서 ACK가 빠져 half-open 큐가 쌓이는 과정을 비교한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-02-syn-flood-handshake-flow.svg`)
+
 ## 탐지(시그니처) 및 실무적 방어책
 
 - 탐지(예시 시그니처)
