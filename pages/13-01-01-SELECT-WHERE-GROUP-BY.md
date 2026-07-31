@@ -31,8 +31,9 @@ SQL 문장이 실제로 '논리적'으로 평가되는 순서는 공부할 때 �
 - HAVING은 그룹을 만든 뒤 그 그룹에 조건을 거는 절이다.
 
 ![13-01-01. SELECT-WHERE-GROUP-BY SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg)
-> 그림: SELECT-WHERE-GROUP-BY의 실행 순서를 파이프라인으로 보여주는 SVG 인포그래픽.
+> 그림: FROM → WHERE → GROUP BY → HAVING → SELECT의 논리적 실행 순서와 WHERE/HAVING 차이를 정리한 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg`)
+
 
 ## 규칙과 주의점 (핵심)
 
@@ -77,6 +78,10 @@ SQL 문장이 실제로 '논리적'으로 평가되는 순서는 공부할 때 �
 | 3        | 100         | 15     | paid     |
 | 4        | 102         | NULL   | cancelled|
 | 5        | 101         | 5      | paid     |
+
+![13-01-01. WHERE-GROUP-BY worked example SVG](https://cs.chamung.com/public/wiki-assets/13-01-01-where-group-by-worked-example.svg)
+> 그림: orders 예제 테이블에서 WHERE로 paid 행만 남기고 GROUP BY로 고객별 합계를 계산하는 과정을 단계별로 보여주는 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-01-01-where-group-by-worked-example.svg`)
 
 - 1) 고객별 총 주문 금액을 구하되, 결제 상태가 paid인 주문만 포함:
 
