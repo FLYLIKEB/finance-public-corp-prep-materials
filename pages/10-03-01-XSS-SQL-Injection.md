@@ -12,9 +12,9 @@
   - XSS: 출력 인코딩(문맥별), 안전한 DOM API 사용, CSP, 입력 허용목록(whitelist)
   - SQL Injection: Prepared Statement/파라미터 바인딩, 입력 검증(타입·범위), 최소 권한 원칙
 
-![웹 공격 흐름](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/client-server-model.svg)
-> 그림: 클라이언트-서버 모델 기반으로 웹 공격 흐름 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Client-server-model.svg
+![10-03-01. XSS-SQL-Injection SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/10-03-01-xss-sql-injection-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. XSS-SQL-Injection, 학습 목적, 대표 패턴의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-01-xss-sql-injection-infographic.svg`)
 
 ## XSS 원리
 

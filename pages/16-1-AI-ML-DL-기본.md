@@ -1,5 +1,10 @@
 # 16-1. AI·ML·DL 기본
 
+
+![16-1. AI·ML·DL 기본 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/16-1-ai-ml-dl-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. AI ML DL 기본, 학습 유형, 자주 같이 나오는 구분의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/16-1-ai-ml-dl-infographic.svg`)
+
 ## 핵심 개념
 
 - AI는 지능적 행동을 수행하는 시스템 전체를 뜻하며 규칙 기반 추론, 탐색, 기계학습까지 모두 포함한다.

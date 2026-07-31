@@ -3,9 +3,9 @@
 > 핵심: 의사소통, 수리, 문제해결, 실전 오답 관리
 
 
-![NCS 문제해결 흐름 AI 시각 자료](https://cs.chamung.com/public/wiki-assets/12-ncs-problem-solving-overview-ai.png)
-> 그림: AI 생성 시각 자료. 문항 정보를 분해하고 조건을 분기해 정답 후보를 좁혀 가는 문제해결 흐름을 시각화한다.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/12-ncs-problem-solving-overview-ai.png`)
+![12. NCS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. NCS, 의사소통, 수리의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg`)
 
 ## 학습 순서
 

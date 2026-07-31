@@ -13,8 +13,9 @@
 | HRN | `(대기시간 + 실행시간) / 실행시간` 최대 (응답률) | 비선점 | 오래 기다린 작업 보상, 기아 완화 | 매 선택 시 응답률 계산 필요 | 각 후보의 응답률 계산 — 대기시간 증가가 우선순위 상승으로 이어짐 |
 | RR | time quantum마다 순환 | 선점 | 응답시간 개선, 인터랙티브 시스템에 적합 | 문맥교환 오버헤드 증가 가능 | 남은 실행시간과 Ready Queue 순서 관리. quantum 경계 처리 중요 |
 
-![FCFS SJF HRN RR 간트 차트 비교](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/cpu-scheduling-gantt-comparison.svg)
-> 그림: 같은 입력이라도 정책에 따라 간트 차트가 달라진다. 빨간 시간선이 이동할 때 Ready Queue에 누가 들어와 있는지를 함께 확인한다.
+![06-02-01. FCFS-SJF-HRN-RR SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. FCFS-SJF-HRN-RR, 학습 목적, 관련 기출의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg`)
 
 ## 예제 입력
 

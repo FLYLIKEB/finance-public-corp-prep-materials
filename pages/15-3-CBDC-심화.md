@@ -1,8 +1,8 @@
 # 15-3. CBDC 심화
 
-![추가 시각 자료](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/cbdc-balance-sheet.png)
-> 그림: 문서 핵심 개념을 시각적으로 보강한다.
-> 출처: approved asset mapping (cbdc-balance-sheet.png)
+![15-3. CBDC 심화 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. CBDC 심화, 문서 핵심 개념을 시각적으로 보강한다, approved asset mapping의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/15-3-cbdc-infographic.svg`)
 
 ## CBDC의 의미
 

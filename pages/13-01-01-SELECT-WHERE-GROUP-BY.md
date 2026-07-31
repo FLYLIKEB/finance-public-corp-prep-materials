@@ -30,9 +30,9 @@ SQL 문장이 실제로 '논리적'으로 평가되는 순서는 공부할 때 �
 - COUNT, SUM, AVG 같은 집계 함수는 그룹 단위로 계산할 때 자주 쓴다.
 - HAVING은 그룹을 만든 뒤 그 그룹에 조건을 거는 절이다.
 
-![SELECT 처리 흐름](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/cloud-computing.svg)
-> 그림: 클라우드 컴퓨팅 개념 기반으로 SELECT 처리 흐름 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Cloud_computing.svg
+![13-01-01. SELECT-WHERE-GROUP-BY SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. SELECT-WHERE-GROUP-BY, 학습 목적, SQL 조회 기본 절을 손으로 해석한다의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg`)
 
 ## 규칙과 주의점 (핵심)
 

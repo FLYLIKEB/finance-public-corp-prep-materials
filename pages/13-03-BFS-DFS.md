@@ -16,9 +16,9 @@
 - BFS는 시작 노드에서부터 같은 거리에 있는 노드들을 먼저 모두 방문하는 탐색이다. "층(level)" 단위 탐색이 필요할 때(예: 최단경로, 최소 간선수) BFS를 사용한다.
 - DFS는 한 방향으로 계속 깊게 들어가다가 더 이상 갈 곳이 없으면 한 단계씩 되돌아오는 탐색이다. 경로의 존재 여부, 모든 경로 탐색, 위상 정렬(DFS의 종료 시간 활용) 등에 자주 쓰인다.
 
-![DFS 깊이 우선 탐색 애니메이션](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/dfs-animation.gif)
-> 그림: DFS 깊이 우선 탐색 애니메이션 기반으로 DFS 구현 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Depth-First-Search.gif
+![13-03. BFS-DFS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. BFS-DFS, 학습 목적, 관련 기출의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg`)
 - 방문 처리를 언제 하는지가 중복 방문과 무한 반복을 막는 핵심이다. (아래 "방문 처리의 위치" 참고)
 
 ![DFS와 BFS](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/bfs-animation.gif)

@@ -139,9 +139,9 @@ Feb 22 12:34:56 host1 sshd[1234]: Failed password for invalid user root from 203
 - IPS는 경비원처럼 수상한 행동을 발견하면 바로 막는 역할까지 한다.
 - 로그 감사는 나중에 무슨 일이 있었는지 확인하는 출입기록부다.
 
-![IDS·IPS·로그 감사](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/cloud-computing.svg)
-> 그림: 클라우드 컴퓨팅 개념 기반으로 IDS·IPS·로그 감사 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Cloud_computing.svg
+![10-04. IDS-IPS-로그-감사 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/10-04-ids-ips-infographic.svg)
+> 그림: 애니메이션 SVG 인포그래픽. IDS-IPS-로그-감사, 학습 목적, 탐지의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-04-ids-ips-infographic.svg`)
 
 ## 기출 연결
 - [05-12-보안-기출-모음](05-12-보안-기출-모음.md)에 관련 문항을 색인한다.
