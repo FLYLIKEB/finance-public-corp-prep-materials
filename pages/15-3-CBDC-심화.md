@@ -105,6 +105,9 @@ CBDC(Central Bank Digital Currency)는 중앙은행이 발행하는 디지털 �
   - 실시간 결제 최종성 vs 확장성(대량 트랜잭션 처리)
   - 은행의 중개 역할 유지 vs 공적 화폐 직접 제공
 
+![CBDC 설계 선택과 통제 포인트 SVG](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-control-points.svg)
+> 그림: 계좌형·토큰형 구분과 CBDC 설계 트레이드오프, 운영 통제 체크포인트를 분리해 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/15-3-cbdc-control-points.svg`)
 - 운영·위험 관리
   - 최종결제성(finality): 도매 결제에서 반드시 확보해야 하는 요건.
   - 유동성 관리: 중앙은행의 단기 유동성 공급 기능과의 연계 필요.
