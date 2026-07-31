@@ -53,6 +53,9 @@
   - [ ] 그래프의 연결 요소, 사이클 탐지, 최단 경로(비가중치) 등 문제 유형을 매칭.
 
 ## 시험 포인트 (빈출 문제 유형과 체크리스트)
+![13. SQL/코딩 시험 체크리스트 SVG](https://cs.chamung.com/public/wiki-assets/13-sql-exam-checklist.svg)
+> 그림: SQL, 구현, BFS/DFS, 출력 문제를 시험장에서 빠르게 점검할 수 있도록 분리한 체크리스트 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-sql-exam-checklist.svg`)
 
 - SQL:
   - [ ] SELECT 실행 순서에 따라 쿼리 결과를 손으로 추적할 수 있다.
