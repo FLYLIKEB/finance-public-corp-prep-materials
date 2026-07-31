@@ -4,7 +4,7 @@
 
 
 ![12. NCS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. NCS, 의사소통, 수리의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: NCS의 하위 학습 축을 중앙 개념에서 바깥으로 연결한 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg`)
 
 ## 학습 순서

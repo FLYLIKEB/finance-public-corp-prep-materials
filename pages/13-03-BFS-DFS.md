@@ -17,7 +17,7 @@
 - DFS는 한 방향으로 계속 깊게 들어가다가 더 이상 갈 곳이 없으면 한 단계씩 되돌아오는 탐색이다. 경로의 존재 여부, 모든 경로 탐색, 위상 정렬(DFS의 종료 시간 활용) 등에 자주 쓰인다.
 
 ![13-03. BFS-DFS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. BFS-DFS, 학습 목적, 관련 기출의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: BFS-DFS의 그래프 탐색 순서와 최단경로 갱신을 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg`)
 - 방문 처리를 언제 하는지가 중복 방문과 무한 반복을 막는 핵심이다. (아래 "방문 처리의 위치" 참고)
 

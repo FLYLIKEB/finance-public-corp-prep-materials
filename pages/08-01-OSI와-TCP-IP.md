@@ -61,7 +61,7 @@
 시험에서는 "어떤 계층에서 어떤 주소를 사용하는가"와 "어느 계층에서 어떤 문제가 발생하는가(예: ping이 실패할 때 ARP/ICMP/TCP 어디에 원인이 있는가)"를 묻는 문항이 자주 등장한다.
 
 ![08-01. OSI와 TCP-IP SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/08-01-osi-tcp-ip-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. OSI와 TCP-IP, 학습 목적, OSI 7계층과 TCP의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: OSI와 TCP-IP의 계층 구조를 위→아래로 쌓아 역할 경계를 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-01-osi-tcp-ip-infographic.svg`)
 
 ## 기출 연결

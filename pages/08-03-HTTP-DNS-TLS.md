@@ -41,7 +41,7 @@
 - TLS는 그 대화를 암호화하고 상대가 진짜인지 확인하는 보안 포장이다. (우편 봉투와 보물상자 비유: 인증서 = 봉인/서명, 대칭키 암호화 = 속도 빠른 보물상자)
 
 ![08-03. HTTP-DNS-TLS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/08-03-http-dns-tls-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. HTTP-DNS-TLS, 학습 목적, 웹 통신 핵심 프로토콜의 역할을 정리한다의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: HTTP-DNS-TLS의 웹 요청 흐름을 단계별로 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-03-http-dns-tls-infographic.svg`)
 
 ## 실무/면접에서 자주 묻는 질문 (핵심 답안 요약)

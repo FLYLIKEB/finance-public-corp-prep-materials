@@ -1,7 +1,7 @@
 # 15-3. CBDC 심화
 
 ![15-3. CBDC 심화 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. CBDC 심화, 문서 핵심 개념을 시각적으로 보강한다, approved asset mapping의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: CBDC 심화의 금융 업무 흐름과 통제 지점을 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/15-3-cbdc-infographic.svg`)
 
 ## CBDC의 의미

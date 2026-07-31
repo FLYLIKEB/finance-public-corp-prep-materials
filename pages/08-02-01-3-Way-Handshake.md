@@ -102,5 +102,5 @@ ACK, Seq = x+1, ACK = y+1
 (모든 연습 문제의 해설은 Seq/ACK 규칙과 상태 전이를 기반으로 스스로 확인해 보라.)
 
 ![08-02-01. 3-Way-Handshake SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/08-02-01-3-way-handshake-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. 3-Way-Handshake, 학습 목적, TCP 연결 수립 과정을 단계별로 설명하고의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: 3-Way-Handshake의 시간 흐름과 상태 변화를 좌→우 타임라인으로 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-02-01-3-way-handshake-infographic.svg`)

@@ -13,7 +13,7 @@
   - SQL Injection: Prepared Statement/파라미터 바인딩, 입력 검증(타입·범위), 최소 권한 원칙
 
 ![10-03-01. XSS-SQL-Injection SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/10-03-01-xss-sql-injection-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. XSS-SQL-Injection, 학습 목적, 대표 패턴의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: XSS-SQL-Injection의 공격면과 방어 지점을 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-01-xss-sql-injection-infographic.svg`)
 
 ## XSS 원리

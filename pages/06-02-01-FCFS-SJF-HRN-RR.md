@@ -14,7 +14,7 @@
 | RR | time quantum마다 순환 | 선점 | 응답시간 개선, 인터랙티브 시스템에 적합 | 문맥교환 오버헤드 증가 가능 | 남은 실행시간과 Ready Queue 순서 관리. quantum 경계 처리 중요 |
 
 ![06-02-01. FCFS-SJF-HRN-RR SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. FCFS-SJF-HRN-RR, 학습 목적, 관련 기출의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: FCFS-SJF-HRN-RR의 처리 순서를 단계별로 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg`)
 
 ## 예제 입력

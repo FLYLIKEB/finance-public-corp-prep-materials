@@ -140,7 +140,7 @@ Feb 22 12:34:56 host1 sshd[1234]: Failed password for invalid user root from 203
 - 로그 감사는 나중에 무슨 일이 있었는지 확인하는 출입기록부다.
 
 ![10-04. IDS-IPS-로그-감사 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/10-04-ids-ips-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. IDS-IPS-로그-감사, 학습 목적, 탐지의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: IDS-IPS-로그-감사의 탐지·차단·감사 흐름을 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-04-ids-ips-infographic.svg`)
 
 ## 기출 연결

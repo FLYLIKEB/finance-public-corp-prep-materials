@@ -31,7 +31,7 @@ SQL 문장이 실제로 '논리적'으로 평가되는 순서는 공부할 때 �
 - HAVING은 그룹을 만든 뒤 그 그룹에 조건을 거는 절이다.
 
 ![13-01-01. SELECT-WHERE-GROUP-BY SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg)
-> 그림: 애니메이션 SVG 인포그래픽. SELECT-WHERE-GROUP-BY, 학습 목적, SQL 조회 기본 절을 손으로 해석한다의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
+> 그림: SELECT-WHERE-GROUP-BY의 실행 순서를 파이프라인으로 보여주는 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg`)
 
 ## 규칙과 주의점 (핵심)
