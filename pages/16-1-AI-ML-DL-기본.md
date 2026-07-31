@@ -2,7 +2,7 @@
 
 
 ![16-1. AI·ML·DL 기본 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/16-1-ai-ml-dl-infographic.svg)
-> 그림: AI·ML·DL 기본의 데이터·모델·평가 흐름을 보여주는 SVG 인포그래픽.
+> 그림: AI·ML·DL의 포함 관계, 대표 학습 유형, 과적합·과소적합을 한 화면에 정리한 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/16-1-ai-ml-dl-infographic.svg`)
 
 ## 핵심 개념
@@ -27,6 +27,10 @@
 - **특성(feature)**: 모델 입력으로 쓰는 변수다.
 - **라벨(label)**: 정답 값이다.
 - **파라미터(parameter)**: 모델이 학습으로 조정하는 내부 값이다.
+
+![회귀·분류와 핵심 용어 구분 SVG](https://cs.chamung.com/public/wiki-assets/16-1-prediction-taxonomy.svg)
+> 그림: 회귀·분류의 예측 대상 차이와 feature·label·parameter 역할을 분리해 보여주는 보조 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/16-1-prediction-taxonomy.svg`)
 
 ## 과적합과 과소적합
 
