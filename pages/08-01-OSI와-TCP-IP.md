@@ -60,9 +60,13 @@
 
 시험에서는 "어떤 계층에서 어떤 주소를 사용하는가"와 "어느 계층에서 어떤 문제가 발생하는가(예: ping이 실패할 때 ARP/ICMP/TCP 어디에 원인이 있는가)"를 묻는 문항이 자주 등장한다.
 
-![08-01. OSI와 TCP-IP SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/08-01-osi-tcp-ip-infographic.svg)
-> 그림: OSI와 TCP-IP의 계층 구조를 위→아래로 쌓아 역할 경계를 보여주는 SVG 인포그래픽.
+![08-01. OSI와 TCP-IP 계층 대응 개요 SVG](https://cs.chamung.com/public/wiki-assets/08-01-osi-tcp-ip-infographic.svg)
+> 그림: OSI 7계층과 TCP/IP 4계층의 대응 관계, 각 계층의 역할과 주소 단위를 비교한 개요 SVG.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-01-osi-tcp-ip-infographic.svg`)
+
+![08-01. 캡슐화와 대표 프로토콜 흐름 SVG](https://cs.chamung.com/public/wiki-assets/08-01-encapsulation-protocol-flow.svg)
+> 그림: 메시지→세그먼트→패킷→프레임으로 내려가며 포트·IP·MAC 정보가 붙는 캡슐화 흐름과 대표 프로토콜을 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-01-encapsulation-protocol-flow.svg`)
 
 ## 기출 연결
 - [05-11-네트워크-기출-모음](05-11-네트워크-기출-모음.md)에 관련 문항을 색인한다. 기출 문제를 통해 각 계층별 핵심 키워드(주소 단위, 대표 프로토콜, 장비)를 확인하라.
