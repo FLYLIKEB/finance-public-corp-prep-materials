@@ -69,6 +69,10 @@ ACK, Seq = x+1, ACK = y+1
 - 연결 수립: 3-Way Handshake (SYN, SYN-ACK, ACK)
 - 연결 종료: 보통 4단계(FIN, ACK, FIN, ACK)로 이루어진다. 시험에서 수립과 종료를 혼동하지 않도록 주의.
 
+![08-02-01. 재전송과 연결 종료 비교 SVG](https://cs.chamung.com/public/wiki-assets/08-02-01-tcp-retransmission-and-teardown.svg)
+> 그림: SYN 또는 SYN-ACK 손실 시 재전송이 어떻게 반복되는지와, 연결 수립 3단계/연결 종료 4단계의 차이를 함께 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-02-01-tcp-retransmission-and-teardown.svg`)
+
 ## 기출 연결
 - 관련 문제는 [05-11-네트워크-기출-모음](05-11-네트워크-기출-모음.md)에 색인되어 있다. 기출 문제를 풀며 Seq/ACK의 증감 규칙과 상태 전이를 반복 학습하라.
 
