@@ -4,7 +4,7 @@
 
 
 ![12. NCS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg)
-> 그림: NCS의 하위 학습 축을 중앙 개념에서 바깥으로 연결한 SVG 인포그래픽.
+> 그림: NCS의 학습 목표와 4대 핵심 역량, 실무 연결 포인트를 카드형으로 정리한 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg`)
 
 ## 학습 순서
@@ -55,6 +55,10 @@ NCS(National Competency Standards, 국가직무능력표준)는 직무수행에 
 - [ ] 계산 문제는 단위·조건을 두 번 확인하기
 - [ ] 시간이 남으면 표시한 문제 재검토(오답 가능성 우선)
 - [ ] 답안 입력 전 선택지 오타·숫자 자리수 확인
+
+![12. NCS 실전 체크리스트 SVG](https://cs.chamung.com/public/wiki-assets/12-ncs-checklist-flow.svg)
+> 그림: 시험 당일 4단계 루틴과 오답 원인 분류 기준을 함께 보여주는 NCS 전략 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/12-ncs-checklist-flow.svg`)
 
 ## 시험 포인트 (구체적 전략)
 
