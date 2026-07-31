@@ -17,7 +17,7 @@
 - DFS는 한 방향으로 계속 깊게 들어가다가 더 이상 갈 곳이 없으면 한 단계씩 되돌아오는 탐색이다. 경로의 존재 여부, 모든 경로 탐색, 위상 정렬(DFS의 종료 시간 활용) 등에 자주 쓰인다.
 
 ![13-03. BFS-DFS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg)
-> 그림: BFS-DFS의 그래프 탐색 순서와 최단경로 갱신을 보여주는 SVG 인포그래픽.
+> 그림: 같은 그래프에서 BFS는 레벨 순서로, DFS는 깊이 우선으로 방문 순서가 달라진다는 점을 비교한 SVG 인포그래픽.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg`)
 - 방문 처리를 언제 하는지가 중복 방문과 무한 반복을 막는 핵심이다. (아래 "방문 처리의 위치" 참고)
 
@@ -37,6 +37,10 @@
 요약: 일반적인 경우
 - BFS: enqueue 시 방문표시
 - DFS(재귀/스택): 진입(push/호출) 시 방문표시
+
+![13-03. BFS-DFS 방문 처리 메커니즘 SVG](https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-visit-mechanics.svg)
+> 그림: BFS는 enqueue 시, DFS는 push/호출 시 방문 표시를 해야 중복 삽입을 막는다는 점을 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-visit-mechanics.svg`)
 
 ## 시간·공간 복잡도 요약
 
