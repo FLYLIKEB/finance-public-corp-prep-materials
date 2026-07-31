@@ -13,8 +13,12 @@
 | HRN | `(대기시간 + 실행시간) / 실행시간` 최대 (응답률) | 비선점 | 오래 기다린 작업 보상, 기아 완화 | 매 선택 시 응답률 계산 필요 | 각 후보의 응답률 계산 — 대기시간 증가가 우선순위 상승으로 이어짐 |
 | RR | time quantum마다 순환 | 선점 | 응답시간 개선, 인터랙티브 시스템에 적합 | 문맥교환 오버헤드 증가 가능 | 남은 실행시간과 Ready Queue 순서 관리. quantum 경계 처리 중요 |
 
-![06-02-01. FCFS-SJF-HRN-RR SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg)
-> 그림: FCFS-SJF-HRN-RR의 처리 순서를 단계별로 보여주는 SVG 인포그래픽.
+![06-02-01. FCFS-SJF-HRN-RR 알고리즘 비교 SVG](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-comparison.svg)
+> 그림: FCFS, SJF, HRN, RR의 선택 기준·선점 여부·계산 포인트를 카드형으로 비교한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-comparison.svg`)
+
+![06-02-01. FCFS-SJF-HRN-RR 핵심 요약 SVG](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg)
+> 그림: 같은 입력에서 알고리즘별 실행 순서와 평균 대기시간을 한눈에 정리한 SVG.
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-infographic.svg`)
 
 ## 예제 입력
@@ -27,6 +31,10 @@
 | P4 | 3 | 1 |
 
 이 예제에서 모든 알고리즘은 같은 입력을 받지만, CPU를 넘기는 기준이 달라 결과가 달라진다. 아래에서는 각 알고리즘에 대해 순서·간트·완료/반환/대기 시간을 단계별로 계산한다.
+
+![06-02-01. FCFS-SJF-HRN-RR 간트 차트 SVG](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-gantt.svg)
+> 그림: 동일한 입력에 대해 FCFS, SJF, HRN, RR(q=2)가 만드는 간트 차트를 세로로 비교한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-gantt.svg`)
 
 ## FCFS: First-Come, First-Served
 
