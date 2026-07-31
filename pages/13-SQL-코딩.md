@@ -8,9 +8,9 @@
 - [13-02. 구현](13-02-구현.md)
 - [13-03. BFS-DFS](13-03-BFS-DFS.md)
 - [13-04. 빈출 코드 출력 문제](13-04-빈출-코드-출력-문제.md)
-![SQL/코딩 핵심](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/b-tree.png)
-> 그림: SQL/코딩 핵심 기반으로 SQL/코딩 핵심 개념을 시각적으로 확인한다.
-> 출처: 공개 이미지 출처 기록 누락
+![SQL·코딩 핵심 개념 AI 시각 자료](../assets/ai-generated-visual-aids/13-sql-coding-overview-ai.png)
+> 그림: AI 생성 시각 자료. 테이블 선택, 조인, 집계, 결과 확인으로 이어지는 SQL 풀이 흐름을 시각화한다.
+> 출처: 내부 생성 자산 (`assets/ai-generated-visual-aids/13-sql-coding-overview-ai.png`)
 
 ## 연결 핵심정리
 

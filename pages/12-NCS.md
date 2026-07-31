@@ -3,9 +3,9 @@
 > 핵심: 의사소통, 수리, 문제해결, 실전 오답 관리
 
 
-![추가 시각 자료](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/it-industry.png)
-> 그림: 문서 핵심 개념을 시각적으로 보강한다.
-> 출처: approved asset mapping (it-industry.png)
+![NCS 문제해결 흐름 AI 시각 자료](../assets/ai-generated-visual-aids/12-ncs-problem-solving-overview-ai.png)
+> 그림: AI 생성 시각 자료. 문항 정보를 분해하고 조건을 분기해 정답 후보를 좁혀 가는 문제해결 흐름을 시각화한다.
+> 출처: 내부 생성 자산 (`assets/ai-generated-visual-aids/12-ncs-problem-solving-overview-ai.png`)
 
 ## 학습 순서
 
