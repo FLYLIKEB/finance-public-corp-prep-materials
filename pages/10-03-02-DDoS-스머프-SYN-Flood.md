@@ -16,9 +16,9 @@
 - 스머프: 공격자가 작은 요청을 보내면 여러 제3자(브로드캐스트 대상)가 큰 응답을 피해 대상에게 보내 결과적으로 공격 트래픽이 증폭되는 구조이다.
 - SYN Flood: 연결을 맺기 위한 ‘악수(SYN)’만 반복해서 보내 서버가 응답을 대기 상태로 유지하게 하고, 새로운 정상 연결을 수락할 수 없게 만든다.
 
-![10-03-02. DDoS-스머프-SYN-Flood SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/10-03-02-ddos---syn-flood-infographic.svg)
+![10-03-02. DDoS-스머프-SYN-Flood SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/10-03-02-ddos-syn-flood-infographic.svg)
 > 그림: 애니메이션 SVG 인포그래픽. DDoS-스머프-SYN-Flood, 학습 목적, 가용성을 침해하는 네트워크 공격을 비교한다의 관계와 문제 풀이 흐름을 한 장으로 잡는다.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-02-ddos---syn-flood-infographic.svg`)
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-02-ddos-syn-flood-infographic.svg`)
 
 ## 공격 유형 비교
 
