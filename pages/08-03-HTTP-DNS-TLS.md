@@ -19,6 +19,11 @@
   - 주요 레코드 유형: A/AAAA(IPv4/IPv6 주소), CNAME(별칭), MX(메일 서버), TXT(도메인 소유/정책/SPF/DKIM), NS(권한 네임서버), PTR(역방향 조회), SRV(서비스 위치).
   - 보안: DNS 캐시 포이즈닝 공격을 설명하고, DNSSEC을 통해 응답 무결성을 검증하는 방식(서명, 체인 오브 트러스트)을 언급하라.
 
+![08-03. DNS 조회 흐름 SVG](https://cs.chamung.com/public/wiki-assets/08-03-dns-lookup-flow.svg)
+> 그림: stub resolver에서 authoritative name server까지 이어지는 DNS 조회 흐름과 TTL 의미를 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-03-dns-lookup-flow.svg`)
+
+
 - HTTP 핵심
   - Methods: GET(조회, 멱등), POST(생성/처리, 비멱등 가능), PUT(교체, 멱등), PATCH(부분 갱신), DELETE(삭제), HEAD, OPTIONS 등.
   - 상태 코드: 1xx(정보), 2xx(성공), 3xx(리다이렉션), 4xx(클라이언트 오류), 5xx(서버 오류). 면접에서는 301 vs 302, 307/308 차이를 묻기도 한다(임시 vs 영구, 메서드 보존 여부).
@@ -32,6 +37,10 @@
   - 암호 구분: 공개키 암호(RSA, ECDSA)로 인증 및 키 교환을 시작하고, 대칭키(예: AES)로 실제 데이터를 암호화한다. ECDHE 같은 키교환은 forward secrecy(전향 비밀성)를 제공한다.
   - 인증서: 신뢰할 수 있는 CA가 서명한 인증서 체인(루트 CA → 중간 CA → 서버 인증서). OCSP/CRL로 폐지 확인 가능(OCSP stapling으로 성능 개선).
   - 공격/취약점: 중간자(MITM), 프로토콜 취약점(POODLE, BEAST, Heartbleed 같은 과거 사례), 약한 암호 스위트 사용의 위험성, SNI 기반 프라이버시 이슈 등을 설명하라.
+
+![08-03. HTTPS 요청 흐름 SVG](https://cs.chamung.com/public/wiki-assets/08-03-https-request-flow.svg)
+> 그림: TLS 핸드셰이크로 신뢰와 세션 키를 만든 뒤 HTTP 요청과 응답을 주고받는 HTTPS 흐름 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-03-https-request-flow.svg`)
 
 
 ## 쉽게 이해하기
