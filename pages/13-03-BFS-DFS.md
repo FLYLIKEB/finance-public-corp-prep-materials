@@ -21,9 +21,6 @@
 > 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-infographic.svg`)
 - 방문 처리를 언제 하는지가 중복 방문과 무한 반복을 막는 핵심이다. (아래 "방문 처리의 위치" 참고)
 
-![DFS와 BFS](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/bfs-animation.gif)
-> 그림: BFS 탐색 애니메이션 기반으로 DFS와 BFS 개념을 시각적으로 확인한다.
-> 출처: https://commons.wikimedia.org/wiki/File:Breadth-First-Search-Algorithm.gif
 
 ## 방문 처리의 위치(핵심)
 
