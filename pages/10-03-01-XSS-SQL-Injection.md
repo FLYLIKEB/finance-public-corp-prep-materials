@@ -20,6 +20,11 @@
 
 웹 애플리케이션이 사용자 입력을 HTML, JavaScript, URL, 속성 값에 그대로 출력하면 브라우저가 그 값을 코드로 해석할 수 있다. 공격자는 게시글, 검색어, 댓글, 프로필 값 등에 스크립트를 삽입해 다른 사용자의 브라우저에서 실행되도록 유도한다.
 
+![10-03-01. XSS 공격 흐름 SVG](https://cs.chamung.com/public/wiki-assets/10-03-01-xss-flow.svg)
+> 그림: XSS에서 공격 입력이 취약한 출력 지점을 거쳐 브라우저에서 실행되고, 어떤 방어 지점으로 끊을 수 있는지 단계별로 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-01-xss-flow.svg`)
+
+
 ### XSS 종류
 
 | 종류 | 실행 위치 | 특징 | 예시 |
@@ -67,6 +72,10 @@ id: admin' --
 ```
 
 위처럼 입력값에 따옴표(`'`)와 주석문자(`--`)가 포함되면 본래 조건이 무력화될 수 있다.
+
+![10-03-01. SQL Injection 공격 흐름 SVG](https://cs.chamung.com/public/wiki-assets/10-03-01-sql-injection-flow.svg)
+> 그림: SQL Injection에서 입력값이 문자열 결합을 통해 질의 구조를 바꾸는 흐름과 핵심 방어 지점을 단계별로 정리한 SVG.
+> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-03-01-sql-injection-flow.svg`)
 
 ### SQL Injection 공격 패턴
 
