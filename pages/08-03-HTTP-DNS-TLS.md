@@ -19,9 +19,9 @@
   - 주요 레코드 유형: A/AAAA(IPv4/IPv6 주소), CNAME(별칭), MX(메일 서버), TXT(도메인 소유/정책/SPF/DKIM), NS(권한 네임서버), PTR(역방향 조회), SRV(서비스 위치).
   - 보안: DNS 캐시 포이즈닝 공격을 설명하고, DNSSEC을 통해 응답 무결성을 검증하는 방식(서명, 체인 오브 트러스트)을 언급하라.
 
-![08-03. DNS 조회 흐름 SVG](https://cs.chamung.com/public/wiki-assets/08-03-dns-lookup-flow.svg)
-> 그림: stub resolver에서 authoritative name server까지 이어지는 DNS 조회 흐름과 TTL 의미를 정리한 SVG.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-03-dns-lookup-flow.svg`)
+![DNS 조회가 루트, TLD, 권한 서버를 거쳐 IP를 찾고 TTL에 잠시 보관되는 흐름](https://cs.chamung.com/public/wiki-assets/08-03-dns-lookup-flow.gif)
+> DNS 질의가 어디까지 갔다가 답을 들고 돌아오는지 한 번에 보세요.
+
 
 
 - HTTP 핵심
@@ -38,9 +38,8 @@
   - 인증서: 신뢰할 수 있는 CA가 서명한 인증서 체인(루트 CA → 중간 CA → 서버 인증서). OCSP/CRL로 폐지 확인 가능(OCSP stapling으로 성능 개선).
   - 공격/취약점: 중간자(MITM), 프로토콜 취약점(POODLE, BEAST, Heartbleed 같은 과거 사례), 약한 암호 스위트 사용의 위험성, SNI 기반 프라이버시 이슈 등을 설명하라.
 
-![08-03. HTTPS 요청 흐름 SVG](https://cs.chamung.com/public/wiki-assets/08-03-https-request-flow.svg)
-> 그림: TLS 핸드셰이크로 신뢰와 세션 키를 만든 뒤 HTTP 요청과 응답을 주고받는 HTTPS 흐름 SVG.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/08-03-https-request-flow.svg`)
+![TLS로 신뢰를 만든 뒤 암호화된 HTTP 요청과 응답이 오가는 흐름](https://cs.chamung.com/public/wiki-assets/08-03-https-request-flow.gif)
+> 인증서 확인 뒤에야 HTTP가 안전하게 흐릅니다.
 
 
 ## 쉽게 이해하기
