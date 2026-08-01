@@ -176,3 +176,6 @@ id: admin' --
 ---
 
 참고: 본 문서는 학습·방어 관점에서 핵심 개념과 실무 적용 팁을 정리한 것이다. 실제 환경에서 취약점 점검 시에는 조직의 보안 정책과 법적 요건을 준수해야 한다.
+
+![XSS-SQL Injection 공격 흐름 GIF](https://cs.chamung.com/public/wiki-assets/10-03-01-xss-sql-injection-attack-flow.gif)
+> 댓글 입력이 브라우저 실행으로 번지는 XSS와 로그인 입력이 DB 질의 변조로 이어지는 SQL Injection을 대비해 보여준다.

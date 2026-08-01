@@ -124,4 +124,7 @@ iptables -A INPUT -p tcp --syn -j DROP
 ## 기출 연결
 - [05-12-보안-기출-모음](05-12-보안-기출-모음.md)에 관련 문항을 색인한다.
 
+![DDoS-스머프-SYN Flood 공격 흐름 GIF](https://cs.chamung.com/public/wiki-assets/10-03-02-ddos-smurf-syn-flood-attack-flow.gif)
+> 분산 요청 포화, 스머프 반사 증폭, SYN 대기 큐 고갈이 어떻게 서비스 가용성을 무너뜨리는지 움직임으로 보여준다.
+
 
