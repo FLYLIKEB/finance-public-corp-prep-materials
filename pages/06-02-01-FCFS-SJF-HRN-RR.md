@@ -16,9 +16,6 @@
 ![FCFS SJF HRN RR 선택 흐름 GIF](https://cs.chamung.com/public/wiki-assets/06-02-01-scheduling-algorithms-motion.gif)
 > 같은 작업 집합이 FCFS, SJF, HRN, RR에서 어떤 순서로 CPU를 받는지 타임라인으로 바로 비교한다.
 
-![06-02-01. FCFS-SJF-HRN-RR 간트 차트 SVG](https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-gantt.svg)
-> 그림: 동일한 입력에 대해 FCFS, SJF, HRN, RR(q=2)가 만드는 간트 차트를 세로로 비교한 SVG.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/06-02-01-fcfs-sjf-hrn-rr-gantt.svg`)
 
 ## 예제 입력
 
