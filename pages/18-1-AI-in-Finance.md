@@ -26,9 +26,7 @@
 
 - 구체적 예시 답변(면접용): “신용평가 모델을 도입할 때는 모델 정확도뿐 아니라 입력 데이터의 대표성, 특정 집단에 대한 불공정성 여부를 검증합니다. 설명가능성 도구로 고객별 거부 사유를 제시하고, 운영 중에는 성능 저하를 탐지하는 모니터링과 재학습 정책을 마련합니다.”
 
-![추가 시각 자료](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/robo-advisory-evolution.jpg)
-> 그림: 문서 핵심 개념을 시각적으로 보강한다.
-> 출처: approved asset mapping (robo-advisory-evolution.jpg)
+![금융 AI 의사결정 파이프라인](https://cs.chamung.com/public/wiki-assets/18-ai-finance-decision-pipeline.gif)
 
 ## 시험 포인트 (요약형 질문 & 답변 가이드)
 

@@ -47,9 +47,7 @@
 
 실전 면접에서는 간단한 사례(예: 제재목록 업데이트를 시스템에 반영하는 절차, 의심거래 발생 시 조사 워크플로)를 논리적으로 설명할 수 있어야 합니다.
 
-![추가 시각 자료](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/it-system-architecture.png)
-> 그림: 문서 핵심 개념을 시각적으로 보강한다.
-> 출처: approved asset mapping (it-system-architecture.png)
+![RegTech 모니터링 및 에스컬레이션 루프](https://cs.chamung.com/public/wiki-assets/18-regtech-monitoring-escalation-loop.gif)
 
 ## 시험 포인트(체크리스트)
 

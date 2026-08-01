@@ -29,9 +29,7 @@
 - QKD: Quantum Key Distribution, 양자키분배
 - XAI: Explainable AI, 설명가능 인공지능
 
-![추가 시각 자료](https://raw.githubusercontent.com/FLYLIKEB/finance-public-corp-prep-materials/main/assets/downloaded-visual-aids/it-industry.png)
-> 그림: 문서 핵심 개념을 시각적으로 보강한다.
-> 출처: approved asset mapping (it-industry.png)
+![최신 금융 IT 트렌드 흐름](https://cs.chamung.com/public/wiki-assets/18-trend-radar-impact-flow.gif)
 
 ---
 
