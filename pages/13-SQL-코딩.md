@@ -8,9 +8,8 @@
 - [13-02. 구현](13-02-구현.md)
 - [13-03. BFS-DFS](13-03-BFS-DFS.md)
 - [13-04. 빈출 코드 출력 문제](13-04-빈출-코드-출력-문제.md)
-![13. SQL/코딩 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-sql-infographic.svg)
-> 그림: SQL 해석 순서와 코딩 풀이 루틴을 좌우로 분리해 보여주는 SVG 인포그래픽.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-sql-infographic.svg`)
+![13. SQL/코딩 쿼리 흐름 GIF](https://cs.chamung.com/public/wiki-assets/13-sql-coding-query-flow.gif)
+> 그림: 스캔한 주문 행이 WHERE를 거쳐 줄고, GROUP BY로 묶인 뒤 결과 표로 바뀌는 흐름을 보여준다.
 
 ## 연결 핵심정리
 

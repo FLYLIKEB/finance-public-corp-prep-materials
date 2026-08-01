@@ -30,9 +30,8 @@ SQL 문장이 실제로 '논리적'으로 평가되는 순서는 공부할 때 �
 - COUNT, SUM, AVG 같은 집계 함수는 그룹 단위로 계산할 때 자주 쓴다.
 - HAVING은 그룹을 만든 뒤 그 그룹에 조건을 거는 절이다.
 
-![13-01-01. SELECT-WHERE-GROUP-BY SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg)
-> 그림: FROM → WHERE → GROUP BY → HAVING → SELECT의 논리적 실행 순서와 WHERE/HAVING 차이를 정리한 SVG 인포그래픽.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by-infographic.svg`)
+![13-01-01. SELECT-WHERE-GROUP-BY GIF](https://cs.chamung.com/public/wiki-assets/13-01-01-select-where-group-by.gif)
+> 그림: WHERE가 먼저 행을 줄이고, 남은 행이 GROUP BY 묶음으로 모여 SUM 결과 행으로 바뀌는 흐름을 보여준다.
 
 
 ## 규칙과 주의점 (핵심)
