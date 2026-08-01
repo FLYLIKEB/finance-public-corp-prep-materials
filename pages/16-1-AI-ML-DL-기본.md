@@ -1,9 +1,7 @@
 # 16-1. AI·ML·DL 기본
 
 
-![16-1. AI·ML·DL 기본 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/16-1-ai-ml-dl-infographic.svg)
-> 그림: AI·ML·DL의 포함 관계, 대표 학습 유형, 과적합·과소적합을 한 화면에 정리한 SVG 인포그래픽.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/16-1-ai-ml-dl-infographic.svg`)
+![AI·ML·DL 분기와 일반화 GIF](https://cs.chamung.com/public/wiki-assets/16-1-model-family-generalization-loop.gif)
 
 ## 핵심 개념
 
