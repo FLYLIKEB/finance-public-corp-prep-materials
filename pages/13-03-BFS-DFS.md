@@ -161,3 +161,5 @@ def dfs_iterative(start, adj):
 - BFS: Breadth-First Search, 너비 우선 탐색
 - DFS: Depth-First Search, 깊이 우선 탐색
 - SQL: Structured Query Language, 구조화 질의어
+
+![BFS와 DFS 탐색 흐름 GIF](https://cs.chamung.com/public/wiki-assets/13-03-bfs-dfs-motion.gif)
