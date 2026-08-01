@@ -3,9 +3,8 @@
 > 핵심: 의사소통, 수리, 문제해결, 실전 오답 관리
 
 
-![12. NCS SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg)
-> 그림: NCS의 학습 목표와 4대 핵심 역량, 실무 연결 포인트를 카드형으로 정리한 SVG 인포그래픽.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/12-ncs-infographic.svg`)
+![12. NCS 풀이 흐름 GIF](https://cs.chamung.com/public/wiki-assets/12-ncs-problem-solving-loop.gif)
+> 그림: 문제 읽기 → 핵심 추리기 → 풀이 선택 → 검토·오답 흐름을 한눈에 보여주는 NCS 학습 GIF.
 
 ## 학습 순서
 
