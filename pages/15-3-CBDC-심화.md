@@ -1,8 +1,7 @@
 # 15-3. CBDC 심화
 
-![15-3. CBDC 심화 SVG 인포그래픽](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-infographic.svg)
-> 그림: CBDC 심화의 금융 업무 흐름과 통제 지점을 보여주는 SVG 인포그래픽.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/15-3-cbdc-infographic.svg`)
+![15-3. CBDC 발행·유통·통제 루프 GIF](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-issuance-control-loop.gif)
+> 그림: 중앙은행 발행, 참가기관 배분, 지갑 결제, 통제 회수까지 이어지는 CBDC 루프를 보여주는 학습용 GIF.
 
 ## CBDC의 의미
 
@@ -105,9 +104,8 @@ CBDC(Central Bank Digital Currency)는 중앙은행이 발행하는 디지털 �
   - 실시간 결제 최종성 vs 확장성(대량 트랜잭션 처리)
   - 은행의 중개 역할 유지 vs 공적 화폐 직접 제공
 
-![CBDC 설계 선택과 통제 포인트 SVG](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-control-points.svg)
-> 그림: 계좌형·토큰형 구분과 CBDC 설계 트레이드오프, 운영 통제 체크포인트를 분리해 정리한 SVG.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/15-3-cbdc-control-points.svg`)
+![15-3. CBDC 설계 통제 포인트 GIF](https://cs.chamung.com/public/wiki-assets/15-3-cbdc-issuance-control-loop.gif)
+> 그림: CBDC 결제 흐름 사이에서 한도·AML·로그 통제가 개입하는 지점을 보여주는 학습용 GIF.
 - 운영·위험 관리
   - 최종결제성(finality): 도매 결제에서 반드시 확보해야 하는 요건.
   - 유동성 관리: 중앙은행의 단기 유동성 공급 기능과의 연계 필요.
