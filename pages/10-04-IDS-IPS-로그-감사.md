@@ -68,9 +68,8 @@
 
 
 ## 로그 감사 상세 가이드
-![10-04. 로그 감사·SIEM 처리 흐름 SVG](https://cs.chamung.com/public/wiki-assets/10-04-log-audit-flow.svg)
-> 그림: 로그 원천 수집부터 SIEM 정규화·상관분석·대응·증적 보존까지 이어지는 흐름을 분리해 보여주는 SVG.
-> 출처: 내부 생성 자산 (`https://cs.chamung.com/public/wiki-assets/10-04-log-audit-flow.svg`)
+![10-04. IDS·IPS·로그 감사 흐름 GIF](https://cs.chamung.com/public/wiki-assets/10-04-ids-ips-log-audit-flow.gif)
+> 악성 패킷을 IDS가 먼저 탐지하고 IPS가 차단한 뒤, 로그가 SIEM으로 모여 사고 추적 증거가 되는 흐름을 반복해서 보여주는 GIF.
 
 - 수집 및 중앙화
   - 가능한 모든 보안 장비와 시스템의 로그를 중앙 수집기로 전송(원본 로그 유지 원칙 권장).
