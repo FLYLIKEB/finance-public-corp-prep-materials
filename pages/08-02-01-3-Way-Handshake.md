@@ -24,6 +24,7 @@
    - 클라이언트는 서버의 ISN에 대해 ACK(y+1)를 보내 최종 확인을 한다.
    - 양측 모두 ESTABLISHED 상태가 되어 데이터 전송 가능.
 
+![3-Way Handshake 흐름](https://cs.chamung.com/public/wiki-assets/08-02-01-3-way-handshake.gif)
 코드 예시(개념적 표현):
 
 ```
